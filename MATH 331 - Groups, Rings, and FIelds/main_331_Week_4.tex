@@ -1,0 +1,204 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kpfonts}
+\usepackage[mathscr]{euscript}
+\usepackage{commath}
+\usepackage{enumerate}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[margin=0.8in]{geometry}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\es}{\emptyset}
+\newcommand{\union}{\cup}
+\newcommand{\Union}{\bigcup}
+\newcommand{\inter}{\cap}
+\newcommand{\Inter}{\bigcap}
+\newcommand{\coleq}{\coloneqq}
+\newcommand{\script}[1]{\mathscr{#1}}
+\newcommand{\powset}[1]{\mathcal{P}(#1)}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\inverse}[1]{#1^{-1}}
+\newcommand{\define}[1]{\textbf{\underline{#1}}}
+\newcommand{\func}[3]{#1: #2 \to #3}
+\renewcommand{\mod}[1]{\ (\mathrm{mod}\ #1)}
+\renewcommand{\Subset}{\subseteq}
+\renewcommand{\Supset}{\supseteq}
+
+%Abstract Algebra specific commands
+\newcommand{\Zn}[1]{\mathbb{Z}/_#1}
+\newcommand{\Znx}[1]{\mathbb{Z}^\times/_#1}
+
+\theoremstyle{definition}
+\newtheorem*{defn}{Definition}
+\newtheorem*{cor}{Corollary}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{ex}{Example}
+\newtheorem*{lem}{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+
+\begin{document}
+    \begin{center}
+        \textsc{Dillan Marroquin\\MATH 331.1001\\Scribing Week 4\\Due. 20 September 2021\\}
+    \end{center}
+        
+    \noindent\section*{\textbf{\textsc{Lecture 8}}}{
+        \begin{defn}[8.1]
+            Let $(G, *_G,e_G)$ be a group. A \define{subgroup} of $G$ is a subset $H \subseteq G$ (sometimes denoted $H \leq G$) such that
+            \begin{enumerate}[i)]
+                \item $e_g \in H$.
+                \item $\forall h, h' \in H$, $h *_G h' \in H$.
+                \item $\forall h \in H$, $\inverse{h} \in H$.
+            \end{enumerate}
+        \end{defn}
+        
+        \begin{rmk}
+            If $H \leq G$, then $(H, *_G,e_G)$ is a group.
+        \end{rmk}
+        
+        \subsection*{Examples/Non-Examples}{
+            \begin{enumerate}
+                \item For any $n \in \Z$, $n\Z \leq \Z$.
+                \item Let $2\Z+1 \coleq \{2k+1|k \in \Z\}$. This is NOT a subgroup since $e=0 \notin 2\Z+1$.
+                \item Let $G=\Zn{4}$, $H \coleq \{[0],[2]\}$. Indeed, $H$ is a subgroup of $G$.
+                \item Let $n>1$. Define $SL_n(\R)\coleq \{A \in GL_n(\R)|\det A=1\}$. $SL_n(\R)$ is a subgroup of $GL_n(\R)$.\\
+                Observe that this is easy to prove:\\
+                For i), $\det(I_n)=1$, therefore $I_n \in SL_n(\R)$.\\
+                For ii), let $A,B \in SL_n(\R)$. Then $\det (AB) = \det A \cdot \det B = 1\cdot 1=1$.\\
+                For iii), let $A \in SL_n(\R)$. To show $\inverse{A} \in SL_n(\R)$, observe that $\det(A\inverse{A})=\det A \cdot \det(A^{-1})=\det(\inverse{A})$. But $\det(A\inverse{A})=\det(I_n)=1$, therefore $\det(\inverse{A})=1$.
+                \item Let $H\coleq \{A \in GL(n(\R)|\det A =-1\}$. Observe that $H \not \leq GL_n(\R)$ since, for one, $I_n \notin H$.
+            \end{enumerate}
+            
+            \begin{rmk}\hfill
+                \begin{enumerate}
+                    \item Every group $G$ has at least 1 subgroup: the trivial group $\{e_G\}$.
+                    \item If $|G|>1$, then $G$ has at least 2 subgroups: $\{e_G\}$ and $G$.
+                \end{enumerate}
+            \end{rmk}
+            
+            \begin{defn}[8.2]\hfill
+                \begin{enumerate}
+                    \item Let $H$ be a subgroup of $G$. Then\ldots
+                    \begin{enumerate}[i)]
+                        \item $H$ is \define{proper} iff $H \subset G$, i.e. $H\neq G$.
+                        \item $H$ is \define{non-trivial} iff $H \neq \{e_G\}$.
+                    \end{enumerate}
+                    \item An abelian group $G$ is \define{simple} iff it has no non-trivial proper subgroup.
+                \end{enumerate}
+            \end{defn}
+        
+            \begin{itemize}
+                \item From now on, $(G, *_G,e_G)$ will be written as $G$, $e_G$ will be $e$, $a*_Gb$ will be $ab$, and $a*_Ga*_G\cdots *_Ga$ will be $a^n$.
+                \item If $G$ is abelian, $a*_gB$ is often written as $a+b$, $a*_Ga*_G\cdots *_Ga$ is written $na$, and $\inverse{a}$ is written $-a$.
+            \end{itemize}
+            
+            Here is a useful tool for proving a group is a subgroup:
+            \begin{prop}[8.3]
+                Let $G$ be a group, and $H\subseteq G$ a subset. Then $H$ is a subgroup iff $H \neq \es$ and $\forall a,b \in H$, $a\inverse{b} \in H$.
+            \end{prop}
+            
+            \begin{prop}[8.4]
+                If $H,K \subseteq G$ are subgroups, then $H \inter K \subseteq G$ is also a subgroup.
+            \end{prop}
+        }
+    }
+    
+    \noindent\section*{\textbf{\textsc{Lecture 9}}}{
+        Let $G$ be a finite group. How many subgroups does $G$ have?
+        \begin{itemize}
+            \item If $|G|=n$, then $G$ has $2^n$ subsets.
+            \item In particular, $G$ has subsets of cardinality $0,2,\ldots,n$, but not all of these subsets will be subgroups!
+        \end{itemize}
+        \subsection*{Generalization of $\equiv\mod n$}{
+            \begin{itemize}
+                \item Let $G$ be a group, $H \subseteq G$ a subgroup. $H$ defines a relation on $G$: for all $x,y \in G$, $x \sim_H y$ iff $\inverse{x}y \in H$.
+            \end{itemize}
+        
+            \begin{prop}[9.1]
+                $\sim_H$ is an equivalence relation.
+            \end{prop}
+            
+            \begin{defn}[9.2]\hfill
+                The equivalence classes for $\sim_H$ are the \define{left cosets} of $H$ in $G$. $G/_H$ is the set of left cosets. Define $[G:H] \coleq |G/_H|$ to be the \define{index} of $H$ in $G$ ($H$ has finite if $[G:H]< \infty$).
+            \end{defn}
+            
+            \begin{ex}\hfill
+                \begin{enumerate}
+                    \item Let $G=\Z$, $n>1$, $H=n\Z$. Then
+                \begin{align*}
+                    a \sim_H b &\iff-a+b \in H\\
+                    &\iff n|b-a\\
+                    &\iff a \equiv b\mod n.
+                \end{align*}
+                    \item $\Z/_n\Z \coleq \{[0],[1],\ldots,[n-1]\}$ (the set of left cosets).
+                    \item $[\Z:n\Z]=n$.
+                \end{enumerate}
+            \end{ex}
+            
+            \begin{rmk}\hfill
+                \begin{enumerate}
+                    \item $H$ can have finite index even if $G,H$ have infinite order.
+                    \item In general, $G/_H$ will not be a group.
+                \end{enumerate}
+            \end{rmk}
+            
+        \subsection*{Characterization of Left Coset}
+            \begin{prop}[9.3]
+                Let $H \subseteq G$ be a subgroup, $x \in G$, $[x]$ be the left coset represented by $x$, and define $xH \coleq \{xh|h\in H\}$. Then $[x]=xH$.
+            \end{prop}
+            
+            \begin{cor}[9.4]\hfill
+                \begin{enumerate}
+                    \item For all $x,y \in G$, we have $xH=yH$ iff $\inverse{x}y\in H$.
+                    \item If $y\in H$, then $yH=xH$.
+                    \item For all $h\in H$, $hH=H$, i.e. $eH=H$.
+                \end{enumerate}
+            \end{cor}
+        }
+    }
+    
+    
+    \noindent\section*{\textbf{\textsc{Lecture 10}}}{
+        \begin{rmk}
+            If $x\in G$, $x\notin H$, then $xH$ is only a subset of $G$, not a subspace!\\
+            Why? If it were a subspace, then $e \in xH$ and so $\exists h \in H$ such that $e=xh$. Then $\inverse{h}=xh\inverse{h} \implies x=\inverse{h}\in H$. Contradiction.
+        \end{rmk}
+        
+        \begin{prop}[10.1]
+            Let $H \subseteq G$ be a subspace, $x \in G$. Then the set-theoretic function $\func{f}{H}{xH}$, $f(h) \coleq xh$ is a bijection. In particular, $|xH|=|H|$.
+        \end{prop}
+        
+        \begin{thm}[10.2 Lagrange]
+            Let $G$ be a finite group, $H \subseteq G$ be a subgroup. Then $|G|=[G:H]|H|$. In particular, the order of $H$ must divide the order of $G$. 
+        \end{thm}
+        
+        \subsection*{Simple Remarks about Equivalence Classes}{
+            \begin{itemize}
+                \item Let $S$ be a finite set, $~$ be an equivalence relation on $S$. Denote $S/~$ to be the set of equivalence classes on $S$.
+                \item Choose a labeling for elements of $S=\{s_1,s_2,\ldots,s_n\}$.
+                \begin{enumerate}
+                    \item Each equivalence class $[s_i]$ is a finite subset and so is $S/~\coleq\{[s_i]|i=1,\ldots,n\}$.
+                    \item We may have $[s_i]=[s_j]$ even if $s_i\neq s_j$. So let $m$ equal the number of distinct equivalence classes. Then $|S/~|=m$ and we can write $S/~=\{[s_{j_1}],[s_{j_2}],\ldots,[s_{j_m}]\}$.
+                    \item Prop. 5.1 implies that $S=\Union_{s_i \in S}[s_i]$. Hence $S=\Union_{k=1}^m [s_{j_k}]$.
+                    \item If $k\neq k'$, then $[s_{j_k}] \neq [s_{j_k'}]$. Therefore $|s_{j_k} \union s_{j_k'}|=|s_{j_k}|+|s_{j_k'}|$.
+                \end{enumerate}
+            \end{itemize}
+            
+            \begin{proof}[Proof (Lagrange)]
+                Let $n=|G|$ and label the elements of $G=\{g_1,\ldots,g_2\}$. Let $m$ be the number of distinct left cosets of $H$ (e.g. $g_{i_1}H,g_{i_2}H,\ldots,g_{i_m}H$). This implies that $[G:H]=m$. Then $G=g_{i_1}H\union g_{i_2}H\union \cdots\union g_{i_m}H$. Remark 4 implies that $|G|=|g_{i_1}H|+|g_{i_2}H|+\cdots+|g_{i_m}H|$ and Prop 10.1 implies $|G|=|H|+|H|+\cdots+|H|$ ($m$ times) which equals $m|H|$ and thus $|G|=[G:H]|H|$.
+            \end{proof}
+            
+            \begin{cor}[10.3]
+                If $|G|=p$ prime, then $G$ has no non-trivial proper subgroups. In particular, the only subgroup of $\Z/p$ are $\{[0]\}$ and $\Z/p$.
+            \end{cor}
+        
+        
+        }
+    }
+\end{document}

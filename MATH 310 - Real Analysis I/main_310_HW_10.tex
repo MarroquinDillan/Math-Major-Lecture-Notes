@@ -1,0 +1,59 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kpfonts}
+\usepackage{commath}
+\usepackage{amsthm}
+\usepackage{xfrac}
+\usepackage[margin=0.6in]{geometry}
+
+\begin{document}
+    \noindent Dillan Marroquin\\ MATH 310.1002: Homework 10\\
+    Due. Mon, November 2
+
+    \begin{enumerate}
+        \item Use the \textit{definition} of derivative to find $f' (2)$ where
+            \[f(x) = \frac{1}{x^2} \quad \text{for }x \neq 0\]
+        \textbf{Answer: }
+        \begin{align*}
+            f'(2) &= \lim_{x\to2}\frac{f(x)-f(2)}{x-2} = \lim_{x\to2}\frac{\frac{1}{x^2}-\frac{1}{4}}{x-2} = \lim_{x\to2}\frac{\frac{-(x^2-4)}{4x^2}}{x-2} = \lim_{x\to2}\frac{\frac{-(x+2)(x-2)}{4x^2}}{x-2} = \lim_{x\to2} \frac{-(x+2)}{4x^2} = \frac{-4}{16} = -\frac{1}{4}   
+        \end{align*}
+        
+        \item Let $g(x) = |x-3|$ for $x \in \mathbb{R}$. Prove that $g$ is not differentiable at $x = 3$. \\
+        \textbf{Answer: }Observe that $g'(x) = \frac{x-3}{|x-3|}$. We will prove that the left-sided limit of $g'(3)$ does not equal the right-sided limit of $g'(3)$, i.e. $g_l'(3) \neq g_r'(3)$:
+        \begin{align*}
+            g'_l(3) &= \lim_{x \to 3^-} \frac{x-3}{|x-3|} = \lim_{x\to3^-}\frac{x-3}{-(x-3)} = -1     &       g_r'(3) &= \lim_{x \to 3^+} \frac{x-3}{|x-3|} = \lim_{x\to3^+}\frac{x-3}{x-3} = 1.
+        \end{align*}
+        Because $-1 = g_l'(3) \neq g_r'(3) = 1$, $g$ is not differentiable at $x=3$.\\
+        
+        \item Let $h(x) = x^2|x|$. Prove that $h$ is differentiable on $\mathbb{R}$ and determine $h'(x)$.\\
+        \textbf{Answer: }We first recognize that this function can be rewritten piecewise due to the absolute value:
+            \begin{align*}
+                h(x) =
+                \begin{cases}
+                    -x^3, & x<0\\
+                    x^3, & x \geq 0
+                \end{cases}.
+            \end{align*}
+        Now we can find the derivatives piecewise:
+            \begin{align*}
+                h'(x) = 
+                \begin{cases}
+                    -3x^2, & x<0\\
+                    3x^2, & x \geq 0
+                \end{cases}.
+            \end{align*}
+        
+        \item Let $a,b$ be real numbers and the function $g : \mathbb{R} \to \mathbb{R}$ defined by $g(x) = 2x+1$ for $x < 1$ and $g(x) = x^2+ax+b$ for $x \geq 1$. Determine for which values of $a,b$ the function $g$ is differentiable on $\mathbb{R}$ and for these values of $a,b$ evaluate $g'(x)$.\\
+        \textbf{Answer: }By observation, $g$ is differentiable everywhere except possibly at $x=1$, so we must determine what values of $a,b$ make $g$ continuous at $x=1$. To do this, we take the left and right-sided limits as $x$ approaches that point and see when these both equal $g(1) = a+b$: $\lim\limits_{ x \to 1^+}2x+1 = 2+1 = 3$ and $\lim\limits_{x \to 1^-}x^2+ax+b = 1+a+b$. Therefore, we choose $g(1) = 3$ and so $b=2-a$.\\
+        Notice that $g_r'(x) = 2x+a, \; x \geq 1$ and $g_l'(x) = 2, \; x < 1$ and that $g_r'(1) = 2+a$ and $g_l'(1) = 2$. Then we know that $2 = 2+a$ and so $a=0$. Therefore, $a=0,\,b=2$.\\
+        
+        \item Let $k(x) = \tan^{-1}x+\tan^{-1}\frac{1}{x}$ and $l(x) = x^{3x}$. Evaluate $k'(x)$ and $l'(x)$.\\
+        \textbf{Answer: }We first rewrite $l(x)$ to be $l(x) = e^{\ln{x^{3x}}} = e^{3x\ln{x}}$. Now we differentiate both functions:
+        \begin{align*}
+            k'(x) &= \od{}{x}\arctan{x} + \od{}{x}\arctan{\tfrac{1}{x}}  &   l'(x) &= e^{3x\ln{x}}(3\ln{x}+3x \cdot \frac{1}{x})\\
+            &= \frac{1}{1+x^2}+\bigg(\frac{1}{1+(\frac{1}{x})^2} \cdot -\frac{1}{x^2}\bigg)   &   &= xe^{3x}(3\ln{x}+3)\\
+            &= \frac{1}{1+x^2}-\frac{1}{1+x^2} &   &= 3xe^{3x}(\ln{x}+1).\\
+            &= 0.
+        \end{align*}
+    \end{enumerate}
+\end{document}

@@ -1,0 +1,161 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kpfonts}
+\usepackage[mathscr]{euscript}
+\usepackage{commath}
+\usepackage{enumerate}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[margin=0.8in]{geometry}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\es}{\emptyset}
+\newcommand{\union}{\cup}
+\newcommand{\Union}{\bigcup}
+\newcommand{\inter}{\cap}
+\newcommand{\Inter}{\bigcap}
+\newcommand{\coleq}{\coloneqq}
+\newcommand{\script}[1]{\mathscr{#1}}
+\newcommand{\powset}[1]{\mathcal{P}(#1)}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\inverse}[1]{#1^{-1}}
+\newcommand{\define}[1]{\textbf{\underline{#1}}}
+\newcommand{\func}[3]{#1: #2 \to #3}
+\renewcommand{\mod}[1]{\ (\mathrm{mod}\ #1)}
+\renewcommand{\Subset}{\subseteq}
+\renewcommand{\Supset}{\supseteq}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\theoremstyle{definition}
+\newtheorem*{defn}{Definition}
+\newtheorem*{cor}{Corollary}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{ex}{Example}
+\newtheorem*{lem}{Lemma}
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+
+%Abstract Algebra specific commands
+\newcommand{\Znx}{(\mathbb{Z}/n)^\times}
+\newcommand{\gen}[1]{\langle#1\rangle}
+\newcommand{\im}[1]{\mathrm{im}#1}
+\newcommand{\normal}{\unlhd}
+
+\begin{document}
+    \begin{center}
+        \textsc{Dillan Marroquin\\MATH 331.1001\\Scribing Week 7\\Due. 11 October 2021\\}
+    \end{center}
+        
+    \noindent\section*{\textbf{\textsc{Lecture 16}}}{
+         \begin{prop}[16.1]
+            Let $\varphi$ be a group homomorphism.
+            \begin{enumerate}
+                \item $\im\varphi$ is a subgroup of $H$.
+                \item $\ker\varphi$ is a subgroup of $G$.
+            \end{enumerate}
+         \end{prop}
+         
+         \begin{proof}
+             (1.) Use Proposition 8.3, which tells how to find a subgroup, and Proposition 7.1 (which states that for $\func{\varphi}{G}{H}, \, \varphi(e_G)=e_H$ and $\varphi(\inverse{x})=\inverse{\varphi(x)} \, \forall x\in G$).
+             Since $\varphi(e_G)=e_H$, we have $e_H \in \im\varphi \neq \es$ and so $\im \varphi$ is not empty. Let $a,b \in \im \varphi$. We want to show that $a\inverse{b} \in \im\varphi$. By definition of $\im \varphi$, $\exists x,y \in G$ such that $\varphi(x)=a$ and $\varphi(y)=b$. Then $a\inverse{b}=\varphi(x)\inverse{\varphi(y)}=\varphi(x)\varphi(\inverse{y})=\varphi(x\inverse{y})$ by definition of group homomorphism. Thus, $a\inverse{b} \in \im\varphi$.\\
+             (2.) We will use the same previous propositions. By Proposition 7.1, $\varphi(e_G)=e_H$ which implies that $e_H \in \ker\varphi \neq \es$. Let $x,y\in \ker\varphi$. We want to show $x\inverse{y}\in \ker\varphi$. Note that $\varphi(y)=e_H$ which implies $\inverse{\varphi(y)}=e_H$. Then by definition of group homomorphism, $\varphi(x\inverse{y})=\varphi(x)\varphi(\inverse{y})$, and since $x\in \ker\varphi, \, \varphi(x)\varphi(\inverse{y})=e_H\varphi(\inverse{y})=e_H^2=e_H$. Thus $\varphi(x\inverse{y})=e_H \in \ker\varphi$.
+         \end{proof}
+    }
+    \noindent\section*{\textbf{\textsc{Lecture 17}}}{
+        \begin{prop}[17.1]
+            Let $\func{\varphi}{G}{H}$ be a group homomorphism. Then $\varphi$ is injective iff $\ker\varphi=\{e_G\}$, i.e. iff $\ker\varphi$ is the trivial subgroup.
+        \end{prop}
+            \begin{proof}
+                Suppose $\varphi$ is injective. We want to show $x=e_G$. Let $x\in \ker \varphi$. Then $\varphi(x)=e_H$ by definition, and by Proposition 7.1, $\varphi(e_G)=e_H$. Since $\varphi$ is injective, $\varphi(x)=e_H$ and $\varphi(e_G)=e_H$ implies $e_G=x$ and thus $\ker\varphi=\{e_G\}$.\\
+                Conversely, suppose $\ker\varphi=\{e_G\}$. Assume $\varphi(x)=\varphi(y)$. Then $\varphi(x)\inverse{\varphi(y)}=e_H$. By Proposition 7.1, \\$\varphi(x)\inverse{\varphi(y)}=\varphi(x)\varphi(\inverse{y})$ and by definition of group homomorphism $=\varphi(x\inverse{y})=e_H$. Thus $x\inverse{y} \in \ker\varphi$, but since $\ker\varphi=\{e_G\}$, $x\inverse{y}=e_G$ and by multiplying each side by $y$ on the right, we obtain $x=y$ as desired.
+            \end{proof}
+            
+        \begin{cor}[17.2]
+            Let $\func{\varphi}{G}{H}$ be a group homomorphism. Then $\varphi$ is a group isomorphism iff $\ker\varphi=\{e_G\}$ and $\im\varphi=H$.
+        \end{cor}
+        \subsection*{Normal Subgroups}{
+            (Which, by the way, the term "normal" sucks!)\\\\
+            \define{Idea:} Recall given a subgroup $H\leq G$, we can define an equivalence relation on $G, \, x\sim_H y,$ iff $\inverse{x}y \in H$. The equivalence classes are the left cosets of $H$: $[x]=xH\coleq\{xh|h \in H\}$. We denote the set of lefts cosets as $G/H=\{xH|x \in G\}$.\\
+            Consider the groups $\Z/n\Z$ and $\Q/\Z$.
+            
+            \begin{rmk}[17.3]
+                In the above groups, $G$ induces a group operation (and identity) on $G/H$ such that the function $\func{\pi}{G}{G/H}, \, x\mapsto [x]=xH$ is a group homomorphism!
+            \end{rmk}
+            
+            \begin{ex}
+                Let $G=S_3, \, H=\gen{\sigma}, \, \sigma= \big(\begin{smallmatrix} 1&2&3\\ 2&3&1 \end{smallmatrix}\big)$. Note that $|G/H|=[G:H]=2$ by Lagrange's Theorem.\\
+                Then $G/H=\{eH,\tau H\}=\{H,\tau H\}$ for $\tau=\big(\begin{smallmatrix} 1&2&3\\ 1&3&2 \end{smallmatrix}\big)$. The goal is to put a group structure on $G/H$ as in Remark 17.3. That is, we want $xH\cdot yH \overset{?}{=} xyH$ and $e_{G/H}\overset{?}{=} e_{S_3}H=H$. This works! Verify by hand: e.g. $\tau H\cdot \tau H=\tau^2 H=eH=H$. $\tau H=\{\tau, \tau\sigma, \tau\sigma^2\}=\tau\sigma H$.
+            \end{ex}
+            
+            \begin{ex}
+                Let $G=S_3$, $H=\gen{\tau}$. Then $G/H=\{H, \sigma H, \sigma^2 H\}$ (we can verify this is correct by hand). Again, we want to define a group operation on $G/H$. BUUUT it does not work!
+            \end{ex}
+        
+        }
+    }
+    \noindent\section*{\textbf{\textsc{Lecture 18}}}{
+        \begin{ex}[Non-Example]
+            (Continuation from last lecture) Let $G=S_3, \, H= \gen{\tau},$ where $\tau=\big(\begin{smallmatrix} 1&2&3\\ 1&3&2 \end{smallmatrix}\big)$ and $\sigma= \big(\begin{smallmatrix} 1&2&3\\ 2&3&1 \end{smallmatrix}\big)$. Then $G/H=\{eH=H,\sigma H, \sigma^2H\}$ and $\sigma H=\{\sigma e=\sigma, \sigma\tau\}$.\\
+            If $G/H$ is indeed a group, we must have that $\sigma H * \tau H=\sigma H$ and $\tau H * \sigma H=\sigma H$ because $\tau H=H$ is our identity element.
+            \begin{enumerate}
+                \item By definition of *, $\sigma H * \tau H=\sigma \tau H= \{\sigma\tau, \sigma\tau \circ \tau = \sigma\}=\sigma H$. Therefore, 1. is true.\\
+                \define{Note:} $xH\inter yH\neq \es$ implies $xH=yH$ because left cosets are equivalence classes of an equivalence relation.
+                \item $\tau H * \sigma H=\tau\sigma H=\{\tau\sigma, \tau\sigma\tau\}$ by definition of *. But $\tau\sigma \neq \sigma$ and $\tau\sigma \neq \sigma\tau$, therefore $\tau\sigma H \neq \sigma H$ and thus we conclude $G/H=S_3\gen{\tau}$ is not a group.
+            \end{enumerate}
+        \end{ex}
+        
+        But what went wrong?? We will see that this happened because $\gen{\tau}$ is not a normal subgroup.
+        
+        \begin{defn}[18.1]
+            A subgroup $H\leq G$ is \define{normal} iff for all $g \in G$, the set $gH\inverse{g}\coleq\{gh\inverse{g}|h \in H\}$ is equal to $H$. We write $G \normal H$
+        \end{defn}
+        
+        \begin{rmk}
+            If $H \normal G$, then
+            \begin{enumerate}
+                \item For all $g \in G$ and for all $h \in H$, $gh\inverse{g}\in H$. i.e. $\exists h'\in H$ such that $gh\inverse{g}=h'$ (since $gH\inverse{g}\Subset H$), but in general $h'\neq h$.
+                \item Let $h \in H$. Then $\forall g \in G, \, \exists h' \in H$ such that $h=gh'\inverse{g}$ (since $H \Subset gH\inverse{g}$.
+            \end{enumerate}
+        \end{rmk}
+        
+        \begin{prop}[18.2 USEFUL]
+            Let $H \leq G$ be a subgroup. Assume $\forall g \in G, \, \forall h \in H$, we have $gh\inverse{g}\in H$. Then
+            \begin{enumerate}
+                \item $\forall g \in G, \, gH\inverse{g}\leq H$ and
+                \item $\forall g \in G, \, H \leq gH\inverse{g}$.
+            \end{enumerate}
+            i.e. H is normal.
+        \end{prop}
+        
+        \subsection*{1st Examples/Non-Examples}{
+            \begin{prop}[18.3]
+                Let $G$ be abelian. Then every subgroup of $G$ is normal.
+            \end{prop}
+            
+            \begin{proof}
+                Let $H$ be a subgroup, $g \in G$, and let $h \in H$. Since $G$ is abelian, $gh\inverse{g}=hg\inverse{g}$. Therefore, $gh\inverse{g}=h \in H$.
+            \end{proof}
+            
+            \begin{prop}[18.4]
+                A subgroup $H\leq G$ is normal iff $\forall x \in G, \, xH=Hx$.
+            \end{prop}
+            
+            \begin{cor}[18.5]
+                If $H \leq G$ is a subgroup and $[G:H]=2$, then $H$ is normal.
+            \end{cor}
+            
+            \begin{ex}
+                $H=\gen{\sigma}$ is normal in $G=S_3$ since $[S_3:H]=2$.
+            \end{ex}
+            
+            \begin{ex}[Non-Example]
+                $H \coleq \gen{\tau}$ is not normal in $G=S_3$. Observe that $\sigma\tau\inverse{\sigma} \notin H$.
+            \end{ex}
+        }
+    }
+\end{document} 

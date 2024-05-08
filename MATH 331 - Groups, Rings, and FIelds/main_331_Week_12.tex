@@ -1,0 +1,160 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kpfonts}
+\usepackage[mathscr]{euscript}
+\usepackage{commath}
+\usepackage{bbm}
+\usepackage{enumerate}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{wasysym}
+\usepackage[margin=0.8in]{geometry}
+
+\newcommand{\N}{\mathbbm{N}}
+\newcommand{\Z}{\mathbbm{Z}}
+\newcommand{\Q}{\mathbbm{Q}}
+\newcommand{\R}{\mathbbm{R}}
+\newcommand{\C}{\mathbbm{C}}
+\newcommand{\es}{\emptyset}
+\newcommand{\union}{\cup}
+\newcommand{\Union}{\bigcup}
+\newcommand{\inter}{\cap}
+\newcommand{\Inter}{\bigcap}
+\newcommand{\coleq}{\coloneqq}
+\newcommand{\script}[1]{\mathscr{#1}}
+\newcommand{\powset}[1]{\mathcal{P}(#1)}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\inverse}[1]{#1^{-1}}
+\newcommand{\define}[1]{\textbf{\underline{#1}}}
+\newcommand{\func}[3]{#1: #2 \to #3}
+\newcommand{\lcm}{\mathrm{lcm}}
+\renewcommand{\mod}[1]{\ (\mathrm{mod}\ #1)}
+\renewcommand{\Subset}{\subseteq}
+\renewcommand{\Supset}{\supseteq}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\theoremstyle{definition}
+\newtheorem*{defn}{Definition}
+\newtheorem*{cor}{Corollary}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{ex}{Example}
+\newtheorem*{lem}{Lemma}
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+
+%Abstract Algebra specific commands
+\newcommand{\Znx}{(\mathbb{Z}/n)^\times}
+\newcommand{\Rx}{\mathbb{R}^\times}
+\newcommand{\cyc}[1]{\langle#1\rangle}
+\newcommand{\im}{\mathrm{im}}
+\newcommand{\normal}{\unlhd}
+\newcommand{\ideal}{\unlhd}
+\newcommand{\iso}{\cong}
+\newcommand{\sgn}{\mathrm{sgn}}
+\newcommand{\ev}{\mathrm{ev}}
+
+\begin{document}
+    \begin{center}
+        \textsc{Dillan Marroquin\\MATH 331.1001\\Scribing Week 12\\Due. 15 November 2021\\}
+    \end{center}
+        
+    \section*{Lecture 29}{
+        \begin{proof}[Prop 28.4]
+            \begin{enumerate}
+                \item Want to show $1_S \in \im\varphi$. By definition of $\varphi$, $\varphi(1_R)=1_S$ which implies $1_S \in \im\varphi$. (The rest of this proof is similar to the proof of Proposition 16.1 for groups.
+                \item $(\implies)$ Suppose $\ker\varphi$ is a subring. By definition of subring, $1_R \in \ker \varphi$. Therefore $\varphi(1_R)=0_S$. On the other hand, $\varphi(1_R)=1_S$ by definition of ring homomorphism. Let $s \in S$. Then $s=s\cdot1_S=s\cdot\varphi(1_R)=s\cdot0_S$. Thus by Proposition 26.3, $s=0_s$ and therefore $S=\{0_S\}$.\\
+                ($\impliedby$) Suppose $S=\{0_S\}$. Then $\forall r \in R$, $\varphi(r)=0_S$. Therefore $\ker\varphi=R$. Every ring is a subring of itself.
+            \end{enumerate}
+        \end{proof}
+        
+        \begin{defn}[29.1]
+            Let $R$ be a ring. A subset $I \Subset R$ is an \define{ideal} iff
+            \begin{enumerate}
+                \item $I$ is an additive subgroup of $R$, i.e. $(I,+,0_R)\leq (R,+,0_R)$ and
+                \item $\forall a \in I$ and $\forall r \in R$, $ra\in I$ and $ar \in I$.
+            \end{enumerate}
+            We write $I \ideal R$.
+        \end{defn}
+        
+        \subsection*{Examples}{
+            \begin{enumerate}
+                \item Let $R$ be a ring. Then $0=\{0_R\}$ and $R$ are both ideals of $R$.
+                \item Let $n\geq 1$. Then $n\Z \ideal \Z$ is an ideal.
+                \item Let $R=\R[x]$, let $g \in \R[x]$, and let $I \coleq \{f\in \R[x]:g|f\text{ i.e. }\exists h \in \R[x]\text{ such that }f=gh\}$. Then $I \ideal \R[x]$.
+            \end{enumerate}
+        }
+    }
+    \section*{Lecture 30}{
+        \subsection*{Non-Examples of Ideals}{
+            \begin{enumerate}
+                \item None of $\Z \Subset \Q \Subset \R \Subset \C$.
+                \item Let $R$ be commutative. Then $R \leq R[x]$ is not an ideal (Axiom 2 does not hold).
+                \item Let $R=\Z$, $C=2\Z\union 3\Z$. In this case, Axiom 2 holds, but Axiom 1 fails since $3(1)+2(-1)=1\notin C$.
+            \end{enumerate}
+        
+        \begin{prop}[30.1]
+            Let $R$ be commutative, $I,J \ideal R$ be ideals.
+            \begin{enumerate}
+                \item $I\union J$ is not, in general, an ideal of $R$. However, $I\inter J \ideal R$.
+                \item The subset $I+J \coleq \{a+b \in R|a \in I, b \in J\}$ is an ideal of $R$.
+                \item The subset $IJ \coleq \{a_1b_1+a_2b_2+\cdots+a_nb_n|n\in \N$, $a_i \in I$, $b_i \in J\}$ is an ideal of $R$.
+            \end{enumerate}
+        \end{prop}
+        }
+        \subsection*{Kernels Revisited}{
+            \begin{prop}[30.2]
+                Let $\func{\varphi}{R}{S}$ be a ring homomorphism. Then\ldots
+                \begin{enumerate}
+                    \item $\ker\varphi \ideal R$
+                    \item $\ker\varphi=0$ iff $\varphi$ is injective.
+                \end{enumerate}
+            \end{prop}
+            
+            \begin{proof}
+                \begin{enumerate}
+                    \item Since $\varphi(a+b)=\varphi(a)+\varphi(b) \ \forall a,b \in R$, $\varphi$ is an additive group homomorphism. Therefore $\ker\varphi$ is an additive subgroup of $(R,+,0_R)$ by Proposition 16.2.
+                    \item This follows directly from Proposition 17.1.
+                \end{enumerate}
+            \end{proof}
+        }
+        \subsection*{Quotient Rings}{
+            Let $I\ideal R$ be an ideal. Forgot about multiplication for a moment. We know $(I,+)\leq (R,+)$ is a subgroup.\\
+            Let $r \in R$. The left cosets of $I$ are of the form $r+I\coleq \{r+a|a \in I\}$. Recall that $R/I\coleq\{r+I|r ]in R\}$ is the set of left cosets. This is a group with respect to addition since $(R.+)$ is abelian.
+        }
+    }
+    \section*{Lecture 31}{
+        \subsection*{Generalize Construction of $Z/nZ$ as a Ring}{
+            \begin{thm}[31.1 \textbf{PROVE ON EXAM!}]\hfill
+                \begin{enumerate}
+                    \item The binary operation $\func{\overline{*}}{R/I\times R/I}{R/I}$, $(r_1+I)\overline{*}(r_2+I)\coleq r_1r_2+I$ is well-defined.
+                    \item $(R/I,\overline{+},0_{R/I},\overline{*},1_{R/I})$ is a ring, where $1_{R/I}\coleq 1_R+I$.
+                    \item The surjective function $\func{\pi}{R}{R/I}$, $\pi(r)\coleq r+I$ is a ring homomorphism.
+                \end{enumerate}
+            \end{thm}
+            
+            \begin{proof}
+                \begin{enumerate}
+                    \item Suppose $r_1+I=r_1'+I$ and $r_2+I=r_2'+I$ (1). Want to show $r_1r_2+I=r_1'r_2'+I$. Since $r_1 \in r_1 + I$, $r_2 \in r_2+I$, (1) implies $\exists a_1,a_2 \in I$ such that $r_1=r_1'+a_1$, $r_2=r_2'+a_2$. Therefore $r_1r_2=(r_1'+a_1)(r_2'+a_2)=r_1'r_2'+r_1'a_2+a_1r_2'+a_1a_2$. By Axiom 2 of Definition 29.1 of ideal, $r_1'a_2$, $a_1r_2'$, $a_1a_2 \in I$. Axiom 1 implies $r_1r_2-r_1'r_2' \in I$. Therefore by PS5 \#1, $r_1r_2+I=r_1'r_2'+I$.
+                    \item Straightforward. Skip because this is L O N G.
+                    \item Check the axioms of ring homomorphism:
+                    \begin{enumerate}
+                        \item $\pi(r_1+r_2)=(r_1+r_2)+I=(r_1+I)\overline{+}(r_2+I)=\pi(r_1)\overline{+}\pi(r_2)$.
+                        \item $\pi(r_1r_2)=r_1r_2+I=(r_1+I)\overline{*}(r_2+I)=\pi(r_1)\overline{*}\pi(r_2)$.
+                        \item $\pi(1_R)=1_R+I=1_{R/I}$.
+                    \end{enumerate}
+                \end{enumerate}
+            \end{proof}
+            
+            \begin{ex}[Non-Example]
+                (Replace ideal with a subring in $R/I$). Consider: $\Z\leq \Q$ and the quotient group $\Q/\Z$ $(q_1+\Z)\overline{+}(q_2+\Z)=(q_1+q_2)+\Z$. Then $(\frac{1}{2}+\Z)\overline{+}(\frac{1}{3}+\Z)=\frac{1}{6}+\Z$. Note that $\frac{1}{2}+\Z=\frac{3}{2}+\Z$. Then $(\frac{3}{2}+\Z)\overline{+}(\frac{1}{3}+\Z)=\frac{1}{2}+\Z \neq \frac{1}{6}+\Z$.
+            \end{ex}
+        }
+        \subsection*{1st Isomorphism Theorem for Rings}{
+            \begin{thm}[31.2]
+                let $\func{\varphi}{R}{S}$ be a ring homomorphism. Then the function $\func{\overline{\varphi}}{R/\ker\varphi}{\im\varphi}$, $\overline{\varphi}(r+\ker\varphi)\coleq \varphi(r)$ is a well-defined ring isomorphism.
+            \end{thm}
+        
+        }
+    }
+\end{document} 

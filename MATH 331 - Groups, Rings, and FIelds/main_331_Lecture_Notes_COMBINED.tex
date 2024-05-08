@@ -1,0 +1,1519 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kpfonts}
+\usepackage[mathscr]{euscript}
+\usepackage{commath}
+\usepackage{bbm}
+\usepackage{enumerate}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{wasysym}
+\usepackage[margin=0.8in]{geometry}
+
+\newcommand{\N}{\mathbbm{N}}
+\newcommand{\Z}{\mathbbm{Z}}
+\newcommand{\Q}{\mathbbm{Q}}
+\newcommand{\R}{\mathbbm{R}}
+\newcommand{\C}{\mathbbm{C}}
+\newcommand{\es}{\emptyset}
+\newcommand{\union}{\cup}
+\newcommand{\Union}{\bigcup}
+\newcommand{\inter}{\cap}
+\newcommand{\Inter}{\bigcap}
+\newcommand{\coleq}{\coloneqq}
+\newcommand{\script}[1]{\mathscr{#1}}
+\newcommand{\powset}[1]{\mathcal{P}(#1)}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\inverse}[1]{#1^{-1}}
+\newcommand{\define}[1]{\textbf{\underline{#1}}}
+\newcommand{\func}[3]{#1: #2 \to #3}
+\newcommand{\lcm}{\mathrm{lcm}}
+\renewcommand{\mod}[1]{\ (\mathrm{mod}\ #1)}
+\renewcommand{\Subset}{\subseteq}
+\renewcommand{\Supset}{\supseteq}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\theoremstyle{definition}
+\newtheorem*{defn}{Definition}
+\newtheorem*{cor}{Corollary}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{ex}{Example}
+\newtheorem*{lem}{Lemma}
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+
+%Abstract Algebra specific commands
+\newcommand{\Znx}{(\mathbb{Z}/n)^\times}
+\newcommand{\Rx}{\mathbb{R}^\times}
+\newcommand{\cyc}[1]{\langle#1\rangle}
+\newcommand{\im}{\mathrm{im}}
+\newcommand{\normal}{\unlhd}
+\newcommand{\ideal}{\unlhd}
+\newcommand{\iso}{\cong}
+\newcommand{\sgn}{\mathrm{sgn}}
+\newcommand{\ev}{\mathrm{ev}}
+\newcommand{\K}{\mathbbm{K}}
+\renewcommand{\H}{\mathbbm{H}}
+
+\begin{document}
+    \begin{center}
+        \textsc{Dillan Marroquin\\MATH 331.1001 Lecture Notes\\}
+    \end{center}
+        
+    \section*{\textbf{\textsc{Lecture 6}}}{
+        \begin{itemize}
+            \item $[k]\cdot[l] = [kl]$ is well-defined on $\Z/n{n}$ with respect to choice of $n$.
+            \item Unlike $(\Z - \{0\},\cdot,[1])$, $(\Z/n{n} - \{0\},\cdot,[1])$ is NOT necessarily a monoid!
+            \begin{ex}
+                $\Z/n{4}-\{[0]\} \ni [2]$, but $[2]\cdot[2] = [0] \not \in \Z/n{4}-\{[0]\}$.
+            \end{ex}
+            \begin{ex}
+                $\Z/n{3}- \{[0]\} \coleq ([1],[2])$ and $[2]\cdot[2] = [1]$. This is stronger than a monoid; it's a group! (This is actually an "avatar" of the cyclic group of order 2)
+            \end{ex}
+            \item \textbf{Q: What's going on??}
+        \end{itemize}
+        \subsection*{Congruence and $\gcd$}{
+        
+        \begin{lem}[6.1]
+            Let $n>1$. If $k \equiv l\mod{n}$ and $\gcd(k,n)=1$, then $\gcd(l,n)=1$.
+        \end{lem}
+        
+        \begin{thm}[6.2]
+            Let $n>1$. Define $\Znx{n} \coleq \{[k] \in \Z/n{n}-\{[0]\}|\gcd(k,n)=1\}$. Then $(\Znx{n}, \cdot, [1])$ is an abelian group called the \define{Group of Units mod $n$}.
+        \end{thm}
+        
+        \begin{proof}\hfill
+            \begin{enumerate}
+                \item If $[k],[l] \in \Znx{n}$, then $[kl] \in \Znx{n}$ by Lem 6.3. Hence, $\cdot$ is a well-defined binary operator.
+                \item (Check Group Axioms):
+                    \begin{enumerate}
+                        \item Associativity (easy)
+                        \item Left/Right Identity (easy)
+                        \item Left/Right Inverse: Let $[a] \in \Znx{n}$. WTS $\exists [u] \in \Znx{n}$ such that $[a][u]=[1]=[u][a]$. Well, $\exists u,v \in \Z$ such that $au+nv=1 \implies ua+nv=1 \implies \gcd(u,n)=1 \implies [u] \in \Znx{n}$. Moreover, $au+nv=1 \implies n|au-1$. Therefore, $[au]=[1]$. Hence, $[u]$ is the inverse of $[a]$. Similar proof gives $[u]\cdot[a]=[1]$.
+                    \end{enumerate}
+                \item Show abelian: $\forall [a],[b] \in \Znx{n}, \; [a]\cdot[b]=[b]\cdot[a]$. This is obvious due to commutativity of integers.
+            \end{enumerate}
+        \end{proof}
+        
+        \begin{rmk}\hfill
+            \begin{enumerate}
+                \item $\Znx{n}$ is well-defined by Lem 6.1.
+                \item We are "discarding" elements from $\Znx{n}-\{[0]\}$ to get a group.
+            \end{enumerate}
+        \end{rmk}
+        
+        \begin{lem}[6.3]
+            Let $a,b \in \Z$ with $n<1$. If $\gcd(a,n)=1$ and $\gcd(b,n)=1$, then $\gcd(ab,n)=1$.
+        \end{lem}
+        
+        \begin{proof}
+            There exist $u,u',v,v' \in \Z$ such that $au+nv=1$ and $bu'+nv'=1$. Therefore $(au+nv)(bu'+nv')=1 \implies ab(uu')+n(\cdots)=1$. Thus $\gcd(ab,n)=1$ by Thm 2.2.
+        \end{proof}
+        
+        
+        \begin{cor}[6.4]
+            Let $p \in \Z$ be prime.
+            \begin{enumerate}
+                \item $\Znx{n}=\Z/n{p}-\{[0]\}=\{[1],[2],\ldots,[p-1]\}$.
+                \item Every non-0 element of $\Z/n{p}$ has a multiplicative inverse.
+            \end{enumerate}
+        \end{cor}
+        }
+    
+        \subsection*{Comparing Groups}{
+        \begin{defn}[6.5]
+            The \define{order $|G|$} of a group $G$ is the cardinality of $G$ as a set. $G$ is \define{finite} iff $|G| <\infty$.\\
+            e.g. $|\Z/n{n}|=n$, $|\Z|=\infty$, $|GL_2(\Z/n{p})|=(p^2-1)(p^2-p)$
+        \end{defn}
+        
+        \begin{defn}[6.6]
+            Let $(G, *_G, e_G)$ and $(H, *_H, e_H)$ be groups. A \define{group homomorphism} between $G$ and $H$ is a function $\func{\rho}{G}{H}$ such that $\forall a,b \in G$, $\rho(a*_Gb)=\rho(a)*_H\rho(b)$.
+        \end{defn}
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 7}}}{
+        \begin{defn}
+            A function $\func{\rho}{G}{H}$ is \define{group isomorphic} iff $\rho$ is a bijection and also a homomorphism.\\
+            We say $G,H$ are \define{isomorphic} iff there exists a group isomorphism $\func{\rho}{G}{H}$. We say $G \iso H$.
+        \end{defn}
+        
+        \begin{ex}[Basic Examples]\hfill
+            \begin{enumerate}
+                \item Let $G$ be a group. Then $\func{\id_G}{G}{G}$ is a group isomorphism.
+                \item Let $n \in \Z$. Define $n\Z \coleq \{nk|k \in \Z\}$. Define $\func{\rho}{n\Z}{\Z}$, $\rho(na) \coleq na$.\\
+                Observe that $\rho$ is a homomorphism, but not a group isomorphism since $\rho$ is not surjective.
+                \item Let $\R^\times \coleq \R-\{0\}$, where $(\R^\times,\cdot, 1)$ is a group. Then $\func{\det}{GL_2}{\R^\times}$.\\
+                Observe that this is a homomorphism, but not an isomorphism since it is not injective.
+                \item Let $n>1$ and $\func{\pi}{\Z}{\Z/_n}$, $\pi(a) \coleq [a]$.\\
+                This is a group homomorphism, but not an isomorphism (not injective).
+            \end{enumerate}
+        \end{ex}
+        
+        \begin{ex}[Non-Examples]
+            Let $\func{f,g}{\Z}{\Z}$.\\
+            Define $f(a) \coleq a+1$. This is not a homomorphism: $f(a+b)=a+b+1\neq a+b+2=f(a)+f(b)$.\\
+            Define $g(a) \coleq a^2$. This is also not a homomorphism: $g(a+b)=a^2+2ab+b^2\neq a^2+b^2=g(a)+g(b)$.
+        \end{ex}
+        
+        \subsection*{Abstract Properties of Group Homomorphisms}{
+            \begin{prop}[7.1]
+                Let $(G, *_G, e_G)$ and $(H, *_H, e_H)$ be groups. Let $\func{\rho}{G}{H}$ be a group homomorphism.
+                \begin{enumerate}[i.]
+                    \item $\rho(e_G)=e_H$.
+                    \item $\forall g \in G$, if $g^{-1}$ is the inverse of $g$, then $\rho(g^{-1})$ is the inverse of $\rho(g) \in H$.
+                \end{enumerate}
+            \end{prop}
+            
+            \begin{prop}[7.2]
+                If $\func{\rho}{G}{H}$ for $G, H$ groups is a group isomorphism, then
+                \begin{enumerate}[i.]
+                    \item $|G|=|H|$.
+                    \item $G$ is abelian iff $H$ is abelian.
+                \end{enumerate}
+            \end{prop}
+        
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 8}}}{
+        \begin{defn}[8.1]
+            Let $(G, *_G,e_G)$ be a group. A \define{subgroup} of $G$ is a subset $H \subseteq G$ (sometimes denoted $H \leq G$) such that
+            \begin{enumerate}[i)]
+                \item $e_g \in H$.
+                \item $\forall h, h' \in H$, $h *_G h' \in H$.
+                \item $\forall h \in H$, $\inverse{h} \in H$.
+            \end{enumerate}
+        \end{defn}
+        
+        \begin{rmk}
+            If $H \leq G$, then $(H, *_G,e_G)$ is a group.
+        \end{rmk}
+        
+        \subsection*{Examples/Non-Examples}{
+            \begin{enumerate}
+                \item For any $n \in \Z$, $n\Z \leq \Z$.
+                \item Let $2\Z+1 \coleq \{2k+1|k \in \Z\}$. This is NOT a subgroup since $e=0 \notin 2\Z+1$.
+                \item Let $G=\Z/n{4}$, $H \coleq \{[0],[2]\}$. Indeed, $H$ is a subgroup of $G$.
+                \item Let $n>1$. Define $SL_n(\R)\coleq \{A \in GL_n(\R)|\det A=1\}$. $SL_n(\R)$ is a subgroup of $GL_n(\R)$.\\
+                Observe that this is easy to prove:\\
+                For i), $\det(I_n)=1$, therefore $I_n \in SL_n(\R)$.\\
+                For ii), let $A,B \in SL_n(\R)$. Then $\det (AB) = \det A \cdot \det B = 1\cdot 1=1$.\\
+                For iii), let $A \in SL_n(\R)$. To show $\inverse{A} \in SL_n(\R)$, observe that $\det(A\inverse{A})=\det A \cdot \det(A^{-1})=\det(\inverse{A})$. But $\det(A\inverse{A})=\det(I_n)=1$, therefore $\det(\inverse{A})=1$.
+                \item Let $H\coleq \{A \in GL(n(\R)|\det A =-1\}$. Observe that $H \not \leq GL_n(\R)$ since, for one, $I_n \notin H$.
+            \end{enumerate}
+            
+            \begin{rmk}\hfill
+                \begin{enumerate}
+                    \item Every group $G$ has at least 1 subgroup: the trivial group $\{e_G\}$.
+                    \item If $|G|>1$, then $G$ has at least 2 subgroups: $\{e_G\}$ and $G$.
+                \end{enumerate}
+            \end{rmk}
+            
+            \begin{defn}[8.2]\hfill
+                \begin{enumerate}
+                    \item Let $H$ be a subgroup of $G$. Then\ldots
+                    \begin{enumerate}[i)]
+                        \item $H$ is \define{proper} iff $H \subset G$, i.e. $H\neq G$.
+                        \item $H$ is \define{non-trivial} iff $H \neq \{e_G\}$.
+                    \end{enumerate}
+                    \item An abelian group $G$ is \define{simple} iff it has no non-trivial proper subgroup.
+                \end{enumerate}
+            \end{defn}
+        
+            \begin{itemize}
+                \item From now on, $(G, *_G,e_G)$ will be written as $G$, $e_G$ will be $e$, $a*_Gb$ will be $ab$, and $a*_Ga*_G\cdots *_Ga$ will be $a^n$.
+                \item If $G$ is abelian, $a*_gB$ is often written as $a+b$, $a*_Ga*_G\cdots *_Ga$ is written $na$, and $\inverse{a}$ is written $-a$.
+            \end{itemize}
+            
+            Here is a useful tool for proving a group is a subgroup:
+            \begin{prop}[8.3]
+                Let $G$ be a group, and $H\subseteq G$ a subset. Then $H$ is a subgroup iff $H \neq \es$ and $\forall a,b \in H$, $a\inverse{b} \in H$.
+            \end{prop}
+            
+            \begin{prop}[8.4]
+                If $H,K \subseteq G$ are subgroups, then $H \inter K \subseteq G$ is also a subgroup.
+            \end{prop}
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 9}}}{
+        Let $G$ be a finite group. How many subgroups does $G$ have?
+        \begin{itemize}
+            \item If $|G|=n$, then $G$ has $2^n$ subsets.
+            \item In particular, $G$ has subsets of cardinality $0,2,\ldots,n$, but not all of these subsets will be subgroups!
+        \end{itemize}
+        \subsection*{Generalization of $\equiv\mod n$}{
+            \begin{itemize}
+                \item Let $G$ be a group, $H \subseteq G$ a subgroup. $H$ defines a relation on $G$: for all $x,y \in G$, $x \sim_H y$ iff $\inverse{x}y \in H$.
+            \end{itemize}
+        
+            \begin{prop}[9.1]
+                $\sim_H$ is an equivalence relation.
+            \end{prop}
+            
+            \begin{defn}[9.2]\hfill
+                The equivalence classes for $\sim_H$ are the \define{left cosets} of $H$ in $G$. $G/_H$ is the set of left cosets. Define $[G:H] \coleq |G/_H|$ to be the \define{index} of $H$ in $G$ ($H$ has finite if $[G:H]< \infty$).
+            \end{defn}
+            
+            \begin{ex}\hfill
+                \begin{enumerate}
+                    \item Let $G=\Z$, $n>1$, $H=n\Z$. Then
+                \begin{align*}
+                    a \sim_H b &\iff-a+b \in H\\
+                    &\iff n|b-a\\
+                    &\iff a \equiv b\mod n.
+                \end{align*}
+                    \item $\Z/_n\Z \coleq \{[0],[1],\ldots,[n-1]\}$ (the set of left cosets).
+                    \item $[\Z:n\Z]=n$.
+                \end{enumerate}
+            \end{ex}
+            
+            \begin{rmk}\hfill
+                \begin{enumerate}
+                    \item $H$ can have finite index even if $G,H$ have infinite order.
+                    \item In general, $G/_H$ will not be a group.
+                \end{enumerate}
+            \end{rmk}
+        }
+            
+        \subsection*{Characterization of Left Coset}{
+            \begin{prop}[9.3]
+                Let $H \subseteq G$ be a subgroup, $x \in G$, $[x]$ be the left coset represented by $x$, and define $xH \coleq \{xh|h\in H\}$. Then $[x]=xH$.
+            \end{prop}
+            
+            \begin{cor}[9.4]\hfill
+                \begin{enumerate}
+                    \item For all $x,y \in G$, we have $xH=yH$ iff $\inverse{x}y\in H$.
+                    \item If $y\in H$, then $yH=xH$.
+                    \item For all $h\in H$, $hH=H$, i.e. $eH=H$.
+                \end{enumerate}
+            \end{cor}
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 10}}}{
+        \begin{rmk}
+            If $x\in G$, $x\notin H$, then $xH$ is only a subset of $G$, not a subspace!\\
+            Why? If it were a subspace, then $e \in xH$ and so $\exists h \in H$ such that $e=xh$. Then $\inverse{h}=xh\inverse{h} \implies x=\inverse{h}\in H$. Contradiction.
+        \end{rmk}
+        
+        \begin{prop}[10.1]
+            Let $H \subseteq G$ be a subspace, $x \in G$. Then the set-theoretic function $\func{f}{H}{xH}$, $f(h) \coleq xh$ is a bijection. In particular, $|xH|=|H|$.
+        \end{prop}
+        
+        \begin{thm}[10.2 Lagrange]
+            Let $G$ be a finite group, $H \subseteq G$ be a subgroup. Then $|G|=[G:H]|H|$. In particular, the order of $H$ must divide the order of $G$. 
+        \end{thm}
+        
+        \subsection*{Simple Remarks about Equivalence Classes}{
+            \begin{itemize}
+                \item Let $S$ be a finite set, $\sim $ be an equivalence relation on $S$. Denote $S/\sim $ to be the set of equivalence classes on $S$.
+                \item Choose a labeling for elements of $S=\{s_1,s_2,\ldots,s_n\}$.
+                \begin{enumerate}
+                    \item Each equivalence class $[s_i]$ is a finite subset and so is $S/\sim \coleq\{[s_i]|i=1,\ldots,n\}$.
+                    \item We may have $[s_i]=[s_j]$ even if $s_i\neq s_j$. So let $m$ equal the number of distinct equivalence classes. Then $|S/\sim |=m$ and we can write $S/\sim =\{[s_{j_1}],[s_{j_2}],\ldots,[s_{j_m}]\}$.
+                    \item Prop. 5.1 implies that $S=\Union_{s_i \in S}[s_i]$. Hence $S=\Union_{k=1}^m [s_{j_k}]$.
+                    \item If $k\neq k'$, then $[s_{j_k}] \neq [s_{j_k'}]$. Therefore $|s_{j_k} \union s_{j_k'}|=|s_{j_k}|+|s_{j_k'}|$.
+                \end{enumerate}
+            \end{itemize}
+            
+            \begin{proof}[Proof (Lagrange)]
+                Let $n=|G|$ and label the elements of $G=\{g_1,\ldots,g_2\}$. Let $m$ be the number of distinct left cosets of $H$ (e.g. $g_{i_1}H,g_{i_2}H,\ldots,g_{i_m}H$). This implies that $[G:H]=m$. Then $G=g_{i_1}H\union g_{i_2}H\union \cdots\union g_{i_m}H$. Remark 4 implies that $|G|=|g_{i_1}H|+|g_{i_2}H|+\cdots+|g_{i_m}H|$ and Prop 10.1 implies $|G|=|H|+|H|+\cdots+|H|$ ($m$ times) which equals $m|H|$ and thus $|G|=[G:H]|H|$.
+            \end{proof}
+            
+            \begin{cor}[10.3]
+                If $|G|=p$ prime, then $G$ has no non-trivial proper subgroups. In particular, the only subgroup of $\Z/p$ are $\{[0]\}$ and $\Z/p$.
+            \end{cor}
+        
+        
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 11}}}{
+        \subsection*{Finitely Generated Groups}{
+            Motivation: In linear algebra, to describe every vector in $\R^2$, you only need 2 basis vectors along with a scalar (e.g. we can write $\big[\begin{smallmatrix}a\\b\end{smallmatrix}\big]= a\big[\begin{smallmatrix}1\\0\end{smallmatrix}\big]+b\big[\begin{smallmatrix}0\\1\end{smallmatrix}\big]=a\Vec{e_1}+b\Vec{e_2}$.\\
+            
+            \noindent For a group $G$, we can sometimes find a finite subset $\{x_2,\ldots,x_n\}\subseteq G$ such that $\forall g \in G, \; \exists \{x_{i_1},\ldots, x_{i_k}\} \subseteq \{x_1,\ldots,x_n\}$ and $n_1,\ldots,n_k \in \Z$ such that $g=x_{i_1}^{n_1}x_{i_2}^{n_2}\cdots x_{i_k}^{n_k}$.\\
+            In this case, we say $G$ is \define{finitely generated} and that $\{x_1,\ldots,x_n\}$ is a set of \define{generators} of $G$ and we write\\$G=\langle x_1,\ldots,x_n\rangle$.\\
+            
+            \noindent If $G$ is Abelian and we're using additive notation, then we write elements of $G=\langle x_1,\ldots,x_n\rangle$ as $g=n_1x_{i_1}+\cdots+n_kx_{i_k}$.\\
+            
+            \noindent\define{WARNING:} The analogy between bases for a vector space and generators for a group is not perfect. Notions of linear independence, scalar multiples, and dimension do not make sense for groups in general.
+        }
+        \subsection*{Examples of Finitely Generated Groups}{
+            \begin{enumerate}
+                \item The abstract cyclic group of order 2: $G=\{e,\tau\}$ is finitely generated.\\
+                We have $G=\langle \tau\rangle$ because $\tau=\tau^1$ and $e=\tau^0=\tau^2$.
+                \item The Klein 4-group $V=\{e,a,b,c\}$ is finitely generated.\\
+                We have $G=\langle a,b\rangle$ because $e=a^0=b^0$, $a=a^1$, $b=b^1$, and $c=a^1b^1$.
+                \item Any finite group $G$ is finitely generated because $G=\langle G\rangle$.
+            \end{enumerate} 
+            
+            \begin{rmk}
+                If $|G|= \infty$, then it can be finitely generated.
+            \end{rmk}
+            
+            \begin{enumerate}\setcounter{enumi}{3}
+                \item The group $(\Z,+,0)$ is finitely generated.\\
+                We have $\Z=\langle1\rangle$ because $\forall n \in \Z$, $n=n\cdot 1$. (Note that $\Z=\langle-1\rangle$ also!)
+                \item The group $\Z/n$ is finitely generated.\\
+                Just like for $\Z$, we have $\Z/n=\langle[1]\rangle$.
+            \end{enumerate}
+            
+            \begin{prop}[11.1]
+                Let $n>1$. Then $\Z/n= \cyc{[a]}$ iff $\gcd(a,n)=1$. Particularly, the elements of the group of units $\Znx$ are precisely the set of all possible generators!
+            \end{prop}
+        }
+        \begin{ex}[Non-Abelian Example]
+            Let $S_3 \coleq \{\func{f}{1,2,3}{1,2,3}|f \text{ is bijective}\}$ where the group operation is function composition. We can write $f \in S_3$ as a table:
+                \[f=\begin{pmatrix}
+                    1&2&3\\
+                    f(1)&f(2)&f(3)
+                \end{pmatrix}\]
+            with the 6 elements of $S_3$ being:
+                \[\Bigg\{\begin{pmatrix}
+                    1&2&3\\
+                    1&2&3
+                \end{pmatrix},
+                \begin{pmatrix}
+                    1&2&3\\
+                    2&3&1
+                \end{pmatrix},
+                \begin{pmatrix}
+                    1&2&3\\
+                    3&1&2
+                \end{pmatrix},
+                \begin{pmatrix}
+                    1&2&3\\
+                    1&3&2
+                \end{pmatrix},
+                \begin{pmatrix}
+                    1&2&3\\
+                    2&1&3
+                \end{pmatrix},
+                \begin{pmatrix}
+                    1&2&3\\
+                    3&2&1
+                \end{pmatrix}\Bigg\}.\]
+            One can check that $S_3=\cyc{\sigma,\tau}$, where $\sigma=\big[\begin{smallmatrix}1&2&3\\2&3&1\end{smallmatrix}\big]$ and $\tau=\big[\begin{smallmatrix}1&2&3\\1&3&2\end{smallmatrix}\big]$.\\
+            Indeed, $S_3=\{e=\sigma^0\tau^0,\sigma,\sigma^2,\tau,\sigma\circ\tau, \sigma^2\circ\tau\}$.
+        \end{ex}
+        
+        \begin{ex}[Non-Example]
+            Any group that is not finitely generated must be infinite.
+        \end{ex}
+        
+        \begin{prop}[11.2]
+            The group $(\Q,+,0)$ is NOT finitely generated. 
+        \end{prop}
+    }
+    
+    \section*{\textbf{\textsc{Lecture 12}}}{
+        \subsection*{Cyclic Groups}{
+        i.e. groups that can be generated by 1 element.
+        
+        \begin{lem}[12.1]\hfill
+            \begin{enumerate}
+                \item Let $G$ be a subgroup and $a \in G$. Then $\forall k,l \in \Z$, $a^k\cdot a^l=a^{k+l}$.
+                \item Let $(G,+,0)$ be an Abelian group and let $a \in G$. Then
+                \begin{enumerate}[i.]
+                    \item $\forall k,l \in \Z$, $ka+la=(k+l)a$ and
+                    \item $\forall k,l \in \Z$, $l(ka)=lka$.
+                \end{enumerate}
+            \end{enumerate}
+        \end{lem}
+        
+        \begin{prop}[12.2]
+            Let $G$ be a group and $a \in G$.
+            \begin{enumerate}
+                \item The subset $\cyc{a}\coleq \{a^k|k\in\Z\}=\{\ldots,\inverse{a},a^0,a^1,\ldots\}$ is a subgroup of $G$ called the \define{cyclic subgroup} generated by $a$.
+                \item If $H\leq G$ is any subgroup of $G$ containing $a \in H$, then $\cyc{a}\leq H$. That is, $a$ is the "smallest" subgroup of $G$ containing $a$.
+            \end{enumerate}
+        \end{prop}
+        
+        \begin{defn}[12.3]
+            A group is \define{cyclic} iff $a \in G$ such that $G=\cyc{a}$.
+        \end{defn}
+        }
+        
+        \subsection*{Examples of Cyclic Groups/Subgroups}{
+            \begin{enumerate}
+                \item $\Z=\cyc{1}=\cyc{-1}$ is cyclic.
+                \item Let $n>1$. $n\Z\coleq\{nk|k\in\Z\}=\cyc{n}$ is a cyclic subgroup of $\Z$.
+                \item The trivial group $\{e\}=\cyc{e}$ is cyclic.
+                \item The abstract cyclic group $G=\{e,\tau\}=\cyc{\tau}$ is obviously cyclic.
+                \item $\Z/n=\cyc{[1]}$.
+                \item Let $\R^\times\coleq(\R-\{0\},\cdot,1)$. Let $H=\{1,-1\}$. Then $H=\cyc{1}$.
+                \item Let $\C^\times\coleq(\C-\{0\},\cdot, 1)$ and let $H=\{1,i,-1,-i\}$. Then $H=\cyc{i}$.
+            \end{enumerate}
+            
+            \begin{defn}[12.4]
+                Let $G$ be a group, $a\in G$. The \define{order of a, $|a|$}, is the smallest positive integer such that $a^n=e$. If no such integer exists, then $|a|=\infty$.
+            \end{defn}
+            
+            \begin{prop}[12.5]
+                Let $G$ be a group, $a\in G$. If $|a|=n$, then $\cyc{a}=\{e,a,a^2,\ldots,a^{n-1}\}$. In particular, $|\cyc{a}|=|a|$.
+            \end{prop}
+            
+            \begin{cor}[12.6]
+                Let $G$ be a finite group. Then\ldots
+                \begin{enumerate}
+                    \item Every element of $G$ has finite order and
+                    \item $\forall a \in G$, $|a|\big||G|$.
+                \end{enumerate}
+            \end{cor}
+        }
+    }    
+    
+    \section*{\textbf{\textsc{Lecture 13}}}{
+        \subsection*{Classifying Cyclic Groups}{
+            \define{Goal:} To show that every cyclic group is isomorphic to either $\Z$ or $\Z/n$ (for a particular $n$).\\
+            
+            \noindent\define{Question:} Given a group $G$, can we determine if $G$ is cyclic?\\
+            \noindent\define{Answer:} This is hard to answer in general.
+            
+            \begin{thm}[13.1]
+                If $|G|=p$ for $p$ prime, then $G$ is cyclic. In particular, $\forall a \in G-\{e\}$, $G=\cyc{a}$.
+            \end{thm}
+        }
+        \subsection*{Abstract Properties of Cyclic Groups}{
+            \define{Idea:} If $G$ does NOT have all of these following properties, then $G$ cannot be cyclic. (Note that the converse is M E G A false!)
+            
+            \begin{prop}[13.2]
+                Every cyclic group is abelian.
+            \end{prop}
+            
+            \begin{thm}[13.3]
+                Every proper subgroup of a cyclic group is cyclic.
+            \end{thm}
+            
+            \begin{rmk}[13.4]
+                The converse of Theorem 13.3 is false.
+            \end{rmk}
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 14}}}{
+        The converse of Theorem 13.3 from last lecture is NOT true: If every proper subgroup $G$ is cyclic, it is not guaranteed that $G$ is cyclic. Here are two counter-examples:
+        \begin{enumerate}
+            \item Consider $S_3\coleq \{\text{bijections from }\{1,2,3\}\to \{1,2,3\}\}$. The order of $S_3$ is $6$, so by Lagrange's Theorem any proper subgroup of $S_3$ has order $1,2,$ or $3$. For a subgroup $H \leq S_3$ with $|H|=1$, then $H=\{e\}=\cyc{e}$ and is cyclic.\\
+            By Theorem 13.1, if $|H|=2$ or $3$, $H$ is cyclic. Therefore every proper subgroup is cyclic, but obviously $S_3$ is not cyclic since it is not abelian.
+            \item Now consider $G=\Z/3\times \Z/3$ with $([a_1],[b_1])+([a_2],[b_2])=([a_1+a_2],[b_1+b_2])$. Then $|G|=9$. The same argument as above implies that every proper subgroup is cyclic because it must have order $1$ or $3$. Note $G$ is abelian. We can check by hand that every element of $G$ has order $1$ or $3$, NOT $9$. Therefore $G$ is not cyclic. For example, $3([a],[b])=(3[a],3[b])=([0],[0])$.
+        \end{enumerate}
+        
+        \begin{cor}[14.1]\hfill
+            \begin{enumerate}
+                \item Let $H\leq \Z=\cyc{1}$ be a subgroup. Then $\exists m>0$ such that $H=\cyc{m}=m\Z$.
+                \item If $H\leq \Z/m$ is a subgroup, then $\exists[m] \in \Z/n$ such that $H=\cyc{[m]}=\{[0],[m],[2m],\ldots\}$.
+            \end{enumerate}
+        \end{cor}
+        
+        \subsection*{Finding the Order of a Subgroup of a Cyclic Group}{
+            \begin{thm}[14.2]
+                Let $G=\cyc{a}=\{e,a,a^2,\ldots,a^{n-1}\}$ be a finite cyclic group of order $n$. Let $a^k\in G$. Then $|a^k|=\frac{n}{\gcd(n,k)}$.
+            \end{thm}
+            
+            \begin{lem}[14.3]
+                If $G=\cyc{a}$ has order $n$ and $l \in \Z, \, l>0$ such that $a^l=e$, then $n|l$.
+            \end{lem}
+            
+            \begin{lem}[14.4]
+                Given $k,n \in \Z\setminus\{0\}$, let $m_k,m_n$ be unique integers such that $k=dm_k$ and $n=dm_n$, where $d=\gcd(n,k)$. Then $\gcd(m_k,m_n)=1$.
+            \end{lem}
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 15}}}{
+        \subsection*{Converse to Lagrange's Theorem for Cyclic Groups}{
+            \begin{cor}[15.1]
+                If $G=\cyc{a}$ is a cyclic group of order $n$ and $l$ is a positive divisor of $n$, then there exists a subgroup $H\leq G$ with $|H|=l$.
+            \end{cor}
+        }
+        \subsection*{Classification of Cyclic Groups}{
+            \define{Recall:} Let $G,H$ be groups. A function $\func{\Phi}{G}{H}$ is a group homomorphism iff $\forall x,y \in G$, $\Phi(xy)=\Phi(x)\Phi(y)$. Also, $\Phi$ is an isomorphism iff it is bijective and a homomorphism.
+            
+            \begin{rmk}
+                "$\iso$" gives an equivalence relation on the "set" of group implies $G\iso H$ iff $H \iso G$.
+            \end{rmk}
+            
+            \begin{thm}[15.2]
+                If $G=\cyc{a}$ is a cyclic group of infinite order, then $G \iso \Z$.
+            \end{thm}
+            
+            \begin{proof}
+                By the above Remark, it suffices to construct a group isomorphism $\func{\Phi}{\Z}{G}$. Observe that $G=\{a^k|k\in \Z\}$. Define $\Phi(k)\coleq a^k$. To show $\Phi$ is a group homomorphism, let $k,l \in \Z$. Then $\Phi(k+l)=a^{k+l}=a^ka^l=\Phi(k)\Phi(l)$.\\
+                To show $\Phi$ is a bijection, we first prove surjectivity. Consider the image of $\Phi$: $\Phi(\Z)=\{\Phi(k)|k \in \Z\}=\{a^k|k \in \Z\}$. But $\{a^k|k \in \Z\}=G$, so $\Phi$ is surjective.\\
+                To show $\Phi$ is injective, suppose $\Phi(k)=\Phi(l)$. Then $a^k=a^l$ in $G$ which implies $a^ka^l=e$ and thus $a^{k-l}=e$. Since $a$ has infinite order, $a^{k-l}=e$ iff $k-l=0$. Therefore $k=l$ and $\Phi$ is injective.
+            \end{proof}
+            
+            \begin{thm}[15.3]
+                If $G=\cyc{a}$ is cyclic order $n$, then $G\iso \Z/n$.
+            \end{thm}
+        }
+        \subsection*{Looking Ahead: Getting Subgroups from Group Homomorphisms}{
+            \begin{defn}[15.4]
+                Let $\func{\Phi}{G}{H}$ be a group homomorphism.
+                \begin{enumerate}
+                    \item The \define{image} of $\Phi$ is the subset of $H$ where $\im{\Phi}=\{\Phi(x)|x\in G\}$.
+                    \item The \define{kernel} of $\Phi$ is the subset of $G$ where $\ker{\Phi}=\{x\in G|\Phi(x)=e_H\}$.
+                \end{enumerate}
+            \end{defn}
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 16}}}{
+         \begin{prop}[16.1]
+            Let $\varphi$ be a group homomorphism.
+            \begin{enumerate}
+                \item $\im\varphi$ is a subgroup of $H$.
+                \item $\ker\varphi$ is a subgroup of $G$.
+            \end{enumerate}
+         \end{prop}
+         
+         \begin{proof}
+             (1.) Use Proposition 8.3, which tells how to find a subgroup, and Proposition 7.1 (which states that for $\func{\varphi}{G}{H}, \, \varphi(e_G)=e_H$ and $\varphi(\inverse{x})=\inverse{\varphi(x)} \, \forall x\in G$).
+             Since $\varphi(e_G)=e_H$, we have $e_H \in \im\varphi \neq \es$ and so $\im \varphi$ is not empty. Let $a,b \in \im \varphi$. We want to show that $a\inverse{b} \in \im\varphi$. By definition of $\im \varphi$, $\exists x,y \in G$ such that $\varphi(x)=a$ and $\varphi(y)=b$. Then $a\inverse{b}=\varphi(x)\inverse{\varphi(y)}=\varphi(x)\varphi(\inverse{y})=\varphi(x\inverse{y})$ by definition of group homomorphism. Thus, $a\inverse{b} \in \im\varphi$.\\
+             (2.) We will use the same previous propositions. By Proposition 7.1, $\varphi(e_G)=e_H$ which implies that $e_H \in \ker\varphi \neq \es$. Let $x,y\in \ker\varphi$. We want to show $x\inverse{y}\in \ker\varphi$. Note that $\varphi(y)=e_H$ which implies $\inverse{\varphi(y)}=e_H$. Then by definition of group homomorphism, $\varphi(x\inverse{y})=\varphi(x)\varphi(\inverse{y})$, and since $x\in \ker\varphi, \, \varphi(x)\varphi(\inverse{y})=e_H\varphi(\inverse{y})=e_H^2=e_H$. Thus $\varphi(x\inverse{y})=e_H \in \ker\varphi$.
+         \end{proof}
+    }
+    
+    \section*{\textbf{\textsc{Lecture 17}}}{
+        \begin{prop}[17.1]
+            Let $\func{\varphi}{G}{H}$ be a group homomorphism. Then $\varphi$ is injective iff $\ker\varphi=\{e_G\}$, i.e. iff $\ker\varphi$ is the trivial subgroup.
+        \end{prop}
+            \begin{proof}
+                Suppose $\varphi$ is injective. We want to show $x=e_G$. Let $x\in \ker \varphi$. Then $\varphi(x)=e_H$ by definition, and by Proposition 7.1, $\varphi(e_G)=e_H$. Since $\varphi$ is injective, $\varphi(x)=e_H$ and $\varphi(e_G)=e_H$ implies $e_G=x$ and thus $\ker\varphi=\{e_G\}$.\\
+                Conversely, suppose $\ker\varphi=\{e_G\}$. Assume $\varphi(x)=\varphi(y)$. Then $\varphi(x)\inverse{\varphi(y)}=e_H$. By Proposition 7.1, \\$\varphi(x)\inverse{\varphi(y)}=\varphi(x)\varphi(\inverse{y})$ and by definition of group homomorphism $=\varphi(x\inverse{y})=e_H$. Thus $x\inverse{y} \in \ker\varphi$, but since $\ker\varphi=\{e_G\}$, $x\inverse{y}=e_G$ and by multiplying each side by $y$ on the right, we obtain $x=y$ as desired.
+            \end{proof}
+            
+        \begin{cor}[17.2]
+            Let $\func{\varphi}{G}{H}$ be a group homomorphism. Then $\varphi$ is a group isomorphism iff $\ker\varphi=\{e_G\}$ and $\im\varphi=H$.
+        \end{cor}
+        
+        \subsection*{Normal Subgroups}{
+            (Which, by the way, the term "normal" sucks!)\\\\
+            \define{Idea:} Recall given a subgroup $H\leq G$, we can define an equivalence relation on $G, \, x\sim_H y,$ iff $\inverse{x}y \in H$. The equivalence classes are the left cosets of $H$: $[x]=xH\coleq\{xh|h \in H\}$. We denote the set of lefts cosets as $G/H=\{xH|x \in G\}$.\\
+            Consider the groups $\Z/n\Z$ and $\Q/\Z$.
+            
+            \begin{rmk}[17.3]
+                In the above groups, $G$ induces a group operation (and identity) on $G/H$ such that the function $\func{\pi}{G}{G/H}, \, x\mapsto [x]=xH$ is a group homomorphism!
+            \end{rmk}
+            
+            \begin{ex}
+                Let $G=S_3, \, H=\cyc{\sigma}, \, \sigma= \big(\begin{smallmatrix} 1&2&3\\ 2&3&1 \end{smallmatrix}\big)$. Note that $|G/H|=[G:H]=2$ by Lagrange's Theorem.\\
+                Then $G/H=\{eH,\tau H\}=\{H,\tau H\}$ for $\tau=\big(\begin{smallmatrix} 1&2&3\\ 1&3&2 \end{smallmatrix}\big)$. The goal is to put a group structure on $G/H$ as in Remark 17.3. That is, we want $xH\cdot yH \overset{?}{=} xyH$ and $e_{G/H}\overset{?}{=} e_{S_3}H=H$. This works! Verify by hand: e.g. $\tau H\cdot \tau H=\tau^2 H=eH=H$. $\tau H=\{\tau, \tau\sigma, \tau\sigma^2\}=\tau\sigma H$.
+            \end{ex}
+            
+            \begin{ex}
+                Let $G=S_3$, $H=\cyc{\tau}$. Then $G/H=\{H, \sigma H, \sigma^2 H\}$ (we can verify this is correct by hand). Again, we want to define a group operation on $G/H$. BUUUT it does not work!
+            \end{ex}
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 18}}}{
+        \begin{ex}[Non-Example]
+            (Continuation from last lecture) Let $G=S_3, \, H= \cyc{\tau},$ where $\tau=\big(\begin{smallmatrix} 1&2&3\\ 1&3&2 \end{smallmatrix}\big)$ and $\sigma= \big(\begin{smallmatrix} 1&2&3\\ 2&3&1 \end{smallmatrix}\big)$. Then $G/H=\{eH=H,\sigma H, \sigma^2H\}$ and $\sigma H=\{\sigma e=\sigma, \sigma\tau\}$.\\
+            If $G/H$ is indeed a group, we must have that $\sigma H * \tau H=\sigma H$ and $\tau H * \sigma H=\sigma H$ because $\tau H=H$ is our identity element.
+            \begin{enumerate}
+                \item By definition of *, $\sigma H * \tau H=\sigma \tau H= \{\sigma\tau, \sigma\tau \circ \tau = \sigma\}=\sigma H$. Therefore, 1. is true.\\
+                \define{Note:} $xH\inter yH\neq \es$ implies $xH=yH$ because left cosets are equivalence classes of an equivalence relation.
+                \item $\tau H * \sigma H=\tau\sigma H=\{\tau\sigma, \tau\sigma\tau\}$ by definition of *. But $\tau\sigma \neq \sigma$ and $\tau\sigma \neq \sigma\tau$, therefore $\tau\sigma H \neq \sigma H$ and thus we conclude $G/H=S_3\cyc{\tau}$ is not a group.
+            \end{enumerate}
+        \end{ex}
+        
+        But what went wrong?? We will see that this happened because $\cyc{\tau}$ is not a normal subgroup.
+        
+        \begin{defn}[18.1]
+            A subgroup $H\leq G$ is \define{normal} iff for all $g \in G$, the set $gH\inverse{g}\coleq\{gh\inverse{g}|h \in H\}$ is equal to $H$. We write $G \normal H$
+        \end{defn}
+        
+        \begin{rmk}
+            If $H \normal G$, then
+            \begin{enumerate}
+                \item For all $g \in G$ and for all $h \in H$, $gh\inverse{g}\in H$. i.e. $\exists h'\in H$ such that $gh\inverse{g}=h'$ (since $gH\inverse{g}\Subset H$), but in general $h'\neq h$.
+                \item Let $h \in H$. Then $\forall g \in G, \, \exists h' \in H$ such that $h=gh'\inverse{g}$ (since $H \Subset gH\inverse{g}$.
+            \end{enumerate}
+        \end{rmk}
+        
+        \begin{prop}[18.2 USEFUL]
+            Let $H \leq G$ be a subgroup. Assume $\forall g \in G, \, \forall h \in H$, we have $gh\inverse{g}\in H$. Then
+            \begin{enumerate}
+                \item $\forall g \in G, \, gH\inverse{g}\leq H$ and
+                \item $\forall g \in G, \, H \leq gH\inverse{g}$.
+            \end{enumerate}
+            i.e. H is normal.
+        \end{prop}
+        
+        \subsection*{1st Examples/Non-Examples}{
+            \begin{prop}[18.3]
+                Let $G$ be abelian. Then every subgroup of $G$ is normal.
+            \end{prop}
+            
+            \begin{proof}
+                Let $H$ be a subgroup, $g \in G$, and let $h \in H$. Since $G$ is abelian, $gh\inverse{g}=hg\inverse{g}$. Therefore, $gh\inverse{g}=h \in H$.
+            \end{proof}
+            
+            \begin{prop}[18.4]
+                A subgroup $H\leq G$ is normal iff $\forall x \in G, \, xH=Hx$.
+            \end{prop}
+            
+            \begin{cor}[18.5]
+                If $H \leq G$ is a subgroup and $[G:H]=2$, then $H$ is normal.
+            \end{cor}
+            
+            \begin{ex}
+                $H=\cyc{\sigma}$ is normal in $G=S_3$ since $[S_3:H]=2$.
+            \end{ex}
+            
+            \begin{ex}[Non-Example]
+                $H \coleq \cyc{\tau}$ is not normal in $G=S_3$. Observe that $\sigma\tau\inverse{\sigma} \notin H$.
+            \end{ex}
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 19}}}{
+        \begin{thm}[19.1]
+            Let $H\normal G$ be a normal subgroup.
+            \begin{enumerate}
+                \item The set of left cosets $G/H$ is a group with binary operation $xH*yH=xyH$ and identity element $e_{G/H}\coleq e_GH=H$.
+                \item The group structure from 1. makes $\func{\pi}{G}{G/H}, \, \pi(g)\coleq gH$ a surjective group homomorphism.
+            \end{enumerate}
+        \end{thm}
+        
+        \begin{proof}
+            \noindent\begin{enumerate}
+                \item The main point is to check that the binary operation is well-defined (since all group axioms will follow immediately from those on $G$). Suppose $x'H=xH$ and $y'H=yH$. WTS $x'y'H=xyH$. The first two equalities imply $\exists h,\Tilde{h}\in H$ such that $x'=xh$ and $y'=yh$. WTS $\exists h'$ such that $x'y'=xyh$. Consider $x'y'=xhy\Tilde{h}=xehy\Tilde{h}=xy\inverse{y}hy\Tilde{h}$. Since $H \normal G$, $gh\inverse{g}\in H$, where $g \coleq \inverse{y}$. Therefore $\exists h' \in H$ such that $\inverse{y}hy=h'$ which implies that the RHS$=xyh'\Tilde{h}\in xyH$. Thus $x'y'\in xyH$.
+                \item This is straightforward: $\pi(xy)=xyH=xH*yH=\pi(x)*\pi(y)$. This is surjective vacuously.
+            \end{enumerate}
+        \end{proof}
+        
+        \subsection*{Basic Examples of Quotient Groups}{
+            \begin{rmk}
+                Groups of the form $G/H$ are called \define{Quotient/Factor Groups}.
+            \end{rmk}
+                
+            \begin{ex}
+                Let $G=S_3, \, H=\cyc{\sigma}$. Note $G/H=\{H,\tau H\}$ is a group of order $[G:H]=2$. So $G/H\iso \Z/2$ by theorem 15.2.
+            \end{ex}
+                
+            \begin{prop}[19.2]
+                Let $\func{\varphi}{G}{G'}$ be a group homomorphism. Then $\ker\varphi$ is a normal subgroup of $G$.
+            \end{prop}
+                
+            \begin{rmk}
+                Proposition 19.2 implies that if $H\leq G$ is a subgroup and there exists a function $\func{\varphi}{G}{G'}$ such that $H=\ker \varphi$, then $H\normal G$.   
+            \end{rmk}
+            
+            \begin{prop}[19.3]
+                Let $H\normal G$ be a normal subgroup. Then the kernel of $\func{\pi}{G}{G/H}$ is $H$.
+            \end{prop}
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 20}}}{
+        \define{Notation:} Let $G$ be abelian, $H\leq G$ a subgroup. If we write $G$ additively, then we write cosets of $H$ as $a+H=aH$. We write the group operation in $G/H$ as $x+H+y+H\coleq (x+y)+H$.\\
+        i.e. $\Z/n$: $k+n\Z$ and for $\Q/\Z$: $\frac{a}{b}+\Z$.
+        
+        \subsection*{Example of Analyzing $G/H$ via Proposition 19.2/19.3}{
+            \begin{itemize}
+                \item Consider $\func{\det}{GL_2(\R)}{\Rx}$.\\
+                $\ker(\det)=\{A\in GL_2|\det A =1\}\coleq SL_2(\R)$. Proposition 19.2 implies $\ker(\det)\normal GL_2$.\\
+                Note: $SL_2$ is not abelian.
+                \item We will be analyzing $GL_2/SL_2\coleq\{ASL_2|A\in SL_2\}$.
+                \item We will also analyze left cosets:
+            \end{itemize}
+            
+            \begin{lem}[20.1]
+                Let $H\leq G$ be a subgroup. Then $xH=yH$ iff $\inverse{x}y\in H$.
+            \end{lem}
+            
+            \begin{proof}
+                This will be \#1 on PS 5. He tricked us!
+            \end{proof}
+            
+            \define{Observations:}\hfill
+            \begin{enumerate}
+                \item By the above Lemma, $ASL_2=BSL_2$ iff $\inverse{A}B\in SL_2$ iff $\det(\inverse{A}B)=1$ iff $\det\inverse{A}\det B=1$ iff $\det A=\det B$.
+                \item $\forall A\in GL_2, \, ASL_2=\big[\begin{smallmatrix} \det A & 0\\ 0 & 1 \end{smallmatrix}\big]SL_2$ which implies that as a set, $GL_2/SL_2 \coleq \Big\{\big[\begin{smallmatrix} r & 0\\ 0 & 1 \end{smallmatrix}\big]SL_2| r\in \R\setminus\{0\}\Big\}$.
+                \item Note: $\big[\begin{smallmatrix} r & 0\\ 0 & 1 \end{smallmatrix}\big]SL_2=\big[\begin{smallmatrix} r' & 0\\ 0 & 1 \end{smallmatrix}\big]SL_2$ iff $r=r'$.
+            \end{enumerate}
+            
+            \noindent But what about the group operation? By definition,\\$\big[\begin{smallmatrix} r & 0\\ 0 & 1 \end{smallmatrix}\big]SL_2*\big[\begin{smallmatrix} s & 0\\ 0 & 1 \end{smallmatrix}\big]SL_2=\big[\begin{smallmatrix} rs & 0\\ 0 & 1 \end{smallmatrix}\big]SL_2=\big[\begin{smallmatrix} sr & 0\\ 0 & 1 \end{smallmatrix}\big]SL_2=\big[\begin{smallmatrix} s & 0\\ 0 & 1 \end{smallmatrix}\big]SL_2*\big[\begin{smallmatrix} r & 0\\ 0 & 1 \end{smallmatrix}\big]SL_2$. Therefore, $GL_2/SL_2$ is abelian!\\
+            This is AMAZINGLY important because $G$ and $H$ are non-abelian, thus $G,H$ being non-abelian does NOT imply that $G/H$ is non-abelian.\\
+    
+            \noindent Observation 1 implies that we have a well-defined function $\func{\overline{\det}}{GL_2/SL_2}{\R\setminus\{0\}}, \, \overline{\det}\Big(\big[\begin{smallmatrix} r & 0\\ 0 & 1 \end{smallmatrix}\big]SL_2\Big)\coleq r=\det\Big(\big[\begin{smallmatrix} r & 0\\ 0 & 1 \end{smallmatrix}\big]\Big)$. ${\overline{\det}}$ is a group homomorphism. Also, it is surjective since $\func{\det}{GL_2}{\Rx}$ is surjective. It is also injective by Observation 3. Therefore, $\overline{\det}$ is a group isomorphism and thus $GL_2/SL_2 \iso \Rx$.
+        }
+        \subsection*{1st Isomorphism for Groups}{
+            \begin{thm}[20.2]
+                Let $\func{\varphi}{G}{G'}$ be a group homomorphism. Then the function $\func{\overline{\varphi}}{G/\ker\varphi}{\im\varphi}, \, \overline{\varphi}(x\ker\varphi)\coleq \varphi(x)$ is a group isomorphism.
+            \end{thm}
+            
+            \begin{proof}
+                (See Paulin).
+            \end{proof}
+            
+            \begin{ex}
+                Let $\func{\varphi}{\Z}{S_3}, \, \varphi(k)\coleq \sigma^k$ be a group homomorphism such that $\sigma=\big(\begin{smallmatrix} 1 & 2 & 3\\ 2 & 3 & 1 \end{smallmatrix}\big)$. Hence, $\im \varphi=\cyc{\sigma}=\{e,\sigma,\sigma^2\}$. Then $\ker\varphi=\{k \in \Z|\sigma^k=e\}$. Lemma 14.3 says if $\sigma^k=e$, then $|\sigma|\big|k$ which implies $k\in 3\Z$. By Theorem 20.2, $\Z/3 \iso \cyc{\sigma}$ on $\overline{\varphi}$. 
+            \end{ex}
+        }
+        
+        \noindent\define{Q:} 2 subgroups from $\varphi: G \to H$: $\ker\varphi\leq G$ and $\im\varphi\leq H$. We've already seen that $\ker\varphi$ is always normal, but what about $\im \varphi$ in $H$??
+    }
+    
+    \section*{\textbf{\textsc{Lecture 21}}}{
+        \define{Q:} Is the image of a group homomorphism $\func{\varphi}{G}{H}$ a normal subgroup of $H$?\\
+        \define{A:} Nope! As an example, take $G=\Z$, $H=S_3$, $\tau=\big(\begin{smallmatrix} 1&2&3\\ 1&3&2 \end{smallmatrix}\big)$. Then $\im\varphi=\{\varphi(k)|k\in \Z\}=\{\tau^k|k\in \Z\}=\cyc{\tau}$. We know from past lectures that $\cyc{\tau}\leq S_3$ is not a normal subgroup.
+        
+        \subsection*{Permutation Groups}{
+            \begin{defn}[21.1]
+                Let $X$ be a set. The \define{permutation group of $X$} is the set $\Sigma(X)\coleq\{\func{f}{X}{X}|f\text{ is a bijection}\}$ with binary operator being function composition, $\circ$, and identity element $e(x)=x$, $\forall x\in X$.
+            \end{defn}
+            
+            \noindent Most important example: $X=\mathbbm{n}=\{1,\ldots,n\}$, $n\geq 1$. Then $\Sigma(X)=S_n$ is the \define{symmetric group on n-letters ($\mathbf{\mathrm{Sym}_n}$, $\mathbf{\Sigma_n}$)}.
+        
+            \begin{prop}[21.2]
+                Let $X=\{x_1,\ldots,x_n\}$ be an $n$-element set. Then $\Sigma(X)\iso S_n$.
+            \end{prop}
+        }
+        \subsection*{Permutation Group of a Group: $\Sigma(G)$}{
+            \begin{rmk}
+                Paulin uses the idea of a "group action." This is important, but we'll ignore it.
+            \end{rmk}
+            
+        \noindent Let $G$ be a group. Then $\Sigma(G)\coleq\{\func{f}{G}{G}|f\text{ is a set-theoretic bijection}\}$.\\
+        Let $g \in G$. Define a function $\func{L_g}{G}{G}$, $L_g(x)\coleq gx$, $\forall x\in G$. Note that $L_g$ is not a group homomorphism if $g\neq e_G$, but it is a bijection.
+        
+        \begin{ex}
+            Let $G=\Z$. Then $L_g(a)=g*_Ga=a+n$ (translation by $n$).
+        \end{ex}
+        
+        \begin{lem}[21.3]
+            Let $G$, $H$ be groups and let $\func{\varphi}{G}{H}$ be a group homomorphism. If $\varphi$ is injective, then $\varphi$ induces a group isomorphism $G\iso \im\varphi\leq H$.
+        \end{lem}
+        
+        \begin{thm}[21.4 Cayley's Theorem]
+            Let $G$ be a group, $\Sigma(G)$ be the permutation group of the SET $G$. Let $\func{\varphi}{G}{\Sigma(G)}$ be the function $\varphi(g)\coleq L_g$. Then
+            \begin{enumerate}
+                \item $\varphi$ is a group homomorphism and
+                \item $\varphi$ induces a group isomorphism between $G$ and the subgroup $\im\varphi\leq \Sigma(G)$.
+            \end{enumerate}
+        \end{thm}
+        
+        \begin{cor}[21.5]
+            Every finite group is isomorphic to a subgroup of $S_n$.
+        \end{cor}
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 22}}}{
+        \begin{proof}[Proof of Theorem 21.4]
+            \begin{enumerate}
+                \item Want to show $\forall g,g'\in G$, $\varphi(gg')=\varphi(g)\circ\varphi(g')$ i.e. we want to show $L_{gg'}=(L_g\circ L_{g'})(x)$. The left-hand side $=gg'x$ and the right-hand side $=L_g(L_{g'}(x))=L_g(g'x)=gg'x$.
+                \item Suffices to show $\func{\varphi}{G}{\im\varphi}$ is injective since any function is surjective onto its image (Lemma 21.3). By Prop. 17.1, we want to show $\ker\varphi=\{e_G\}$. Suppose $g\in \ker\varphi$. Then $\varphi(g)=\id_G$, i.e. $\forall x\in G$, $L_g(x)=\id_G(x)=x$. Since $x\in G$, $\inverse{x} \in G$. Therefore $gx=x$ implies $g=e_G$. Thus injective.
+            \end{enumerate}
+        \end{proof}
+        
+        \begin{cor}[21.5]
+            Every finite group $G$ of order $n$ is isomorphic to a subgroup of $S_n=\Sigma(\{1,2,\ldots,n\}$.
+        \end{cor}
+        
+        \subsection*{Structure of Symmetric Group $S_n$}{
+            \noindent $S_n$ is B I G! $|S_n|=n!$, so it's too hard to write the elements of $S_n$ as $\big(\begin{smallmatrix} 1&2&3&\ldots&n\\ 1&6&1&\ldots&7 \end{smallmatrix}\big)$.
+            
+            \begin{defn}[22.1]
+                Let $i_1,i_2,\ldots,i_k$ be distinct elements of $\mathbbm{n}=\{1,\ldots,n\}$ with $1\leq k\leq n$. Then $(i_1,i_2,\ldots, i_k)\in S_n$ denotes the function $i_1 \mapsto i_2,i_2\mapsto i_3,\ldots, i_{k-1}\mapsto i_k, i_k \mapsto i_1$. Every other element of $\mathbbm{n}$ gets mapped to itself. $(i_1,\ldots, i_k)$ is a \define{k-cycle}. 2-cycles are \define{transpositions}.
+            \end{defn}
+            
+            \begin{ex}
+                \begin{enumerate}
+                    \item Our friends $\sigma$, $\tau \in S_3$, where $\sigma=\big(\begin{smallmatrix} 1&2&3\\ 2&3&1 \end{smallmatrix}\big)$ and $\tau=\big(\begin{smallmatrix} 1&2&3\\ 1&3&2 \end{smallmatrix}\big)$. $\smiley$ In cycle notation we have $\sigma=(1\;2\;3)$ and $\tau=(2\;3)$
+                    \item Let $\rho=\big(\begin{smallmatrix} 1&2&3&4\\ 4&1&2&3 \end{smallmatrix}\big)\in S_4$. Then $\rho=(1\;4\;3\;2)$.
+                    \item $\id_\mathbbm{n}\in S_n$ and $\id_\mathbbm{n}=(1)=(2)=(3)=\cdots$.
+                \end{enumerate}
+            \end{ex}
+            
+            \begin{rmk}
+                \begin{enumerate}
+                    \item Example 3 shows there are multiple ways to express cycles- Ex 1: $\sigma=(3\;1\;2)=(2\;3\;1)$, $\tau=(2\;3)=(3\;2)$.
+                    \item Without context, it's unclear where these cycles live. e.g. $(1\;2\;3)$ could be in $S_3$ or $S_4$ corresponding to $\big(\begin{smallmatrix} 1&2&3&4\\ 2&3&1&4 \end{smallmatrix}\big)$.
+                \end{enumerate}
+            \end{rmk}
+            
+            \begin{prop}
+                Let $\sigma=(i_1\;i_2\;\ldots\;i_k)\in S_n$ be a $k$-cycle. Then:
+                \begin{enumerate}
+                    \item $|\sigma|=k$ and
+                    \item $\inverse{\sigma}=(i_k\;i_{k-1}\;\ldots\;i_2\;i_1)$.
+                \end{enumerate}
+            \end{prop}
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 23}}}{
+        \begin{rmk}
+            This is important! Not every element in $S_n$ is a cycle!
+        \end{rmk}
+        
+        \begin{ex}
+            $\eta=\big(\begin{smallmatrix} 1&2&3&4\\ 2&1&4&3 \end{smallmatrix}\big)\in S_4$. Note that $|\eta|=2$. Prop. 22.1(1) implies $\eta=(i_1\;i_2)$. So $\eta$ leaves 2 elements of $\{1,2,3,4\}$ fixed, which is false.
+        \end{ex}
+        
+        \subsection*{Composition of Cycles: "Important" Group Operation in $S_n$ into Cycle Notation}{
+            \begin{ex}
+                \begin{enumerate}
+                    \item Let $\sigma=(1\;3\;5\;2)$, $\tau=(2\;5\;6)\in S_6$. Then $\sigma\circ\tau=\sigma\tau=(1\;3\;5\;2)(2\;5\;6)=(1\;3\;5\;6)$.
+                    \item Let $\sigma=(1\;3\;5\;2)$, $\tau=(1\;6\;3\;4)\in S_6$. Then $\sigma\tau=(1\;3\;5\;2)(1\;6\;3\;4)=(1\;6\;5\;2)(3\;4)$ which is NOT a cycle!
+                \end{enumerate}
+            \end{ex}
+            
+            \noindent\define{Observation:} $\alpha=(1\;6\;5\;2)$, $\beta=(3\;4)$ commute: $\alpha\beta=\beta\alpha$.
+            
+            \begin{defn}[23.1]
+                2 cycles $(i_1\;i_2\;\ldots\;i_r)$ and $(j_1\;j_2\;\ldots\;j_s)$ are \define{disjoint} iff $\forall k=1,\ldots,r$, $i_k\neq j_l$, $\forall l=1,\ldots,s$.
+            \end{defn}
+            
+            \begin{prop}[23.2]
+                If $\sigma$, $\tau \in S_n$ are disjoint cycles, $\sigma\tau=\tau\sigma$.
+            \end{prop}
+            
+            \begin{proof}
+                We want to show $\forall m \in \mathbbm{n}$, $\sigma\tau(m)=\tau\sigma(m)$. Let $I\coleq\{i_1,\ldots,i_r\}$, $J\coleq\{j_1,\ldots,j_k\}$. Let $m\in \mathbbm{n}$. We observe 3 different cases:\\
+                \define{Case 1:} $m \notin I$, $m\notin J$. By definition of cycle, $\tau(m)=m$ and $\sigma(m)=m$. Therefore $\sigma\tau(m)=m=\tau\sigma(m)$.\\
+                \define{Case 2:} $m\in I$. Consider $\sigma\tau(m)$. Since $m\in I$, $m\notin J$ and therefore $\tau(m)=m$ which implies $\sigma\tau(m)=\sigma(m)$. Consider $\tau\sigma(m)$. Then $\sigma(m)\in I$ which implies $\sigma(m)\notin J$ and therefore $\tau\sigma(m)=\sigma(m)$.\\
+                \define{Case 3:} $m\in J$. Same as Case 2, just swap the roles of $I,J$.
+            \end{proof}
+            
+            \begin{rmk}
+                Let $\sigma=(1\;2\;3)$ and $\tau=(2\;3)\in S_3$. Then $\sigma\tau=(1\;2\;3)(2\;3)=(1\;2)\neq(1\;3)=(2\;3)(1\;2\;3)=\tau\sigma$.
+            \end{rmk}
+            
+            \begin{cor}[23.3]
+                Let $\alpha \in S_n$ be the product of disjoint cycles $\sigma_1,\sigma_2,\ldots,\sigma_k\in S_n$. Then $|\sigma|=\mathrm{lcm}\{|\sigma_1|,|\sigma_2|,\ldots,|\sigma_k|\}$.
+            \end{cor}
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 24}}}{
+        We will begin with a proof of Corollary 23.3 from last lecture\ldots
+        \begin{proof}[Proof Cor 23.3]
+            By Proposition 23.2, all $\sigma$ commute with one another. Thus $\alpha^l=\sigma_1^l\sigma_2^l\cdots\sigma_k^l$ $\forall l\geq 1$. As $\{\sigma_i\}$ is disjoint for all $i$, $\inverse{\sigma_i}$ and $\sigma_{j\neq1}^l$ are disjoint also. Then $\alpha^m=e$ iff $\sigma_i^m=e$ $\forall i=1,\ldots,k$. Lemma 14.2 implies $|\sigma_i|\big|m$. Thus $\alpha^m=e$ iff $m$ is a multiple of $|\sigma_1|,|\sigma_2|,\ldots,|\sigma_k|$. By definition of order, $|\alpha|$ must be the smallest such that $\alpha^m=e$, so $|\alpha^m|=e$, so $|\alpha|=\lcm\{|\sigma_i|\}_{i=1}^k$.
+        \end{proof}
+        
+        \subsection*{Generators of $S_n$}{
+            Here, we are looking for the set of elements of $\{\sigma_1,\ldots,\sigma_n\}\Subset S_n$ such that every element of $S_n$ can be written as $\sigma_1^{k_1},\ldots,\sigma_n^{k_n}$ for $k_1,\ldots,k_n \in \Z$.
+        
+            \begin{prop}[24.1]
+                Let $n\geq 2$ and $\sigma=(i_1\ldots i_k)\in S_n$ be a $k$-cycle. Then $\sigma$ can be written as a product of transpositions. In particular, $\sigma=(i_1\;i_k)(i_1\;i_{k-1})\ldots(i_1\;i_2)$ (i.e. $k-1$ transpositions).
+            \end{prop}
+            
+            \begin{rmk}[Ex 24.2]
+                Consider $\sigma=(1\;2\;3\;4)\in S_4$. Then $(1\;4)(1\;3)(1\;2)=(1\;2\;3\;4)$. Note that $1\mapsto2$, $2\mapsto1\mapsto3$, and $3\mapsto1\mapsto4$.\\
+                \textbf{Note:} Decompositions into transpositions are note unique! For example, $(1\;2)(2\;3)(1\;2)(3\;4)(1\;2)=(1\;2\;3\;4)$ as well.
+            \end{rmk}
+            
+            \begin{thm}[24.3]
+                Every non-identity element of $S_n$ is uniquely (up to rearrangement) a product of disjoint cycles, each of length 2.
+            \end{thm}
+            
+            \noindent This is how we define our cycle notation: $\alpha=\big(\begin{smallmatrix} 1&2&3 \ \ 4&5&6 \\ 3&2&1 \ \ 5&6&4\end{smallmatrix}\big) \in S_6=(1\;3)(4\;5\;6)$.
+            
+            \begin{cor}[24.4]
+                For all $n\geq2$, $S_n$ is generated by the set of transpositions $\{(ij)\in S_n|1\leq i<j\leq n\}$.
+            \end{cor}
+            
+            \begin{rmk}
+                We also know that $S_3$ is generated by $\sigma=(1\;2\;3)$ and $\tau=(2\;3)$. We can also show that $S_{n>3}$ is generated by $\sigma=(1\;2\;3\;\ldots\;n-1\;n)(n-1\;n)$.
+            \end{rmk}
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 25}}}{
+        \subsection*{Sign of Permutation}{
+            \begin{defn}[25.1]
+                Let $\sigma\in S_n$. We say $\sigma$ is \define{even/odd} iff $\sigma$ can be written as an even/odd number of transpositions. We write $\sgn(\sigma)\coleq +1$ if $\sigma$ is even or $-1$ if $\sigma$ is odd.
+            \end{defn}
+            
+            \begin{ex}
+                If $\sigma=(i_1\;i_2\;\ldots\;i_k)\in S_n$ is a $k$-cycle, then $\sigma$ is even if $k$ is odd, or odd if $k$ is even.\\
+                Proposition 24.1 implies $\sigma=(i_1\;i_k)(i_1\;i_{k-1})\cdots(i_1\;i_2)$.
+            \end{ex}
+            
+            \begin{thm}[25.2]
+                A permutation can't be both odd and even. In particular, $\func{\sgn}{S_n}{\{\pm1\}}$ is well-defined.
+            \end{thm}
+            
+            \noindent Evidence for Theorem 25.2: Let $\Vec{e_1},\ldots,\Vec{e_n}$ be a standard basis of $\R^n$. So $\Vec{e_1}=[1\;0\;0\;\cdots\;0],\Vec{e_2}=[0\;1\;0\;\cdots\;0],\ldots$. To each $\sigma\in S_n \mapsto n\times n$ matrix $P_\sigma$:\\
+            $P_\sigma\coleq[\Vec{e_{\sigma(1)}},\Vec{e_{\sigma(2)}},\ldots,\Vec{e_{\sigma(n)}}]$.
+            
+            \begin{ex}
+                \begin{enumerate}
+                    \item $S_2=\{(1),(1\;2)\}$. We have $(1)\mapsto \big(\begin{smallmatrix} 1&0 \\ 0&1\end{smallmatrix}\big)$, $(1\;2)\mapsto \big(\begin{smallmatrix} 0&1 \\ 1&0\end{smallmatrix}\big)$.
+                    \item $\sigma=(1\;2\;3)\in S_3\mapsto P_\sigma=\Big(\begin{smallmatrix} 0&0&1 \\ 1&0&0 \\ 0&1&0\end{smallmatrix}\Big)$. Note that $\det(P_\sigma)=1=\sgn(\sigma)$ since $\sigma$ is a 3-cycle.
+                \end{enumerate}    
+            \end{ex}
+            
+            \noindent \define{Fact:} $S_n \to \mathrm{GL}_n(\R)$ is a group homomorphism.\\
+            
+            \noindent If an $n\times n$ matrix $A=[\Vec{a_1}\;\Vec{a_2}\ldots\;\Vec{a_n}]$, then swapping any 2-columns changes the sign of the determinate.\\
+        
+            \noindent\define{Fact:} $\sgn(\sigma)=\det(P_\sigma)$.
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 26}}}{
+        \subsection*{Paulin Chapter 4: Rings!}{
+            \noindent Idea: Study objects like $(\Z,+,0,*,1)$, develop an abstract notion of primes and the fundamental theorem of arithmetic.
+            
+            \begin{defn}[26.1]
+                A \define{ring} $\mathbf{(R,+,0,*,1)}$ is a set $R$ equipped with binary operators $\func{+,*}{R\times R}{R}$ and elements $0,1\in R$ such that
+                \begin{enumerate}
+                    \item $(R,+,0)$ is an abelian group,
+                    \item $(R,*,1)$ is a monoid (i.e. a group where multiplicative inverses may not exist),
+                    \item Left/Right distributive law holds: $\forall a,b,c\in R$, $(a+b)*c=a*c+b*c$ and $a*(b+c)=a*b+a*c$.
+                \end{enumerate}
+            \end{defn}
+            
+            \noindent \define{Notation:} $ab\coleq a*b$ and $\forall n\geq 0 \in Z$, $na\coleq a+a\cdots+a$ ($n$ times) and $a^n\coleq a*a*\cdots *a$ ($n$ times). Note that $na\neq a^n$ in general.
+            
+            \begin{defn}[26.2]
+                A ring $R$ is commutative iff $\forall a,b \in R$, $a*b=b*a$.
+            \end{defn}
+        }
+        \subsection*{Basic Examples of Rings}{
+            \begin{enumerate}
+                \item $\Z,\Q,\R,\C$. Commutative.
+                \item $(\Z/n,\overline{+},\overline{0},\overline{*},\overline{1})$. Commutative.
+                \item The Zero Ring $R=\{0_R\}$, where $1_R=0_R$. Commutative.
+                \item $M_n(\R)\coleq \{n\times n\text{ matrices with entries in }\R\}$, $(M_n(\R),+,0_n,*,I_n)$. Non-commutative for $n\geq 2$.
+                \item $\script{C}([0,1])\coleq \{\func{f}{[0,1]}{\R}|f\text{ is continuous}\}$. In this ring, $(f+g)(x)\coleq f(x)+g(x)$, $(fg)(x)\coleq f(x)g(x)$, $0(x)\coleq 0 \in \R$, $1(x) \coleq 1 \in \R$ $\forall x \in [0,1]$.
+            \end{enumerate}
+        }
+        \subsection*{Abstract Properties of Rings}{
+            \begin{prop}[26.3]
+                Let $R$ be a ring.
+                \begin{enumerate}
+                    \item $\forall n,m \geq 1$, let $a_1,\ldots,a_n \in R$ and $b_1,\ldots, b_m \in R$. Then $\left(\sum_{i=1}^n a_i\right)\cdot\left(\sum_{j=1}^m b_j\right)=\sum_{i=1}^n\sum_{j=1}^m a_i b_j$.
+                    \item $\forall a\in R$, $a*0=0=0*a$.
+                    \item $\forall a,b\in R$, $a(-b)=-a(b)=-ab$, where $-b,-a$ are the additive inverses of $b,a$ respectively. In particular, $(-a)(-b)=ab$.
+                \end{enumerate}
+            \end{prop}
+        }
+        \subsection*{Important Example: Polynomial Rings}{
+            Let $R$ be a commutative ring. Then
+            \[R[x]\coleq\{a_0+a_1x+a_2x^2+\cdots+a_{n-1}x^{n-1}+a_nx^n|\forall n\geq 0 \ a_i \in R\}=\text{"}R\text{ adjoin }x\text{"}.\]
+        Let $f,g\in R[x]$. Write $f=\sum_{i=0}^n a_i x^i$, $g=\sum_{j=0}^m b_j x^j$. WLOG, assume $m\leq n$. Define $b_{m+1}=b_{m+2}=\cdots=b_n=0 \in R$, then $f+g\coleq \sum_{i=0}^n (a_i+b_i)x^i$. Also, $fg \coleq \sum_{k=0}^{m+n} c_k x^k$, where $c_k\coleq \sum_{l=0}^k a_lb_{k-l}$. 
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 27}}}{
+        \define{Additive Identity:} $0\coleq \sum_i a_ix^i$, $a_i=o \in R$ $\forall i \geq 0$.\\
+     
+        \noindent\define{Multiplicative Identity:} $1\coleq \sum_i a_ix^i$, $a_o=1 \in R$, $a_i=0 \in R$ $\forall i \geq 1$.
+     
+        \begin{prop}[27.1]
+            $R$ commutative implies $R[x]$ is commutative.
+        \end{prop}
+     
+        \begin{rmk}
+            $R[x][y]$. This is just a polynomial in $2$ variables.
+        \end{rmk}
+        
+        \begin{defn}[27.2]
+            Let $f=\sum a_kx^k \in R[x]$, where $\sum a_k x^k$. Then the \define{degree} of $f$, $\deg(f) \in \N$ is the largest $n \in \Z$ such that $a_n\neq 0$. Often, $\deg(0)\coleq -\infty$.
+        \end{defn}
+        
+        \subsection*{Basic Constructions}{
+            \begin{defn}[27.3]
+                Let $R$ be a ring. A subset $S \Subset R$ is a \define{subring} iff
+                \begin{enumerate}
+                    \item $(S,+,0_R) \leq (R,+,0_R)$ is a subgroup with respect to $+$.
+                    \item $\forall x,y \in S$, $x*y \in S$. i.e. $S$ is closed under multiplication.
+                    \item $1_R \in S$.
+                \end{enumerate}
+                We write $S\leq R$ to denote that $S$ is a subring of $R$.
+            \end{defn}
+        }
+            \begin{ex}
+                \begin{enumerate}
+                    \item We have $\Z \leq \Q \leq \R \leq \C$.
+                    \item Let $R$ be commutative. Then $R \leq R[x]$.
+                    \item (Non-Commutative Examples): Let $R=M_2(\R)$ and $S=\left\{A\in R|A=\alpha=\big(\begin{smallmatrix} a_1&a_2 \\ 0&3 \end{smallmatrix}\big)\right\}$. Then $S \leq R$.
+                \end{enumerate}
+            \end{ex}
+            
+            \noindent\define{CAUTION!!!} Some authors\ldots
+            \begin{enumerate}
+                \item don't require a ring to have $1$ (multiplicative identity)
+                \item don't require subrings to have $1_R \in S$ (no Axiom 3).
+            \end{enumerate}
+        
+        \subsection*{Basic Constructions}{
+            \begin{enumerate}
+                \item $n\Z \not\leq \Z$, $n>1$ since $1 \notin \Z$.
+                \item If $R \neq \{0_R\}$, then $\{0_R\}\not\leq R$ since $1_R \notin \{0_R\}$.
+                \item Take $S=\{f=\sum a_ix^2 \in R[x]|a_0=0\}\not\leq R[x]$ since $1 \notin R[x]$.
+            \end{enumerate}
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 28}}}{
+        \subsection*{Ring Homomorphisms}{
+            \begin{defn}[28.1]
+                Let $R$, $S$ be rings. A \define{ring homomorphism} from $R$ to $S$ is a function $\func{\varphi}{R}{S}$ such that $\forall a$,$b \in R$,
+                \begin{enumerate}
+                    \item $\varphi(a+b)=\varphi(a)+\varphi(b)$,
+                    \item $\varphi(ab)=\varphi(a)\varphi(b)$, and
+                    \item $\varphi(1_R)=1_S$.
+                A \define{ring isomorphism} is a ring homomorphism $\varphi$ such that $\varphi$ is a bijection.
+                \end{enumerate}
+            \end{defn}
+            
+            \begin{ex}
+                \begin{enumerate}
+                    \item $\func{\id}{R}{R}$ is a ring isomorphism. BOOOORING!!!
+                    \item Let $n>1$. Then $\func{\pi}{\Z}{\Z/n}$, $\pi(a)\coleq[a]$ is a ring homomorphism.
+                    \item (NON-EXAMPLE) Let $\func{\det}{M_2(\R)}{\R}$ be a function. Then Axioms 2 and 3 are satisfied, but not Axiom 1 since $\det(A+B)\neq \det(A)+\det(B)$ in general.
+                \end{enumerate}
+            \end{ex}
+            
+            \begin{prop}[28.2]
+                Let $r \in R$. The function $\ev_r(f)\coleq f(r)$ is a ring homomorphism ("evaluation at $r$").
+            \end{prop}
+            
+            In general, elements of $R[x]$ "aren't functions."
+            
+            \begin{ex}
+                $\Z/2[x]$.
+                \begin{align*}
+                    \deg(-\infty)&: \overline{0}   &    \deg(1)&: x,x+\overline{1}\\
+                    \deg(0)&: \overline{1}   &   \deg(2)&: x^2,x^2+x,x^2+\overline{1},x^2+x+\overline{1}.
+                \end{align*}
+                The number of $\ev$ homomorphisms is $2$: $\func{\ev_{\overline{0}},\ev_{\overline{1}}}{\Z/2[x]}{\Z/2}$.\\
+                
+                \noindent Let $f\coleq x^2+x+\overline{1}$, $g\coleq \overline{1}$. Then $\ev_{\overline{0}}(f)=\overline{1}$, $\ev_{\overline{1}}(f)=\overline{1}^2+\overline{1}+\overline{1}=\overline{1}$.\\
+                Also, $\ev_{\overline{0}}(g)=\overline{1}$, $\ev_{\overline{1}}(g)=\overline{1}$, BUT $f\neq g$.
+            \end{ex}
+            
+            \begin{defn}[28.3]
+                Let $\func{\varphi}{R}{S}$ be a ring homomorphism. The \define{kernel} of $\varphi$ is the subset $\ker(\varphi)\coleq\{r\in R|\varphi(r)=0_S\}$ of $R$.\\
+                The \define{image} of $\varphi$ is the subset $\im(\varphi)\coleq\{\varphi(r)|r \in R\}$ of $S$.
+            \end{defn}
+            
+            \begin{prop}[28.4]
+                \begin{enumerate}
+                    \item $\im(\varphi)\leq S$ is a subgroup of $S$.
+                    \item $\ker(\varphi)\leq R$ is a subring of $R$ iff $S=\{0_S\}$ is the trivial ring.
+                \end{enumerate}
+            \end{prop}
+            
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 29}}}{
+        \begin{proof}[Prop 28.4]
+            \begin{enumerate}
+                \item Want to show $1_S \in \im\varphi$. By definition of $\varphi$, $\varphi(1_R)=1_S$ which implies $1_S \in \im\varphi$. (The rest of this proof is similar to the proof of Proposition 16.1 for groups.
+                \item $(\implies)$ Suppose $\ker\varphi$ is a subring. By definition of subring, $1_R \in \ker \varphi$. Therefore $\varphi(1_R)=0_S$. On the other hand, $\varphi(1_R)=1_S$ by definition of ring homomorphism. Let $s \in S$. Then $s=s\cdot1_S=s\cdot\varphi(1_R)=s\cdot0_S$. Thus by Proposition 26.3, $s=0_s$ and therefore $S=\{0_S\}$.\\
+                ($\impliedby$) Suppose $S=\{0_S\}$. Then $\forall r \in R$, $\varphi(r)=0_S$. Therefore $\ker\varphi=R$. Every ring is a subring of itself.
+            \end{enumerate}
+        \end{proof}
+        
+        \begin{defn}[29.1]
+            Let $R$ be a ring. A subset $I \Subset R$ is an \define{ideal} iff
+            \begin{enumerate}
+                \item $I$ is an additive subgroup of $R$, i.e. $(I,+,0_R)\leq (R,+,0_R)$ and
+                \item $\forall a \in I$ and $\forall r \in R$, $ra\in I$ and $ar \in I$.
+            \end{enumerate}
+            We write $I \ideal R$.
+        \end{defn}
+        
+        \subsection*{Examples}{
+            \begin{enumerate}
+                \item Let $R$ be a ring. Then $0=\{0_R\}$ and $R$ are both ideals of $R$.
+                \item Let $n\geq 1$. Then $n\Z \ideal \Z$ is an ideal.
+                \item Let $R=\R[x]$, let $g \in \R[x]$, and let $I \coleq \{f\in \R[x]:g|f\text{ i.e. }\exists h \in \R[x]\text{ such that }f=gh\}$. Then $I \ideal \R[x]$.
+            \end{enumerate}
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 30}}}{
+        \subsection*{Non-Examples of Ideals}{
+            \begin{enumerate}
+                \item None of $\Z \Subset \Q \Subset \R \Subset \C$.
+                \item Let $R$ be commutative. Then $R \leq R[x]$ is not an ideal (Axiom 2 does not hold).
+                \item Let $R=\Z$, $C=2\Z\union 3\Z$. In this case, Axiom 2 holds, but Axiom 1 fails since $3(1)+2(-1)=1\notin C$.
+            \end{enumerate}
+        
+        \begin{prop}[30.1]
+            Let $R$ be commutative, $I,J \ideal R$ be ideals.
+            \begin{enumerate}
+                \item $I\union J$ is not, in general, an ideal of $R$. However, $I\inter J \ideal R$.
+                \item The subset $I+J \coleq \{a+b \in R|a \in I, b \in J\}$ is an ideal of $R$.
+                \item The subset $IJ \coleq \{a_1b_1+a_2b_2+\cdots+a_nb_n|n\in \N$, $a_i \in I$, $b_i \in J\}$ is an ideal of $R$.
+            \end{enumerate}
+        \end{prop}
+        }
+        \subsection*{Kernels Revisited}{
+            \begin{prop}[30.2]
+                Let $\func{\varphi}{R}{S}$ be a ring homomorphism. Then\ldots
+                \begin{enumerate}
+                    \item $\ker\varphi \ideal R$
+                    \item $\ker\varphi=0$ iff $\varphi$ is injective.
+                \end{enumerate}
+            \end{prop}
+            
+            \begin{proof}
+                \begin{enumerate}
+                    \item Since $\varphi(a+b)=\varphi(a)+\varphi(b) \ \forall a,b \in R$, $\varphi$ is an additive group homomorphism. Therefore $\ker\varphi$ is an additive subgroup of $(R,+,0_R)$ by Proposition 16.2.
+                    \item This follows directly from Proposition 17.1.
+                \end{enumerate}
+            \end{proof}
+        }
+        \subsection*{Quotient Rings}{
+            Let $I\ideal R$ be an ideal. Forgot about multiplication for a moment. We know $(I,+)\leq (R,+)$ is a subgroup.\\
+            Let $r \in R$. The left cosets of $I$ are of the form $r+I\coleq \{r+a|a \in I\}$. Recall that $R/I\coleq\{r+I|r ]in R\}$ is the set of left cosets. This is a group with respect to addition since $(R.+)$ is abelian.
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 31}}}{
+        \subsection*{Generalize Construction of $Z/nZ$ as a Ring}{
+            \begin{thm}[31.1 \textbf{PROVE ON EXAM!}]\hfill
+                \begin{enumerate}
+                    \item The binary operation $\func{\overline{*}}{R/I\times R/I}{R/I}$, $(r_1+I)\overline{*}(r_2+I)\coleq r_1r_2+I$ is well-defined.
+                    \item $(R/I,\overline{+},0_{R/I},\overline{*},1_{R/I})$ is a ring, where $1_{R/I}\coleq 1_R+I$.
+                    \item The surjective function $\func{\pi}{R}{R/I}$, $\pi(r)\coleq r+I$ is a ring homomorphism.
+                \end{enumerate}
+            \end{thm}
+            
+            \begin{proof}
+                \begin{enumerate}
+                    \item Suppose $r_1+I=r_1'+I$ and $r_2+I=r_2'+I$ (1). Want to show $r_1r_2+I=r_1'r_2'+I$. Since $r_1 \in r_1 + I$, $r_2 \in r_2+I$, (1) implies $\exists a_1,a_2 \in I$ such that $r_1=r_1'+a_1$, $r_2=r_2'+a_2$. Therefore $r_1r_2=(r_1'+a_1)(r_2'+a_2)=r_1'r_2'+r_1'a_2+a_1r_2'+a_1a_2$. By Axiom 2 of Definition 29.1 of ideal, $r_1'a_2$, $a_1r_2'$, $a_1a_2 \in I$. Axiom 1 implies $r_1r_2-r_1'r_2' \in I$. Therefore by PS5 \#1, $r_1r_2+I=r_1'r_2'+I$.
+                    \item Straightforward. Skip because this is L O N G.
+                    \item Check the axioms of ring homomorphism:
+                    \begin{enumerate}
+                        \item $\pi(r_1+r_2)=(r_1+r_2)+I=(r_1+I)\overline{+}(r_2+I)=\pi(r_1)\overline{+}\pi(r_2)$.
+                        \item $\pi(r_1r_2)=r_1r_2+I=(r_1+I)\overline{*}(r_2+I)=\pi(r_1)\overline{*}\pi(r_2)$.
+                        \item $\pi(1_R)=1_R+I=1_{R/I}$.
+                    \end{enumerate}
+                \end{enumerate}
+            \end{proof}
+            
+            \begin{ex}[Non-Example]
+                (Replace ideal with a subring in $R/I$). Consider: $\Z\leq \Q$ and the quotient group $\Q/\Z$ $(q_1+\Z)\overline{+}(q_2+\Z)=(q_1+q_2)+\Z$. Then $(\frac{1}{2}+\Z)\overline{+}(\frac{1}{3}+\Z)=\frac{1}{6}+\Z$. Note that $\frac{1}{2}+\Z=\frac{3}{2}+\Z$. Then $(\frac{3}{2}+\Z)\overline{+}(\frac{1}{3}+\Z)=\frac{1}{2}+\Z \neq \frac{1}{6}+\Z$.
+            \end{ex}
+        }
+        \subsection*{1st Isomorphism Theorem for Rings}{
+            \begin{thm}[31.2]
+                let $\func{\varphi}{R}{S}$ be a ring homomorphism. Then the function $\func{\overline{\varphi}}{R/\ker\varphi}{\im\varphi}$, $\overline{\varphi}(r+\ker\varphi)\coleq \varphi(r)$ is a well-defined ring isomorphism.
+            \end{thm}
+        
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 32}}}{
+        \subsection*{Properties of Elements in Rings}{
+            Recall from Lecture 6 the following:
+            \begin{thm}[6.2]
+                $(\Z/n^\times,*,[0])$, where $\Z/n^\times \coleq \{[k] \in \Z/n-\{[0]\}|\gcd(k,n)=1\}$ for $n>1$ is a group.
+            \end{thm}
+            
+            \begin{ex}
+                We have $Z/4^\times=\{[1],[3]\}$. Here, $[1]*[1]=[1]$ and $[3]*[3]=[8]=[1]$. Therefore, every element has a multiplicative inverse. Also, if you have $[a],[b] \in \Z/4$ such that $[a]*[b]=[0]$, then $[a],[b]$ need not be $[0]$: $[2]*[2]=[4]=[0]$. On the other hand, if $n=p$ prime, then $(\Z/p^\times)=\Z/p-\{[0]\}$. Every non-zero element of $\Z/p$ has a multiplicative inverse.
+            \end{ex}
+            
+            \begin{defn}[32.1]
+                Let $R$ be a ring. An element $a \in R$ is a \define{unit} iff it has a multiplicative inverse. i.e. $\exists u \in R$ such that $au=ua=1_R$. Define $R^\times \coleq \{a \in R|a\text{ is a unit}\}$.
+            \end{defn}
+            
+            \begin{prop}[32.2]
+                Let $(R,+,0_R,*,1_R)$ be a ring. Then\ldots
+                \begin{enumerate}
+                    \item $(R^\times,*,1_R)$ is a group.
+                    \item If $a \in R^\times$, its inverse is unique.
+                    \item If $1_R \neq 0_R$, $0_R \notin R^\times$.
+                \end{enumerate}
+            \end{prop}
+            
+            \begin{proof}
+                \begin{enumerate}
+                    \item Definition of a ring implies $(R,*,1_R)$ is a monoid. This implies $*$ is associative and $1_R$ is the identity element. Now we need to show $R^\times$ is closed with respect to $*$. Let $a,b\in R^\times$, and let $u,w$ be the inverses, respectively. WTS $a*b \in R^\times$. We have $a*u=1_R=u*a$ and $b*w=1_R=w*a$. Now consider $(w*u)*(a*b)=w*(u*a)*b=w*1_R*b=w*b=1_R$. So $(a*b)*(w*u)=a*(b*w)*u=a*1_R*u=a*u=1_R$. Therefore $a*b \in R^\times$.
+                    \item By 1. above, $R^\times$ is a group which implies that the inverse of any element in the group is unique.
+                    \item Use the contrapositive. Suppose $0_R \in R^\times$. By definition, $\exists u \in R$ such that $0_Ru=1_R$. Thus, $0_Ru=0_R$ by 26.3.
+                \end{enumerate}
+            \end{proof}
+            
+            \begin{defn}[32.3]
+                A ring $R$ is a \define{division ring} iff $R^\times=R-\{0_R\}$. A \define{field} is a commutative division ring. Fields are denoted $\K$.
+            \end{defn}
+            
+            Examples of fields: $\Q,\R,\C,\mathbbm{F}_p\coleq\Z/p$.\\
+            
+            Another example: $\K(x)\coleq\left\{\frac{p(x)}{q(x)}\big|p,q \in \K[x], \ q\neq 0\right\}$. These are rational functions in 1 variable.
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 33}}}{
+        \begin{ex}[A division ring, but not a field]
+            The quarternions: $\H\coleq\{a+ib+jc+kd|a,b,c,d\in \R\}$, where $i*i=j*j=k*k=-1 \in \R$, $i*j=k$, $j*i=-k$ (non-commutative). If $q=a+ib+jc+kd$, then $\overline{q}\coleq a-ib-jc-kd$ is the conjugate of $q$ and $q*\overline{q}=a^2+b^2+c^2+d^2$.\\ For $q\neq 0 \in \H$, $\inverse{q}q=q\inverse{q}=1$, $\inverse{q}=\frac{\overline{q}}{q\overline{q}}$.\\
+            Subrings: $\R \leq \C \leq \H$. Group of Units: $\Rx\leq \C^\times \leq \H^\times$ subgroups. "Norm 1 integer units": $\{\pm1\} \leq \{\pm1,\pm i\} \leq \{\pm1, \pm i, \pm j, \pm k\}$.
+        \end{ex}
+        
+        \begin{defn}[33.1]
+            Let $R\neq 0$ be a ring. An element $a \neq 0 \in R$ is a \define{zero divisor} if $\exists b \neq 0$ such that $ab=0$ or $ba=0$.
+        \end{defn}
+        
+        \begin{ex}
+            \begin{enumerate}
+                \item $[3]\in \Z/6$ is a zero divisor since $[3]\cdot[2]=[6]=[0]$, but $[3]\neq[0]$, $[2] \neq [0]$.
+                \item Let $R$ be a non-trivial ring: $R\times R$. Then an element $(1,0)\cdot(0,1)=(0,0)$ is a zero divisor.
+                \item For the integers $\Z$, there exists no such zero divisor.
+            \end{enumerate}
+        \end{ex}
+        
+        \begin{defn}[33.2]
+            A ring $R$ is an \define{integral domain} iff
+            \begin{enumerate}
+                \item $R \neq 0$
+                \item $R$ is commutative
+                \item $R$ has no zero divisors
+            \end{enumerate}
+        \end{defn}
+        
+        \begin{prop}[33.3]
+            A field $\K$ is an integral domain.
+        \end{prop}
+        
+        \begin{rmk}
+            An \define{entire ring} as defined in Paulin's notes is a ring $R\neq 0$ that has no zero divisors.
+        \end{rmk}
+        
+        \subsection*{Polynomial Rings and Zero Divisors}{
+            Suppose $f,g \in \R[x]-\{0\}$. Then $\deg(f)=m$, $\deg(g)=n$, and $\deg(fg)=m+n$.\\
+            On the other hand, $f=[3]x^3$, $g=[2]x^2+x \in \Z6[x]$. So $\deg(f)=3$, $\deg(g)=2$, and $\deg(fg)=[3]x^4 < \deg(f)+\deg(g)$.
+            
+            \begin{thm}[33.4]
+                Let $R$ be an integral domain. Then\ldots
+                \begin{enumerate}
+                    \item If $f,g \in R[x]-\{0_R\}$, then $\deg (fg)=\deg(f)+\deg(g)$.
+                    \item $\R[x]$ is an integral domain.
+                \end{enumerate}
+            \end{thm}
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 34}}}{
+        \begin{proof}[Proof (Thm 33.4)]
+            \begin{enumerate}
+                \item Let $\deg f=n\geq0$, $\deg g=m \geq 0$. Then $f=\sum_{i=0}^n a_ix^i$, $g=\sum_{j=0}^m b_jx^j$ for $a_i, \ b_j \in R$. By definition of degree, $a_n\neq 0$ and $b_m \neq 0$. Consider $fg=a_nb_mx^{n+m}+(a_nb_{m-1}+a_{n-1}b_m)x^{n+m-1}+\cdots+a_0b_0$. Note that $a_nb_m\neq 0$ since $R$ is an integral domain and $a_n\neq 0$, $b_n\neq 0$. So $\deg fg=n+m=\deg f+\deg g$.
+                \item Let $f, \ g\in R[x]-\{0\}$. WTS $fg\neq 0$. Therefore $\deg f=n \geq 0$, $\deg g=m \geq 0$. Therefore as in 1. above, we have $fg=a_nb_mx^{n+m}+\cdots$ with $a_n \neq 0$ and $b_m \neq 0$. Thus $a_nb_mx^{n+m}\neq 0$ implies $fg\neq 0$.
+            \end{enumerate}
+        \end{proof}
+        
+        \begin{cor}[34.1]
+            If $\K$ is a field, then $\K(x)$ is an integral domain.
+        \end{cor}
+        
+        \begin{rmk}
+            If $R$ is an integral domain and we have $ac=bc$ in $R$ with $c\neq 0$, then $a=b$.
+        \end{rmk}
+        
+        \subsection*{Principal and Prime Ideals in Commutative Rings}{
+            From here on, $R$ is assumed to be a non-trivial commutative ring (so $0_r\neq 1_r$).
+            
+            \begin{prop}[34.2]
+                Let $a \in R$. The subset $(a)\coleq\{ra|r\in R\}\Subset R$ is an ideal called the \define{principal ideal} generated by $a$.
+            \end{prop}
+            
+            \begin{ex}
+                We have $n\Z=(n)$ when $R=\Z$.
+            \end{ex}
+            
+            \begin{defn}[34.3]
+                An ideal $I \ideal R$ is \define{principal} iff $\exists a \in I$ such that $I=(a)$.
+            \end{defn}
+            
+            \begin{thm}[34.4]
+                Every ideal in $\Z$ is principal.
+            \end{thm}
+            
+            \begin{proof}
+                Suppose $I\ideal \Z$ is an ideal. By definition of ideal, $(I,+,0) \leq (\Z,+,0)$ is a subgroup. Recall $\Z$ is a cyclic (additive) group. In particular, $\Z=\cyc{1}$. Theorem 13.3 says every subgroup of a cyclic group is cyclic. Therefore $\exists n\in I$ such that $I=\cyc{n}=n\Z$. As an ideal, $n\Z=(n)$.
+            \end{proof}
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 35}}}{
+        An ideal $I \ideal R$ is \define{principal} iff $\exists a \in I$such that $I=(a)=\{ra|r\in R\}$.
+        
+        \begin{ex}
+            \begin{enumerate}
+                \item Let $R=\Z$, $I=n\Z=(n)$.
+                \item For every ring, the zero ideal is principal and $R$ is a principal ideal (i.e. $\{0_R\}=(0)$), $R=(1)$.)
+            \end{enumerate}
+        \end{ex}
+        
+        \begin{defn}[35.1]
+            A ring $R$ is a \define{principal ideal ring (PIR)} iff every ideal of $R$ is principal.\\
+            $R$ is a \define{principal ideal domain (PID)} iff $R$ is an integral domain and $R$ is a PIR.
+        \end{defn}
+        
+        Recall Theorem 34.4 which stated that $\Z$ is a PID (wasn't worded like this).
+        
+        \begin{prop}[35.2]
+            $\forall n>1$, $\Z/n/Z$ is a PIR.
+        \end{prop}
+        
+        \begin{prop}[35.3]
+            A field $\K$ has exactly 2 ideals: the zero ideal and $\K$.
+        \end{prop}
+        
+        \begin{cor}[35.4]
+            \begin{enumerate}
+                \item A field is a PID.
+                \item If $\K$ is a field and $\func{\varphi}{\K}{S}$ is a ring homomorphism, then $\varphi$ is injective OR $S$ is the zero ring.
+                \item $\Z/n\Z$ is a PID if $n$ is prime.
+            \end{enumerate}
+        \end{cor}
+        
+        \begin{rmk}[35.5]
+            \begin{enumerate}
+                \item Nice Theorem in Paulin: "If $R$ is a finite integral domain, then $R$ is a field." So, $\Z/n\Z$ being an integral domain implies $(\Z/n\Z)^\times=\{[k]|\gcd(k,n)=1\}=\{[1],[2],\ldots,[n-1]\}$ since this is a field. Therefore if $d|n$ and $d<n$, then $d=1$. Thus $n$ is prime and we conclude $\Z/n\Z$ is a PID iff $\Z/n\Z$ is a field iff $n=p$ prime.
+                \item $\Z[x]$ is an integral domain by Theorem 33.4, but is not a PID.
+            \end{enumerate}
+        \end{rmk}
+        
+        \subsection*{How to Get More Examples of PIDs?}{
+            Recall in Theorem 13.3 (wayyyy back then), we showed that every subgroup of a cyclic group is cyclic. Crucial in our proof was the division algorithm in $\Z$.
+            
+            \begin{defn}[35.6]
+                Let $R$ be a commutative ring such that $0\neq 1$.
+                \begin{enumerate}
+                    \item A \define{Euclidean function} on $R$ is a set-theoretic function $\func{N}{R-\{0_R\}}{\N\union \{0\}}$ such that
+                    \begin{enumerate}
+                        \item $\forall a\in R$, $\forall b\in R-\{0_R\}$, $N(a)\leq N(ab)$.
+                        \item $\forall a \in R$ and $\forall b\neq 0\in R$, $\exists q,r\in R$ such that $a=bq+r$ with either $r=0$ OR $N(r)<N(b)$.
+                    \end{enumerate}
+                    \item An integral domain is the \define{Euclidean domain} iff $R$ admits a Euclidean function.
+                \end{enumerate}
+            \end{defn}
+            
+            \begin{thm}[35.7]
+                The following are Euclidean domains:
+                \begin{enumerate}
+                    \item $\Z$ with $N(m)\coleq |m| \ \forall m\neq 0$ (absolute value).
+                    \item Any field $\K$ with $N(a)\coleq 1 \ \forall a\neq 0\in \K$.
+                    \item $\Z[i]$ with $N(k+ib)\coleq a^2+b^2 \ \forall a+ib\neq 0$.
+                    \item Polynomial Ring $\K[x]$ with coefficients in a field $\K$, $N(f)\coleq \deg(f) \ \forall f\neq 0$.
+                \end{enumerate}
+            \end{thm}
+        
+        }
+    }
+
+    \section*{Lecture 36}{
+        \begin{prop}[36.1]
+            Every ED is a PID.
+        \end{prop}
+        
+        \begin{ex}
+            \begin{defn}[36.2]
+                A $\deg(n)$ polynomial is \define{monic} iff its leading coefficient is $1_R$ i.e. $f=x^n+a_{n-1}x^{n-1}+\cdots+a_0$.
+            \end{defn}
+            \begin{cor}[36.3]
+                If $\K$ is a field and $I \ideal \K[x]$ is a non-trivial ideal, then $\exists f\neq 0 \in I$ such that $I=(f)$, $f$ is monic, and $\deg(f) \leq \deg(g) \ \forall g\in I-\{0\}$.
+            \end{cor}
+        \end{ex}
+        
+        \subsection*{Primes and Irreducibles}{
+            \begin{defn}[36.4]
+                \begin{enumerate}
+                    \item An element $a \in R$ \define{divides} $b\in R$ iff $\exists r\ in R$ such that $b=ra$. Write $a|b$.
+                    \item An element $p \in R$ is \define{prime} iff
+                    \begin{enumerate}
+                        \item $p\neq 0$ and $p$ is not a unit (i.e. $p$ has no multiplicative inverse).
+                        \item Whenever $p|ab$, then $p|a$ or $p|b$.
+                    \end{enumerate}
+                    \item An element $c \in R$ is \define{irreducible} iff
+                    \begin{enumerate}
+                        \item $c\neq 0$ and $c$ is not a unit.
+                        \item If $c=ab$, then either $a$ or $b$ is a unit.
+                    \end{enumerate}
+                \end{enumerate}
+            \end{defn}
+            
+            \begin{prop}[36.5]
+                If $R$ is an integral domain, then prime is irreducible.
+            \end{prop}
+        }
+    }
+    \section*{Lecture 37}{
+        \begin{ex}
+            Claim: Let $q=\pm \in \Z$ with $p$ a prime number. Then
+            \begin{itemize}
+                \item $q$ is a prime element of $\Z$ and
+                \item $q$ is an irreducible element of $\
+                Z$.
+            \end{itemize}
+        \end{ex}
+        
+        \begin{ex}
+            Recall that a non-constant polynomial $f \in \K[x]$ is irreducible if it can't be factored into $2$ non-constant polynomials, i.e. if $f=gh$, then $\deg(g)=0$ or $\deg(h)=0$.\\
+            \define{Fact:} Units of $\K[x]=$ non-zero constants $=\K^\times$. Hence $f$ an irreducible polynomial implies $f$ is an irreducible element in $\K[x]$.
+            \begin{ex}
+                $\forall a\in \K$, $x-a$ is irreducible in $\K[x]$. Note that $x^2+1$ is irreducible in $\R[x]$, but $x^2+1$ is NOT irreducible in $\K[x]$ if $\sqrt{-1}\in \K$.
+            \end{ex}
+        \end{ex}
+        
+        \begin{ex}
+            Let $R=\Z[\sqrt{-5}]=\{a+b\sqrt{-5}|a,b \in \Z\}$. Note that $a+b\sqrt{-5}$ is a unit in $R$ iff $a^2+5b^2=1$. Also, $3=3+0\sqrt{-5}\in R$ is irreducible. BUT $3$ is not prime!! Let $a=2+\sqrt{-5}$, $b=2-\sqrt{-5} \in R$. Then $ab=4+5=9$. Therefore, $3|ab$, but in $\Z[\sqrt{-5}]$, $3\nmid 2+\sqrt{-5}$ and $3\nmid 2-\sqrt{-5}$. Therefore, irreducible element does not imply prime element.
+        \end{ex}
+        
+        \begin{ex}
+            Claim: Let $n\geq 2 \in \N$ be composite, $p$ be a prime number such that $p|n$. Then $[p]\in \Z/n\Z$ is a prime element.
+        \end{ex}
+    }
+    \section*{Lecture 38}{
+        \begin{rmk}
+            Recall in $\Z$, $q= \pm p$ with $p$ a prime number. Then in $q$ is prime and irreducible $\Z^\times =\{\pm 1\}$. Slogan: "Primeness doesn't care about multiplying by units."
+        \end{rmk}
+        
+        \begin{defn}[38.1]
+            Let $R$ be a commutative ring not equal to $0$.
+            \begin{enumerate}
+                \item An ideal $P \ideal R$ is \define{prime ideal} iff for $P\neq R$ whenever, $ab \in P$, then either $a \in P$ or $b \in P$.
+                \item An ideal $M \ideal R$ is \define{maximal} iff $M\neq R$ and whenever $J \ideal R$ is an ideal with $M \Subset J$, then either $J=R$ or $J=M$.
+            \end{enumerate}
+        \end{defn}
+        
+    \begin{ex}[38.2]
+        $\K$ is a field, $f \in \K[x]$ irreducible polynomial (e.g. $f=x-1$). Claim: $(f)\ideal \K[x]$ is maximal.
+        \begin{enumerate}
+            \item Note $1 \notin (f)$ since $\deg1=0$ and $\deg f\geq 1$.
+            \item Suppose $J\ideal \K[x]$ such that $(f)\Subset J$. Proposition 36.1 implies $\exists g \in J$ such that $J=(g)$. $(f)\Subset J$ implies $f \in (g)$. Therefore $\exists h \in \K[x]$ such that $f=gh$. $f$ irreducible implies either $g$ or $h$ is a non-zero constant.
+            \begin{enumerate}
+                \item If $g$ is a unit, then $J=(g)=(1)=\K[x]$.
+                \item If $h$ is a unit, then $\exists \inverse{h} \in \K^\times$ such that $\inverse{h}h=1$ which implies $g=\inverse{h}f$. Therefore $J=(g)=(\inverse{h}f)=(f)$.
+            \end{enumerate}
+        \end{enumerate}
+    \end{ex}
+    
+    \begin{thm}[38.3]
+        Let $R$ be a commutative non-trivial ring, and $I \ideal R$ be an ideal. Then
+        \begin{enumerate}
+            \item $I$ is a prime ideal iff $R/I$ is an integral domain.
+            \item $I$ is maximal ideal iff $R/I$ is a field.
+        \end{enumerate}
+    \end{thm}
+    
+    \begin{rmk}[38.4]
+        Since every field is an integral domain, Theorem 38.3 implies every maximal ideal is a prime ideal.
+    \end{rmk}
+    
+    \begin{thm}[38.5]
+        Let $R$ be a PID. Then $p \in R$ is prime iff $p$ is irreducible.
+    \end{thm}
+    
+    }
+\end{document}

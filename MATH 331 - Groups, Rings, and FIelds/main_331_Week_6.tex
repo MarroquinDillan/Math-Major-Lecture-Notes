@@ -1,0 +1,146 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kpfonts}
+\usepackage[mathscr]{euscript}
+\usepackage{commath}
+\usepackage{enumerate}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[margin=0.8in]{geometry}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\es}{\emptyset}
+\newcommand{\union}{\cup}
+\newcommand{\Union}{\bigcup}
+\newcommand{\inter}{\cap}
+\newcommand{\Inter}{\bigcap}
+\newcommand{\coleq}{\coloneqq}
+\newcommand{\script}[1]{\mathscr{#1}}
+\newcommand{\powset}[1]{\mathcal{P}(#1)}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\inverse}[1]{#1^{-1}}
+\newcommand{\define}[1]{\textbf{\underline{#1}}}
+\newcommand{\func}[3]{#1: #2 \to #3}
+\renewcommand{\mod}[1]{\ (\mathrm{mod}\ #1)}
+\renewcommand{\Subset}{\subseteq}
+\renewcommand{\Supset}{\supseteq}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+%Abstract Algebra specific commands
+\newcommand{\Znx}{(\mathbb{Z}/n)^\times}
+\newcommand{\gen}[1]{\langle#1\rangle}
+\newcommand{\im}[1]{\mathrm{im}#1}
+
+\theoremstyle{definition}
+\newtheorem*{defn}{Definition}
+\newtheorem*{cor}{Corollary}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{ex}{Example}
+\newtheorem*{lem}{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+
+\begin{document}
+    \begin{center}
+        \textsc{Dillan Marroquin\\MATH 331.1001\\Scribing Week 6\\Due. 4 October 2021\\}
+    \end{center}
+        
+    \noindent\section*{\textbf{\textsc{Lecture 13}}}{
+        \subsection*{Classifying Cyclic Groups}{
+            \define{Goal:} To show that every cyclic group is isomorphic to either $\Z$ or $\Z/n$ (for a particular $n$).\\
+            
+            \noindent\define{Question:} Given a group $G$, can we determine if $G$ is cyclic?\\
+            \noindent\define{Answer:} This is hard to answer in general.
+            
+            \begin{thm}[13.1]
+                If $|G|=p$ for $p$ prime, then $G$ is cyclic. In particular, $\forall a \in G-\{e\}$, $G=\gen{a}$.
+            \end{thm}
+        }
+        \subsection*{Abstract Properties of Cyclic Groups}{
+            \define{Idea:} If $G$ does NOT have all of these following properties, then $G$ cannot be cyclic. (Note that the converse is M E G A false!)
+            
+            \begin{prop}[13.2]
+                Every cyclic group is abelian.
+            \end{prop}
+            
+            \begin{thm}[13.3]
+                Every proper subgroup of a cyclic group is cyclic.
+            \end{thm}
+            
+            \begin{rmk}[13.4]
+                The converse of Theorem 13.3 is false.
+            \end{rmk}
+        }
+    }
+    \noindent\section*{\textbf{\textsc{Lecture 14}}}{
+        The converse of Theorem 13.3 from last lecture is NOT true: If every proper subgroup $G$ is cyclic, it is not guaranteed that $G$ is cyclic. Here are two counter-examples:
+        \begin{enumerate}
+            \item Consider $S_3\coleq \{\text{bijections from }\{1,2,3\}\to \{1,2,3\}\}$. The order of $S_3$ is $6$, so by Lagrange's Theorem any proper subgroup of $S_3$ has order $1,2,$ or $3$. For a subgroup $H \leq S_3$ with $|H|=1$, then $H=\{e\}=\gen{e}$ and is cyclic.\\
+            By Theorem 13.1, if $|H|=2$ or $3$, $H$ is cyclic. Therefore every proper subgroup is cyclic, but obviously $S_3$ is not cyclic since it is not abelian.
+            \item Now consider $G=\Z/3\times \Z/3$ with $([a_1],[b_1])+([a_2],[b_2])=([a_1+a_2],[b_1+b_2])$. Then $|G|=9$. The same argument as above implies that every proper subgroup is cyclic because it must have order $1$ or $3$. Note $G$ is abelian. We can check by hand that every element of $G$ has order $1$ or $3$, NOT $9$. Therefore $G$ is not cyclic. For example, $3([a],[b])=(3[a],3[b])=([0],[0])$.
+        \end{enumerate}
+        
+        \begin{cor}[14.1]\hfill
+            \begin{enumerate}
+                \item Let $H\leq \Z=\gen{1}$ be a subgroup. Then $\exists m>0$ such that $H=\gen{m}=m\Z$.
+                \item If $H\leq \Z/m$ is a subgroup, then $\exists[m] \in \Z/n$ such that $H=\gen{[m]}=\{[0],[m],[2m],\ldots\}$.
+            \end{enumerate}
+        \end{cor}
+        \subsection*{Finding the Order of a Subgroup of a Cyclic Group}{
+            \begin{thm}[14.2]
+                Let $G=\gen{a}=\{e,a,a^2,\ldots,a^{n-1}\}$ be a finite cyclic group of order $n$. Let $a^k\in G$. Then $|a^k|=\frac{n}{\gcd(n,k)}$.
+            \end{thm}
+            
+            \begin{lem}[14.3]
+                If $G=\gen{a}$ has order $n$ and $l \in \Z, \, l>0$ such that $a^l=e$, then $n|l$.
+            \end{lem}
+            
+            \begin{lem}[14.4]
+                Given $k,n \in \Z\setminus\{0\}$, let $m_k,m_n$ be unique integers such that $k=dm_k$ and $n=dm_n$, where $d=\gcd(n,k)$. Then $\gcd(m_k,m_n)=1$.
+            \end{lem}
+        }
+    }
+    \noindent\section*{\textbf{\textsc{Lecture 15}}}{
+        \subsection*{Converse to Lagrange's Theorem for Cyclic Groups}{
+            \begin{cor}[15.1]
+                If $G=\gen{a}$ is a cyclic group of order $n$ and $l$ is a positive divisor of $n$, then there exists a subgroup $H\leq G$ with $|H|=l$.
+            \end{cor}
+        }
+        \subsection*{Classification of Cyclic Groups}{
+            \define{Recall:} Let $G,H$ be groups. A function $\func{\Phi}{G}{H}$ is a group homomorphism iff $\forall x,y \in G$, $\Phi(xy)=\Phi(x)\Phi(y)$. Also, $\Phi$ is an isomorphism iff it is bijective and a homomorphism.
+            
+            \begin{rmk}
+                "$\cong$" gives an equivalence relation on the "set" of group implies $G\cong H$ iff $H \cong G$.
+            \end{rmk}
+            
+            \begin{thm}[15.2]
+                If $G=\gen{a}$ is a cyclic group of infinite order, then $G \cong \Z$.
+            \end{thm}
+            
+            \begin{proof}
+                By the above Remark, it suffices to construct a group isomorphism $\func{\Phi}{\Z}{G}$. Observe that $G=\{a^k|k\in \Z\}$. Define $\Phi(k)\coleq a^k$. To show $\Phi$ is a group homomorphism, let $k,l \in \Z$. Then $\Phi(k+l)=a^{k+l}=a^ka^l=\Phi(k)\Phi(l)$.\\
+                To show $\Phi$ is a bijection, we first prove surjectivity. Consider the image of $\Phi$: $\Phi(\Z)=\{\Phi(k)|k \in \Z\}=\{a^k|k \in \Z\}$. But $\{a^k|k \in \Z\}=G$, so $\Phi$ is surjective.\\
+                To show $\Phi$ is injective, suppose $\Phi(k)=\Phi(l)$. Then $a^k=a^l$ in $G$ which implies $a^ka^l=e$ and thus $a^{k-l}=e$. Since $a$ has infinite order, $a^{k-l}=e$ iff $k-l=0$. Therefore $k=l$ and $\Phi$ is injective.
+            \end{proof}
+            
+            \begin{thm}[15.3]
+                If $G=\gen{a}$ is cyclic order $n$, then $G\cong \Z/n$.
+            \end{thm}
+        }
+        \subsection*{Looking Ahead: Getting Subgroups from Group Homomorphisms}{
+            \begin{defn}[15.4]
+                Let $\func{\Phi}{G}{H}$ be a group homomorphism.
+     \begin{enumerate}
+         \item The \define{image} of $\Phi$ is the subset of $H$ where $\im{\Phi}=\{\Phi(x)|x\in G\}$.
+         \item The \define{kernel} of $\Phi$ is the subset of $G$ where $\ker{\Phi}=\{x\in G|\Phi(x)=e_H\}$.
+     \end{enumerate}
+            \end{defn}
+        }
+    }
+\end{document}

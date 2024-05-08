@@ -1,0 +1,105 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{paracol}
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb}
+
+\begin{document}
+    \noindent MATH 310.1002: Homework 3\\
+    Dillan Marroquin\\
+    16 September, 2020
+
+    \begin{enumerate}
+        \item Find $\sup_A f$ and $\inf_A f$ in each of the following cases. In each case determine whether the function has a maximum or a minimum on $A$. 
+            \begin{enumerate}
+                \item $f(x) = x(3-x)$, $A = (-1, 3)$.\\
+                    \textbf{Answer: }First, we acknowledge that $f(A) = (-4, \tfrac{9}{4}]$. Then the $\sup_A f = \tfrac{9}{4}$ and $\inf_A f = -4$.\\
+                    The function has a maximum on $A$ at $\tfrac{9}{4}$, however there is no minimum.\\
+                
+                \item $f(x) = \dfrac{x+3}{x-1}$, $A = (1, 5]$.\\
+                    \textbf{Answer: }Again, we acknowledge that $f(A) = [2, \infty]$. Then the $\sup_A f = \infty$ and $\inf_A f = 5$.\\
+                    The minimum of this function on $A$ is 5, however it has no maximum.\\
+                
+            \end{enumerate}
+        \item Let $S$ and $T$ be nonempty subsets of $\mathbb{R}$ with the following property: $s \leq t$ for all $s \in S$ and $t \in T$. Prove that
+            \[\sup S \leq \inf T.\]
+            
+            \begin{proof}
+                To prove this, we first observe that since $S$ is a nonempty subset of $\mathbb{R}$, then there exists an $M \in S$ such that $M \geq s$ for all $s \in S$. So, $\sup S = M$. Next, observe that since $T$ is also a nonempty subset of $\mathbb{R}$, then there exists an $m \in T$ such that $m \leq t$ for all $t \in T$. So $\inf T = m$.\\
+                Since $s \leq t$ for all $s \in S$ and $t \in T$, then $M \leq m$ and $\sup S \leq \inf T$.
+                
+            \end{proof}
+            
+        \item Let $A$ and $B$ be two nonempty sets of real numbers. Prove that
+            \[\inf (A \cup B) = \min \{\inf A, \inf B\}.\]
+            
+            \begin{proof}
+                We first note that since both $A$ and $B$ are nonempty subsets of $\mathbb{R}$, then there exists an $m \in A$ and an $n \in B$ such that $m \leq x$ for every $x \in A$ and $n \leq y$ for all $y \in B$. This implies that $\inf A = m$ and $\inf B = n$. If we were to take $\min\{\inf A, \inf B\}$, then 2 cases arise.\\
+                
+                \textbf{Case 1: } Suppose that $m < n$. Then, $\min\{m, n\} = m$ and so $\inf (A \cup B) = \min \{\inf A, \inf B\}$. A similar case holds for $n < m$.\\
+                \textbf{Case 2: } Suppose that $m = n$. Then $\min\{m, n\} = m = n$ and $\inf (A \cup B) = \min \{\inf A, \inf B\}$.\\
+                
+                In either case, $\inf (A \cup B) = \min \{\inf A, \inf B\}$.
+                
+            \end{proof}
+        
+        \item Solve the equation $|2-x^2| = 1$.\\
+            \textbf{Answer: }This absolute value expression creates two equations, which we will solve separately:
+            \begin{align*}
+                2-x^2 &= 1    &   2-x^2 &= -1\\
+                -x^2 &= -1    &   -x^2 &= -3\\
+                x^2 &= 1    &   x^2 &= 3\\
+                x &= \pm 1   &   x &= \pm \sqrt{3}
+            \end{align*}
+            So $x = -\sqrt{3}, -1, 1, \sqrt{3}$.\\
+
+        \item Solve the equation $|2-x^2| \geq 1$.\\
+            \textbf{Answer: }This absolute value inequality creates two inequalities which we will solve separately:
+            \begin{align*}
+                2-x^2 &\geq 1    &   2-x^2 &\leq -1\\
+                -x^2 &\geq -1    &   -x^2 &\leq -3\\
+                x^2 &\leq 1    &   x^2 &\geq 3
+            \end{align*}
+            After evaluating, we will see that $x \leq -\sqrt{3}$ or $x \geq -1$.\\
+        
+        \item Let $x, y$ be real numbers such that $|x-3| < \dfrac{1}{2}$ and $|3-y| < \dfrac{1}{2}$. Prove that $|x-y| < 1$.
+            \begin{proof}
+                First, let us solve for $x$ in the first inequality:
+                \begin{gather*}
+                    -\frac{1}{2} < x-3 < \frac{1}{2}\\
+                    \frac{5}{2} < x < \frac{7}{2}.
+                \end{gather*}
+                Now let us solve for $y$:
+                \begin{gather*}
+                    -\frac{1}{2} < 3-y < \frac{1}{2}\\
+                    \frac{5}{2} < y < \frac{7}{2}.
+                \end{gather*}
+                We now see that $x,y \in (\frac{5}{2}, \frac{7}{2})$ and that the $\sup(\frac{5}{2}, \frac{7}{2}) = \frac{7}{2}$ and also that $\inf (\frac{5}{2}, \frac{7}{2}) = \frac{5}{2}$. Since $\big|\frac{7}{2} - \frac{5}{2}\big| = 1$ and $\frac{5}{2}, \frac{7}{2} \notin (\frac{5}{2}, \frac{7}{2})$, then $|x-y| < 1$. 
+                
+            \end{proof}
+        
+        \item Guess the following limit and prove that your answer is correct by using the definition (Def. 2.1.4):
+            \[\lim_{n \to \infty} \frac{3n+2}{2n-1}.\]
+        
+            \begin{proof}
+                Let $\epsilon > 0$. Then we must show that there exists a $\delta$ such that $n > \delta$ implies $\Big|\tfrac{3n+2}{2n-1} - \tfrac{3}{2}\Big| < \epsilon$. Rewriting the expression in absolute values gives us
+                    \[\Big|\tfrac{3n+2}{2n-1} - \tfrac{3}{2}\Big| = \Big|\tfrac{6n-6n+4+3}{4n-2}\Big| = \tfrac{7}{4n-2} < \tfrac{7}{4n}.\]
+                So, $\Big|\tfrac{3n+2}{2n-1} - \tfrac{3}{2}\Big| < \epsilon$ when $\tfrac{7}{4n} < \epsilon$, or whenever $n > \tfrac{7}{4\epsilon}$. Thus, we may choose $\delta = \tfrac{7}{4\epsilon}$.
+                
+            \end{proof}
+        
+        \item Use the definition (Def. 2.1.4) to prove that
+            \[\lim_{n \to \infty} \Big[\sqrt{n^2+1}-n\Big] = 0.\]
+
+            \begin{proof}
+                Let $\epsilon > 0$ be arbitrary. We want to show that there exists a $\delta \in \mathbb{R}$ where if $0 < \delta < n$, then $\big|(\sqrt{n^2+1}-n)-0\big| < \epsilon$. First, let us rewrite the expression on the left of the inequality:
+                    \[\Big|(\sqrt{n^2+1}-n)\Big| = \bigg|(\sqrt{n^2+1}-n) \cdot \frac{\sqrt{n^2+1}+n}{\sqrt{n^2+1}+n}\bigg| = \bigg|\frac{1}{\sqrt{n^2+1}+n}\bigg| = \frac{1}{\sqrt{n^2+1}+n}.\]
+                We can now say that the last expression will always be smaller than $\frac{1}{2n}$, so $|(\sqrt{n^2+1}-n)-0| < \epsilon$ whenever $\epsilon > \frac{1}{2n}$. Thus, $n> \frac{1}{2\epsilon}$ and we may choose $\delta = \frac{1}{2\epsilon}$.
+                
+            \end{proof}
+            
+    \end{enumerate}
+\end{document}

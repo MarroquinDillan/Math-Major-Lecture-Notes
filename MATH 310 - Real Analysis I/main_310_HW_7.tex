@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kpfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage[margin=0.6in]{geometry}
+
+\begin{document}
+    \noindent Dillan Marroquin\\ MATH 310.1002: Homework 7\\
+    Due. Wed, October 14
+
+    \begin{enumerate}
+        \item Let $f$ given by $f(x) = x^3$ for all $x \in \mathbb{R}$. Use the \textit{definition} to prove that $f$ is continuous at $2$.
+        \begin{proof}
+            Let $\varepsilon > 0$. We want to show that $|x^3-8| < \varepsilon$. We expand the left side of the inequality and solve for $|x-2|$.
+            \begin{align*}
+                |(x-2)(x^2+2x+4)| &< \varepsilon\\
+                |x-2| &< \frac{\varepsilon}{|x^2+2x+4|}.
+            \end{align*}
+        Choose $\delta < 1$. Then $|x-2| < \delta$ means $1 < 2-\delta < x < 2+\delta < 3$ and so $7 < x^2+2x+4 < 19$. So then $\dfrac{\varepsilon}{19} < \dfrac{\varepsilon}{|x^2+2x+4|} < \dfrac{\varepsilon}{7}$. Take $\delta = \min\{1, \frac{\varepsilon}{19}\}$. Then $|x-2| < \delta$ implies $|x^3-8| < \varepsilon$ and so $f$ is continuous at $2$.\\
+        \end{proof}
+        
+        \item Prove that the function $g$ defined below is not continuous at 0 but is continuous everywhere else.
+            \[g(x) = 
+            \begin{cases} 
+                \cos{\frac{1}{x}} & \text{if } x\neq 0.\\
+                0 & \text{if } x=0.
+            \end{cases}\]
+        \begin{proof}
+            First we will assume, to the contrary, that $g$ is continuous at 0. Then we want to show that for each $\varepsilon > 0$, there exists a $\delta > 0$ such that $|g(x) - g(0)| < \varepsilon$ when $|x-0| < \delta$. Since we are only concerned about the continuity at $x=0$, $g(x) = 0$ according to the rules of $g$.  However, $|g(x) - g(0)| = |0-0| = 0$, so there exists no such $\varepsilon > |g(x)-g(0)|$. Contradiction.\\
+            To prove $g$ is continuous everywhere else, we only need to prove that $\cos{\frac{1}{x}}$ is continuous. Because $\cos{\frac{1}{x}}$ is a composition of continuous functions, $g$ is continuous everywhere besides $x = 0$.\\
+        \end{proof}
+        
+        \item Consider the function $f : \mathbb{R} \to \mathbb{R}$, $f(x) = 3x-2$ if $x \in \mathbb{Q}$ and $f(x) = x^2$ if $x \notin \mathbb{Q}$. Determine the points where $f$ is continuous.
+        \begin{proof}
+            We will let $x=a$ be a continuous point on $f(x)$. We know that there exists a sequence of rational numbers $(x_n)_n$ where $\lim_n x_n = a$. Then $\lim_n f(x_n) =  \lim_n 3x_n-2 = 3a-2$.\\We also know that there exists a sequence of irrational numbers $(y_n)_n$ such that $\lim_n y_n = a$. Then $\lim_n f(y_n) = \lim_n y_n^2 = a^2$.\\
+            For $f(x)$ to be continuous at $x=a$, we want to have $a^2=3a-2$. Solving this equation gives $a \in \{1,2\}$ and thus $f$ is not continuous on $\mathbb{R} \setminus \{1,2\}$ and continuous everywhere else.\\
+        \end{proof}
+        
+        \item Use the Intermediate Value Theorem to prove that $x^3=x^2+2x+3$ for some $x \in (1,3)$.
+        \begin{proof}
+            Let's consider the function $g : [1,3] \to \mathbb{R}$, $g(x) = x^3-x^2-2x-3$. Observe that this is a continuous function and that $g(1) = -5$ and $g(3) = 9$. Then by the Intermediate Value Theorem, there is an $x \in (1,3)$ where $g(x) = 0$ and where $x^3=x^2+2x+3$.\\
+        \end{proof}
+        
+        \item Let $f$ be a continuous function with domain $D_f = [a,b]$ and suppose that $f(a) < f(b) < f(c)$ for some $c \in (a,b)$. Prove that $f$ is not one-to-one.
+        \begin{proof}
+            First let $y \in (f(b), f(c))$. Then there is an $x_1 \in (c,b)$ such that $f(x_1)=y$. Observe that $y \in (f(a), f(c))$, so then there exists $x_2 \in (a,c)$ such that $f(x_2) = y$. However $x_2 < c < x_1$, so then $x_1 \neq x_2$. Since $f(x_1) = f(x_2)$ but $x_1 \neq x_2$, $f$ is not one-to-one.\\
+        \end{proof}
+        
+        \item Let $f : [a,b] \to [a,b]$ be a continuous function. Prove there is $x \in [a,b]$ such that $f(x) = x$.\\
+        \begin{proof}
+            Consider the function $g : [a,b] \to \mathbb{R}$, $g(x) = f(x)-x$. We know that this function is continuous and that $g(a) = f(a)-a \geq 0$ and $g(b) = f(b) - b \leq 0$. So then by the Intermediate Value Theorem, there must exist an $x \in [a,b]$ where $g(x)=0$ such that $f(x)=x$.\\
+        \end{proof}
+    \end{enumerate}
+\end{document}

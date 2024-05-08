@@ -1,0 +1,166 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kpfonts}
+\usepackage[mathscr]{euscript}
+\usepackage{commath}
+\usepackage{enumerate}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[margin=0.8in]{geometry}
+
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\Zn}[1]{\ensuremath{\mathbb{Z}/_#1}}
+\newcommand{\Znx}[1]{\ensuremath{\mathbb{Z}^\times/_#1}}
+\newcommand{\es}{\ensuremath{\emptyset}}
+\newcommand{\script}[1]{\ensuremath{\mathscr{#1}}}
+\newcommand{\coleq}{\ensuremath{\coloneqq}}
+\newcommand{\powset}[1]{\ensuremath{\mathcal{P}(#1)}}
+\newcommand{\define}[1]{\textbf{\underline{#1}}}
+\newcommand{\card}[1]{\ensuremath{\mathbf{card} (#1)}}
+\newcommand{\func}[3]{\ensuremath{#1: #2 \to #3}}
+\newcommand{\id}{\ensuremath{\mathrm{id}}}
+\newcommand{\union}{\cup}
+\newcommand{\Union}{\bigcup}
+\newcommand{\inter}{\cap}
+\newcommand{\Inter}{\bigcap}
+\renewcommand{\mod}[1]{\ (\mathrm{mod}\ #1)}
+\renewcommand{\Subset}{\subseteq}
+\renewcommand{\Supset}{\supseteq}
+
+\theoremstyle{definition}
+\newtheorem*{defn}{Definition}
+\newtheorem*{cor}{Corollary}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{ex}{Ex}
+\newtheorem*{lem}{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+
+\begin{document}
+    \begin{center}
+        \textsc{Dillan Marroquin\\MATH 331.1001\\Scribing Week 3\\Due. 13 September 2021\\}
+    \end{center}
+        
+    \noindent\section*{\textbf{\textsc{Lecture 6}}}{
+        \begin{itemize}
+            \item $[k]\cdot[l] = [kl]$ is well-defined on $\Zn{n}$ with respect to choice of $n$.
+            \item Unlike $(\Z - \{0\},\cdot,[1])$, $(\Zn{n} - \{0\},\cdot,[1])$ is NOT necessarily a monoid!
+            \begin{ex}
+                $\Zn{4}-\{[0]\} \ni [2]$, but $[2]\cdot[2] = [0] \not \in \Zn{4}-\{[0]\}$.
+            \end{ex}
+            \begin{ex}
+                $\Zn{3}- \{[0]\} \coleq ([1],[2])$ and $[2]\cdot[2] = [1]$. This is stronger than a monoid; it's a group! (This is actually an "avatar" of the cyclic group of order 2)
+            \end{ex}
+            \item \textbf{Q: What's going on??}
+        \end{itemize}
+        \subsection*{Congruence and $\gcd$}{
+        
+        \begin{lem}[6.1]
+            Let $n>1$. If $k \equiv l\mod{n}$ and $\gcd(k,n)=1$, then $\gcd(l,n)=1$.
+        \end{lem}
+        
+        \begin{thm}[6.2]
+            Let $n>1$. Define $\Znx{n} \coleq \{[k] \in \Zn{n}-\{[0]\}|\gcd(k,n)=1\}$. Then $(\Znx{n}, \cdot, [1])$ is an abelian group called the \define{Group of Units mod $n$}.
+        \end{thm}
+        
+        \begin{proof}\hfill
+            \begin{enumerate}
+                \item If $[k],[l] \in \Znx{n}$, then $[kl] \in \Znx{n}$ by Lem 6.3. Hence, $\cdot$ is a well-defined binary operator.
+                \item (Check Group Axioms):
+                    \begin{enumerate}
+                        \item Associativity (easy)
+                        \item Left/Right Identity (easy)
+                        \item Left/Right Inverse: Let $[a] \in \Znx{n}$. WTS $\exists [u] \in \Znx{n}$ such that $[a][u]=[1]=[u][a]$. Well, $\exists u,v \in \Z$ such that $au+nv=1 \implies ua+nv=1 \implies \gcd(u,n)=1 \implies [u] \in \Znx{n}$. Moreover, $au+nv=1 \implies n|au-1$. Therefore, $[au]=[1]$. Hence, $[u]$ is the inverse of $[a]$. Similar proof gives $[u]\cdot[a]=[1]$.
+                    \end{enumerate}
+                \item Show abelian: $\forall [a],[b] \in \Znx{n}, \; [a]\cdot[b]=[b]\cdot[a]$. This is obvious due to commutativity of integers.
+            \end{enumerate}
+        \end{proof}
+        
+        \begin{rmk}\hfill
+            \begin{enumerate}
+                \item $\Znx{n}$ is well-defined by Lem 6.1.
+                \item We are "discarding" elements from $\Znx{n}-\{[0]\}$ to get a group.
+            \end{enumerate}
+        \end{rmk}
+        
+        \begin{lem}[6.3]
+            Let $a,b \in \Z$ with $n<1$. If $\gcd(a,n)=1$ and $\gcd(b,n)=1$, then $\gcd(ab,n)=1$.
+        \end{lem}
+        
+        \begin{proof}
+            There exist $u,u',v,v' \in \Z$ such that $au+nv=1$ and $bu'+nv'=1$. Therefore $(au+nv)(bu'+nv')=1 \implies ab(uu')+n(\cdots)=1$. Thus $\gcd(ab,n)=1$ by Thm 2.2.
+        \end{proof}
+        }
+        
+        \begin{cor}[6.4]
+            Let $p \in \Z$ be prime.
+            \begin{enumerate}
+                \item $\Znx{n}=\Zn{p}-\{[0]\}=\{[1],[2],\ldots,[p-1]\}$.
+                \item Every non-0 element of $\Zn{p}$ has a multiplicative inverse.
+            \end{enumerate}
+        \end{cor}
+    }
+    
+    \subsection*{Comparing Groups}{
+        \begin{defn}[6.5]
+            The \define{order $|G|$} of a group $G$ is the cardinality of $G$ as a set. $G$ is \define{finite} iff $|G| <\infty$.\\
+            e.g. $|\Zn{n}|=n$, $|\Z|=\infty$, $|GL_2(\Zn{p})|=(p^2-1)(p^2-p)$
+        \end{defn}
+        
+        \begin{defn}[6.6]
+            Let $(G, *_G, e_G)$ and $(H, *_H, e_H)$ be groups. A \define{group homomorphism} between $G$ and $H$ is a function $\func{\rho}{G}{H}$ such that $\forall a,b \in G$, $\rho(a*_Gb)=\rho(a)*_H\rho(b)$.
+        \end{defn}
+    
+    }
+    
+    \noindent\section*{\textbf{\textsc{Lecture 7}}}{
+        \begin{defn}
+            A function $\func{\rho}{G}{H}$ is \define{group isomorphic} iff $\rho$ is a bijection and also a homomorphism.\\
+            We say $G,H$ are \define{isomorphic} iff there exists a group isomorphism $\func{\rho}{G}{H}$. We say $G \cong H$.
+        \end{defn}
+        
+        \begin{ex}[Basic Examples]\hfill
+            \begin{enumerate}
+                \item Let $G$ be a group. Then $\func{\id_G}{G}{G}$ is a group isomorphism.
+                \item Let $n \in \Z$. Define $n\Z \coleq \{nk|k \in \Z\}$. Define $\func{\rho}{n\Z}{\Z}$, $\rho(na) \coleq na$.\\
+                Observe that $\rho$ is a homomorphism, but not a group isomorphism since $\rho$ is not surjective.
+                \item Let $\R^\times \coleq \R-\{0\}$, where $(\R^\times,\cdot, 1)$ is a group. Then $\func{\det}{GL_2}{\R^\times}$.\\
+                Observe that this is a homomorphism, but not an isomorphism since it is not injective.
+                \item Let $n>1$ and $\func{\pi}{\Z}{\Z/_n}$, $\pi(a) \coleq [a]$.\\
+                This is a group homomorphism, but not an isomorphism (not injective).
+            \end{enumerate}
+        \end{ex}
+        
+        \begin{ex}[Non-Examples]
+            Let $\func{f,g}{\Z}{\Z}$.\\
+            Define $f(a) \coleq a+1$. This is not a homomorphism: $f(a+b)=a+b+1\neq a+b+2=f(a)+f(b)$.\\
+            Define $g(a) \coleq a^2$. This is also not a homomorphism: $g(a+b)=a^2+2ab+b^2\neq a^2+b^2=g(a)+g(b)$.
+        \end{ex}
+        
+        \subsection*{Abstract Properties of Group Homomorphisms}{
+            \begin{prop}[7.1]
+                Let $(G, *_G, e_G)$ and $(H, *_H, e_H)$ be groups. Let $\func{\rho}{G}{H}$ be a group homomorphism.
+                \begin{enumerate}[i.]
+                    \item $\rho(e_G)=e_H$.
+                    \item $\forall g \in G$, if $g^{-1}$ is the inverse of $g$, then $\rho(g^{-1})$ is the inverse of $\rho(g) \in H$.
+                \end{enumerate}
+            \end{prop}
+            
+            \begin{prop}[7.2]
+                If $\func{\rho}{G}{H}$ for $G, H$ groups is a group isomorphism, then
+                \begin{enumerate}[i.]
+                    \item $|G|=|H|$.
+                    \item $G$ is abelian iff $H$ is abelian.
+                \end{enumerate}
+            \end{prop}
+        
+        }
+    
+    
+    }
+\end{document}

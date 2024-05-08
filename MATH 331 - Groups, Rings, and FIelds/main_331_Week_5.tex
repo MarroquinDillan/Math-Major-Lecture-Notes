@@ -1,0 +1,190 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kpfonts}
+\usepackage[mathscr]{euscript}
+\usepackage{commath}
+\usepackage{enumerate}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[margin=0.8in]{geometry}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\es}{\emptyset}
+\newcommand{\union}{\cup}
+\newcommand{\Union}{\bigcup}
+\newcommand{\inter}{\cap}
+\newcommand{\Inter}{\bigcap}
+\newcommand{\coleq}{\coloneqq}
+\newcommand{\script}[1]{\mathscr{#1}}
+\newcommand{\powset}[1]{\mathcal{P}(#1)}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\inverse}[1]{#1^{-1}}
+\newcommand{\define}[1]{\textbf{\underline{#1}}}
+\newcommand{\func}[3]{#1: #2 \to #3}
+\renewcommand{\mod}[1]{\ (\mathrm{mod}\ #1)}
+\renewcommand{\Subset}{\subseteq}
+\renewcommand{\Supset}{\supseteq}
+
+%Abstract Algebra specific commands
+\newcommand{\Znx}{(\mathbb{Z}/n)^\times}
+\newcommand{\gen}[1]{\langle#1\rangle}
+
+\theoremstyle{definition}
+\newtheorem*{defn}{Definition}
+\newtheorem*{cor}{Corollary}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{ex}{Example}
+\newtheorem*{lem}{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+
+\begin{document}
+    \begin{center}
+        \textsc{Dillan Marroquin\\MATH 331.1001\\Scribing Week 5\\Due. 27 September 2021\\}
+    \end{center}
+        
+    \noindent\section*{\textbf{\textsc{Lecture 11}}}{
+        \subsection*{Finitely Generated Groups}{
+            Motivation: In linear algebra, to describe every vector in $\R^2$, you only need 2 basis vectors along with a scalar (e.g. we can write $\big[\begin{smallmatrix}a\\b\end{smallmatrix}\big]= a\big[\begin{smallmatrix}1\\0\end{smallmatrix}\big]+b\big[\begin{smallmatrix}0\\1\end{smallmatrix}\big]=a\Vec{e_1}+b\Vec{e_2}$.\\
+            
+            \noindent For a group $G$, we can sometimes find a finite subset $\{x_2,\ldots,x_n\}\subseteq G$ such that $\forall g \in G, \; \exists \{x_{i_1},\ldots, x_{i_k}\} \subseteq \{x_1,\ldots,x_n\}$ and $n_1,\ldots,n_k \in \Z$ such that $g=x_{i_1}^{n_1}x_{i_2}^{n_2}\cdots x_{i_k}^{n_k}$.\\
+            In this case, we say $G$ is \define{finitely generated} and that $\{x_1,\ldots,x_n\}$ is a set of \define{generators} of $G$ and we write\\$G=\langle x_1,\ldots,x_n\rangle$.\\
+            
+            \noindent If $G$ is Abelian and we're using additive notation, then we write elements of $G=\langle x_1,\ldots,x_n\rangle$ as $g=n_1x_{i_1}+\cdots+n_kx_{i_k}$.\\
+            
+            \noindent\define{WARNING:} The analogy between bases for a vector space and generators for a group is not perfect. Notions of linear independence, scalar multiples, and dimension do not make sense for groups in general.
+        }
+        \subsection*{Examples of Finitely Generated Groups}{
+            \begin{enumerate}
+                \item The abstract cyclic group of order 2: $G=\{e,\tau\}$ is finitely generated.\\
+                We have $G=\langle \tau\rangle$ because $\tau=\tau^1$ and $e=\tau^0=\tau^2$.
+                \item The Klein 4-group $V=\{e,a,b,c\}$ is finitely generated.\\
+                We have $G=\langle a,b\rangle$ because $e=a^0=b^0$, $a=a^1$, $b=b^1$, and $c=a^1b^1$.
+                \item Any finite group $G$ is finitely generated because $G=\langle G\rangle$.
+            \end{enumerate} 
+            
+            \begin{rmk}
+                If $|G|= \infty$, then it can be finitely generated.
+            \end{rmk}
+            
+            \begin{enumerate}\setcounter{enumi}{3}
+                \item The group $(\Z,+,0)$ is finitely generated.\\
+                We have $\Z=\langle1\rangle$ because $\forall n \in \Z$, $n=n\cdot 1$. (Note that $\Z=\langle-1\rangle$ also!)
+                \item The group $\Z/n$ is finitely generated.\\
+                Just like for $\Z$, we have $\Z/n=\langle[1]\rangle$.
+            \end{enumerate}
+            
+            \begin{prop}[11.1]
+                Let $n>1$. Then $\Z/n= \gen{[a]}$ iff $\gcd(a,n)=1$. Particularly, the elements of the group of units $\Znx$ are precisely the set of all possible generators!
+            \end{prop}
+        }
+        \begin{ex}[Non-Abelian Example]
+            Let $S_3 \coleq \{\func{f}{1,2,3}{1,2,3}|f \text{ is bijective}\}$ where the group operation is function composition. We can write $f \in S_3$ as a table:
+                \[f=\begin{pmatrix}
+                    1&2&3\\
+                    f(1)&f(2)&f(3)
+                \end{pmatrix}\]
+            with the 6 elements of $S_3$ being:
+                \[\Bigg\{\begin{pmatrix}
+                    1&2&3\\
+                    1&2&3
+                \end{pmatrix},
+                \begin{pmatrix}
+                    1&2&3\\
+                    2&3&1
+                \end{pmatrix},
+                \begin{pmatrix}
+                    1&2&3\\
+                    3&1&2
+                \end{pmatrix},
+                \begin{pmatrix}
+                    1&2&3\\
+                    1&3&2
+                \end{pmatrix},
+                \begin{pmatrix}
+                    1&2&3\\
+                    2&1&3
+                \end{pmatrix},
+                \begin{pmatrix}
+                    1&2&3\\
+                    3&2&1
+                \end{pmatrix}\Bigg\}.\]
+            One can check that $S_3=\gen{\sigma,\tau}$, where $\sigma=\big[\begin{smallmatrix}1&2&3\\2&3&1\end{smallmatrix}\big]$ and $\tau=\big[\begin{smallmatrix}1&2&3\\1&3&2\end{smallmatrix}\big]$.\\
+            Indeed, $S_3=\{e=\sigma^0\tau^0,\sigma,\sigma^2,\tau,\sigma\circ\tau, \sigma^2\circ\tau\}$.
+        \end{ex}
+        
+        \begin{ex}[Non-Example]
+            Any group that is not finitely generated must be infinite.
+        \end{ex}
+        
+        \begin{prop}[11.2]
+            The group $(\Q,+,0)$ is NOT finitely generated. 
+        \end{prop}
+    }
+    
+    \noindent\section*{\textbf{\textsc{Lecture 12}}}{
+        \subsection*{Cyclic Groups}{
+        i.e. groups that can be generated by 1 element.
+        
+        \begin{lem}[12.1]\hfill
+            \begin{enumerate}
+                \item Let $G$ be a subgroup and $a \in G$. Then $\forall k,l \in \Z$, $a^k\cdot a^l=a^{k+l}$.
+                \item Let $(G,+,0)$ be an Abelian group and let $a \in G$. Then
+                \begin{enumerate}[i.]
+                    \item $\forall k,l \in \Z$, $ka+la=(k+l)a$ and
+                    \item $\forall k,l \in \Z$, $l(ka)=lka$.
+                \end{enumerate}
+            \end{enumerate}
+        \end{lem}
+        
+        \begin{prop}[12.2]
+            Let $G$ be a group and $a \in G$.
+            \begin{enumerate}
+                \item The subset $\gen{a}\coleq \{a^k|k\in\Z\}=\{\ldots,\inverse{a},a^0,a^1,\ldots\}$ is a subgroup of $G$ called the \define{cyclic subgroup} generated by $a$.
+                \item If $H\leq G$ is any subgroup of $G$ containing $a \in H$, then $\gen{a}\leq H$. That is, $a$ is the "smallest" subgroup of $G$ containing $a$.
+            \end{enumerate}
+        \end{prop}
+        
+        \begin{defn}[12.3]
+            A group is \define{cyclic} iff $a \in G$ such that $G=\gen{a}$.
+        \end{defn}
+        }
+        \subsection*{Examples of Cyclic Groups/Subgroups}{
+            \begin{enumerate}
+                \item $\Z=\gen{1}=\gen{-1}$ is cyclic.
+                \item Let $n>1$. $n\Z\coleq\{nk|k\in\Z\}=\gen{n}$ is a cyclic subgroup of $\Z$.
+                \item The trivial group $\{e\}=\gen{e}$ is cyclic.
+                \item The abstract cyclic group $G=\{e,\tau\}=\gen{\tau}$ is obviously cyclic.
+                \item $\Z/n=\gen{[1]}$.
+                \item Let $\R^\times\coleq(\R-\{0\},\cdot,1)$. Let $H=\{1,-1\}$. Then $H=\gen{1}$.
+                \item Let $\C^\times\coleq(\C-\{0\},\cdot, 1)$ and let $H=\{1,i,-1,-i\}$. Then $H=\gen{i}$.
+            \end{enumerate}
+            
+            \begin{defn}[12.4]
+                Let $G$ be a group, $a\in G$. The \define{order of a, $|a|$}, is the smallest positive integer such that $a^n=e$. If no such integer exists, then $|a|=\infty$.
+            \end{defn}
+            
+            \begin{prop}[12.5]
+                Let $G$ be a group, $a\in G$. If $|a|=n$, then $\gen{a}=\{e,a,a^2,\ldots,a^{n-1}\}$. In particular, $|\gen{a}|=|a|$.
+            \end{prop}
+            
+            \begin{cor}[12.6]
+                Let $G$ be a finite group. Then\ldots
+                \begin{enumerate}
+                    \item Every element of $G$ has finite order and
+                    \item $\forall a \in G$, $|a|\big||G|$.
+                \end{enumerate}
+            \end{cor}
+        }
+        
+        \noindent\section*{\textbf{\textsc{Lecture 13}}}{
+            In-class assistance for Problem Set 3; Alex was a big help :)
+        }
+    }
+\end{document}

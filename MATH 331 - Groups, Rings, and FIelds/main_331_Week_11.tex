@@ -1,0 +1,207 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kpfonts}
+\usepackage[mathscr]{euscript}
+\usepackage{commath}
+\usepackage{bbm}
+\usepackage{enumerate}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{wasysym}
+\usepackage[margin=0.8in]{geometry}
+
+\newcommand{\N}{\mathbbm{N}}
+\newcommand{\Z}{\mathbbm{Z}}
+\newcommand{\Q}{\mathbbm{Q}}
+\newcommand{\R}{\mathbbm{R}}
+\newcommand{\C}{\mathbbm{C}}
+\newcommand{\es}{\emptyset}
+\newcommand{\union}{\cup}
+\newcommand{\Union}{\bigcup}
+\newcommand{\inter}{\cap}
+\newcommand{\Inter}{\bigcap}
+\newcommand{\coleq}{\coloneqq}
+\newcommand{\script}[1]{\mathscr{#1}}
+\newcommand{\powset}[1]{\mathcal{P}(#1)}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\inverse}[1]{#1^{-1}}
+\newcommand{\define}[1]{\textbf{\underline{#1}}}
+\newcommand{\func}[3]{#1: #2 \to #3}
+\newcommand{\lcm}{\mathrm{lcm}}
+\renewcommand{\mod}[1]{\ (\mathrm{mod}\ #1)}
+\renewcommand{\Subset}{\subseteq}
+\renewcommand{\Supset}{\supseteq}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\theoremstyle{definition}
+\newtheorem*{defn}{Definition}
+\newtheorem*{cor}{Corollary}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{ex}{Example}
+\newtheorem*{lem}{Lemma}
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+
+%Abstract Algebra specific commands
+\newcommand{\Znx}{(\mathbb{Z}/n)^\times}
+\newcommand{\Rx}{\mathbb{R}^\times}
+\newcommand{\cyc}[1]{\langle#1\rangle}
+\newcommand{\im}{\mathrm{im}}
+\newcommand{\normal}{\unlhd}
+\newcommand{\iso}{\cong}
+\newcommand{\sgn}{\mathrm{sgn}}
+\newcommand{\ev}{\mathrm{ev}}
+
+\begin{document}
+    \begin{center}
+        \textsc{Dillan Marroquin\\MATH 331.1001\\Scribing Week 11\\Due. 8 November 2021\\}
+    \end{center}
+        
+    \section*{\textbf{\textsc{Lecture 26}}}{
+        \subsection*{Paulin Chapter 4: Rings!}{
+            \noindent Idea: Study objects like $(\Z,+,0,*,1)$, develop an abstract notion of primes and the fundamental theorem of arithmetic.
+            
+            \begin{defn}[26.1]
+                A \define{ring} $\mathbf{(R,+,0,*,1)}$ is a set $R$ equipped with binary operators $\func{+,*}{R\times R}{R}$ and elements $0,1\in R$ such that
+                \begin{enumerate}
+                    \item $(R,+,0)$ is an abelian group,
+                    \item $(R,*,1)$ is a monoid (i.e. a group where multiplicative inverses may not exist),
+                    \item Left/Right distributive law holds: $\forall a,b,c\in R$, $(a+b)*c=a*c+b*c$ and $a*(b+c)=a*b+a*c$.
+                \end{enumerate}
+            \end{defn}
+            
+            \noindent \define{Notation:} $ab\coleq a*b$ and $\forall n\geq 0 \in Z$, $na\coleq a+a\cdots+a$ ($n$ times) and $a^n\coleq a*a*\cdots *a$ ($n$ times). Note that $na\neq a^n$ in general.
+            
+            \begin{defn}[26.2]
+                A ring $R$ is commutative iff $\forall a,b \in R$, $a*b=b*a$.
+            \end{defn}
+        }
+        \subsection*{Basic Examples of Rings}{
+            \begin{enumerate}
+                \item $\Z,\Q,\R,\C$. Commutative.
+                \item $(\Z/n,\overline{+},\overline{0},\overline{*},\overline{1})$. Commutative.
+                \item The Zero Ring $R=\{0_R\}$, where $1_R=0_R$. Commutative.
+                \item $M_n(\R)\coleq \{n\times n\text{ matrices with entries in }\R\}$, $(M_n(\R),+,0_n,*,I_n)$. Non-commutative for $n\geq 2$.
+                \item $\script{C}([0,1])\coleq \{\func{f}{[0,1]}{\R}|f\text{ is continuous}\}$. In this ring, $(f+g)(x)\coleq f(x)+g(x)$, $(fg)(x)\coleq f(x)g(x)$, $0(x)\coleq 0 \in \R$, $1(x) \coleq 1 \in \R$ $\forall x \in [0,1]$.
+            \end{enumerate}
+        }
+        \subsection*{Abstract Properties of Rings}{
+            \begin{prop}[26.3]
+                Let $R$ be a ring.
+                \begin{enumerate}
+                    \item $\forall n,m \geq 1$, let $a_1,\ldots,a_n \in R$ and $b_1,\ldots, b_m \in R$. Then $\left(\sum_{i=1}^n a_i\right)\cdot\left(\sum_{j=1}^m b_j\right)=\sum_{i=1}^n\sum_{j=1}^m a_i b_j$.
+                    \item $\forall a\in R$, $a*0=0=0*a$.
+                    \item $\forall a,b\in R$, $a(-b)=-a(b)=-ab$, where $-b,-a$ are the additive inverses of $b,a$ respectively. In particular, $(-a)(-b)=ab$.
+                \end{enumerate}
+            \end{prop}
+        }
+        \subsection*{Important Example: Polynomial Rings}{
+            Let $R$ be a commutative ring. Then
+            \[R[x]\coleq\{a_0+a_1x+a_2x^2+\cdots+a_{n-1}x^{n-1}+a_nx^n|\forall n\geq 0 \ a_i \in R\}=\text{"}R\text{ adjoin }x\text{"}.\]
+        Let $f,g\in R[x]$. Write $f=\sum_{i=0}^n a_i x^i$, $g=\sum_{j=0}^m b_j x^j$. WLOG, assume $m\leq n$. Define $b_{m+1}=b_{m+2}=\cdots=b_n=0 \in R$, then $f+g\coleq \sum_{i=0}^n (a_i+b_i)x^i$. Also, $fg \coleq \sum_{k=0}^{m+n} c_k x^k$, where $c_k\coleq \sum_{l=0}^k a_lb_{k-l}$. 
+        }
+    }
+    \section*{Lecture 27}{
+        \define{Additive Identity:} $0\coleq \sum_i a_ix^i$, $a_i=o \in R$ $\forall i \geq 0$.\\
+     
+        \noindent\define{Multiplicative Identity:} $1\coleq \sum_i a_ix^i$, $a_o=1 \in R$, $a_i=0 \in R$ $\forall i \geq 1$.
+     
+        \begin{prop}[27.1]
+            $R$ commutative implies $R[x]$ is commutative.
+        \end{prop}
+     
+        \begin{rmk}
+            $R[x][y]$. This is just a polynomial in $2$ variables.
+        \end{rmk}
+        
+        \begin{defn}[27.2]
+            Let $f=\sum a_kx^k \in R[x]$, where $\sum a_k x^k$. Then the \define{degree} of $f$, $\deg(f) \in \N$ is the largest $n \in \Z$ such that $a_n\neq 0$. Often, $\deg(0)\coleq -\infty$.
+        \end{defn}
+        
+        \subsection*{Basic Constructions}{
+            \begin{defn}[27.3]
+                Let $R$ be a ring. A subset $S \Subset R$ is a \define{subring} iff
+                \begin{enumerate}
+                    \item $(S,+,0_R) \leq (R,+,0_R)$ is a subgroup with respect to $+$.
+                    \item $\forall x,y \in S$, $x*y \in S$. i.e. $S$ is closed under multiplication.
+                    \item $1_R \in S$.
+                \end{enumerate}
+                We write $S\leq R$ to denote that $S$ is a subring of $R$.
+            \end{defn}
+        }
+            \begin{ex}
+                \begin{enumerate}
+                    \item We have $\Z \leq \Q \leq \R \leq \C$.
+                    \item Let $R$ be commutative. Then $R \leq R[x]$.
+                    \item (Non-Commutative Examples): Let $R=M_2(\R)$ and $S=\left\{A\in R|A=\alpha=\big(\begin{smallmatrix} a_1&a_2 \\ 0&3 \end{smallmatrix}\big)\right\}$. Then $S \leq R$.
+                \end{enumerate}
+            \end{ex}
+            
+            \noindent\define{CAUTION!!!} Some authors\ldots
+            \begin{enumerate}
+                \item don't require a ring to have $1$ (multiplicative identity)
+                \item don't require subrings to have $1_R \in S$ (no Axiom 3).
+            \end{enumerate}
+        
+        \subsection*{Basic Constructions}{
+            \begin{enumerate}
+                \item $n\Z \not\leq \Z$, $n>1$ since $1 \notin \Z$.
+                \item If $R \neq \{0_R\}$, then $\{0_R\}\not\leq R$ since $1_R \notin \{0_R\}$.
+                \item Take $S=\{f=\sum a_ix^2 \in R[x]|a_0=0\}\not\leq R[x]$ since $1 \notin R[x]$.
+            \end{enumerate}
+        }
+    }
+    \section*{Lecture 28}{
+        \subsection*{Ring Homomorphisms}{
+            \begin{defn}[28.1]
+                Let $R$, $S$ be rings. A \define{ring homomorphism} from $R$ to $S$ is a function $\func{\varphi}{R}{S}$ such that $\forall a$,$b \in R$,
+                \begin{enumerate}
+                    \item $\varphi(a+b)=\varphi(a)+\varphi(b)$,
+                    \item $\varphi(ab)=\varphi(a)\varphi(b)$, and
+                    \item $\varphi(1_R)=1_S$.
+                A \define{ring isomorphism} is a ring homomorphism $\varphi$ such that $\varphi$ is a bijection.
+                \end{enumerate}
+            \end{defn}
+            
+            \begin{ex}
+                \begin{enumerate}
+                    \item $\func{\id}{R}{R}$ is a ring isomorphism. BOOOORING!!!
+                    \item Let $n>1$. Then $\func{\pi}{\Z}{\Z/n}$, $\pi(a)\coleq[a]$ is a ring homomorphism.
+                    \item (NON-EXAMPLE) Let $\func{\det}{M_2(\R)}{\R}$ be a function. Then Axioms 2 and 3 are satisfied, but not Axiom 1 since $\det(A+B)\neq \det(A)+\det(B)$ in general.
+                \end{enumerate}
+            \end{ex}
+            
+            \begin{prop}[28.2]
+                Let $r \in R$. The function $\ev_r(f)\coleq f(r)$ is a ring homomorphism ("evaluation at $r$").
+            \end{prop}
+            
+            In general, elements of $R[x]$ "aren't functions."
+            
+            \begin{ex}
+                $\Z/2[x]$.
+                \begin{align*}
+                    \deg(-\infty)&: \overline{0}   &    \deg(1)&: x,x+\overline{1}\\
+                    \deg(0)&: \overline{1}   &   \deg(2)&: x^2,x^2+x,x^2+\overline{1},x^2+x+\overline{1}.
+                \end{align*}
+                The number of $\ev$ homomorphisms is $2$: $\func{\ev_{\overline{0}},\ev_{\overline{1}}}{\Z/2[x]}{\Z/2}$.\\
+                
+                \noindent Let $f\coleq x^2+x+\overline{1}$, $g\coleq \overline{1}$. Then $\ev_{\overline{0}}(f)=\overline{1}$, $\ev_{\overline{1}}(f)=\overline{1}^2+\overline{1}+\overline{1}=\overline{1}$.\\
+                Also, $\ev_{\overline{0}}(g)=\overline{1}$, $\ev_{\overline{1}}(g)=\overline{1}$, BUT $f\neq g$.
+            \end{ex}
+            
+            \begin{defn}[28.3]
+                Let $\func{\varphi}{R}{S}$ be a ring homomorphism. The \define{kernel} of $\varphi$ is the subset $\ker(\varphi)\coleq\{r\in R|\varphi(r)=0_S\}$ of $R$.\\
+                The \define{image} of $\varphi$ is the subset $\im(\varphi)\coleq\{\varphi(r)|r \in R\}$ of $S$.
+            \end{defn}
+            
+            \begin{prop}[28.4]
+                \begin{enumerate}
+                    \item $\im(\varphi)\leq S$ is a subgroup of $S$.
+                    \item $\ker(\varphi)\leq R$ is a subring of $R$ iff $S=\{0_S\}$ is the trivial ring.
+                \end{enumerate}
+            \end{prop}
+            
+        }
+    }
+\end{document} 

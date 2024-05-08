@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kpfonts}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{xfrac}
+\usepackage[margin=0.6in]{geometry}
+
+\begin{document}
+    \noindent Dillan Marroquin\\ MATH 310.1002: Homework 8\\
+    Due. Wed, October 21
+
+    \begin{enumerate}
+        \item Use the definition to prove that the function $h$ given by $h(x) = \frac{3}{x}$ for $x \neq 0$ is uniformly continuous on $[\frac{1}{2}, \infty)$.
+        \begin{proof}
+            Let $\varepsilon > 0$. We wish to show that $|h(x)-h(a)| < \varepsilon$, or in other words, that $|\frac{3}{x}-\frac{3}{a}| < \varepsilon$. Observe that we can write the previous inequality as $\frac{3|x-a|}{xa} < \varepsilon$. Take $\delta = \frac{\varepsilon}{3}$. Then for every $x,a \in [\frac{1}{2},\infty)$ with $|x-a| < \delta$, we have that $|h(x)-h(a)| = \frac{3|x-a|}{xa} \leq 3|x-a| < 3\delta = \varepsilon$. So $h$ is uniformly continuous on $[\frac{1}{2}, \infty)$.\\
+        \end{proof}
+        
+        \item Prove that the function $g$ given by $g(x) = \cos{\frac{\pi}{x}}$ for $x \neq 0$ is not uniformly continuous on $(0,1]$.
+        \begin{proof}
+            We will prove this by contradiction. Assume that $g$ is actually uniformly continuous on $(0,1]$. Then for $\varepsilon = \frac{1}{2}$, there is a $\delta > 0$ such that $|x-a| < \delta$ implies $|g(x) - g(a)| < \frac{1}{2}$.\\
+            Consider the sequences $x_n = \frac{1}{2n}$ and $a_n = \frac{1}{2n+\sfrac{1}{2}}$. Since $\lim |x_n-a_n| = 0$, we know there must exist an $n \in \mathbb{N}$ such that $|x_n-a_n| < \delta$. However $g(x_n) = \cos{\frac{\pi}{\sfrac{1}{2n}}} = \cos{2\pi n} = 1$ and $g(a_n) = \cos{\frac{\pi}{\sfrac{1}{2n+\sfrac{1}{2}}}} = 0$. Therefore $|g(x_n)-g(a_n)| = 1 > \frac{1}{2}$. This is a contradiction.\\
+        \end{proof}
+        
+        \item Let $f$ be a function with $D_f = \mathbb{R}$. Prove that $f$ is uniformly continuous if there exist positive constants $K,r > 0$ such that for all $x,y \in \mathbb{R}$,
+            \[|f(x)-f(y)| \leq K|x-y|^r.\]
+        \begin{proof}
+            Let $\varepsilon > 0$. We must find a $\delta > 0$ such that $|f(x)-f(y) < \varepsilon|$ whenever $|x-y| < \delta$. Let $K|x-y|^r < \varepsilon$. Then $|x-y|^r < \frac{\varepsilon}{K}$ and $|x-y| < \big(\frac{\varepsilon}{K}\big)^\frac{1}{r}$. So, we can choose $\delta = \big(\frac{\varepsilon}{K}\big)^\frac{1}{r}$. This finishes the proof.\\
+        \end{proof}
+        
+        \item Prove that $f(x) = \sqrt{x}$ is uniformly continuous on the intervals $[1, \infty)$ and $[0,1]$. Is $f$ uniformly continuous on the interval $[0, \infty)$.
+        \begin{proof}
+             Let $\varepsilon > 0$. We wish to show that $|h(x)-h(a)| < \varepsilon$, or that $|\sqrt{x}-\sqrt{a}| < \varepsilon$. Observe that this is equivalent to $\frac{|x-a|}{\sqrt{x}+\sqrt{a}} < \varepsilon$ and that $\frac{|x-a|}{\sqrt{x}+\sqrt{a}} < |x-a|$. If we choose $\delta = \varepsilon$, then we get that $|x-a| < \delta$ implies $|h(x)-h(a)| = \frac{|x-a|}{\sqrt{x}+\sqrt{a}} < |x-a| < \delta = \varepsilon$. So then $f$ is clearly uniformly continuous on $[1, \infty)$.\\
+             To prove that $f$ is uniform continuous on $[0,1]$, we determine if $f$ has a continuous extension to $\overline{I}$. Observe that $\overline{I} = [0,1]$ and that $f$ is clearly continuous over this interval, so then $f$ is uniform continuous on $[0,1]$.\\
+             Because $f$ has been proven to be uniform continuous on all points on its domain, $f$ is uniform continuous on $[0, \infty)$.\\
+        \end{proof}
+        
+        \item Prove that the sequence of functions $\frac{1}{x^2+n}$ converges uniformly on $\mathbb{R}$.
+        \begin{proof}
+            Denote $f_n(x) = \frac{1}{x^2+n}$ and let $\varepsilon > 0$. We wish to show that $|f_n(x)-f(x)| < \varepsilon$, i.e. $\Big|\frac{1}{x^2+n}\Big| < \varepsilon$. Since $n \in \mathbb{N}$ and $x \in \mathbb{R}$, observe that $\Big|\frac{1}{x^2+n}\Big| = \frac{1}{x^2+n} \leq \frac{1}{n}$. Let $N = \lfloor \frac{1}{\varepsilon} \rfloor + 1$. For any $n \geq N$, we have that $|f_n(x)-f(x)| < \frac{1}{n} < \varepsilon$ whenever $n \geq N$.\\
+        \end{proof}
+        
+        \item Prove that the sequence $\frac{\sin{nx}}{n}$ converges uniformly on $[0,1]$.
+        \begin{proof}
+            Let $\varepsilon > 0$ and observe that $\lim \frac{\sin{nx}}{n} = \lim \frac{-1}{n} = \lim \frac{1}{n} = 0$. so the sequence $\frac{\sin{nx}}{n} = f_n$ converges pointwise to $f(x) = 0$.\\
+            We now want to prove that $f_n$ converges uniformly to $f(x) = 0$. Observe that $|f_n(x)-f(x)| = |\frac{\sin{nx}}{n}-0| < \frac{1}{n}$ for all $x \in \mathbb{R}$ and for all $n \in \mathbb{N}$. Since $\lim \frac{1}{n} = 0$, then by \textit{Theorem 3.4.6}, $f_n$ is uniformly convergent.\\
+        \end{proof}
+        
+        \item Prove that the sequence $\sin{\frac{x}{n}}$ converges to $0$ pointwise on $\mathbb{R}$ but not uniformly.
+        \begin{proof}
+            First, we will prove that this sequence converges to 0 pointwise. Let $x \in \mathbb{R}$. Then $\lim_n \sin{\frac{x}{n}} = \sin{\lim_n \frac{x}{n}} = \sin{0} = 0$. So $\sin{\frac{x}{n}}$ converges to 0 pointwise.\\
+            We will now prove by contradiction that this sequence does not converge uniformly. Denote $f_n = \sin{\frac{x}{n}}$. We assume that $f_n \to 0-f(x)$ and let $\varepsilon = \frac{1}{2}$. Then by definition, there must exist some $N \in \mathbb{N}$ such that $|f_n(x)-f(x)| < \varepsilon = \frac{1}{2}$ for every $n \geq N$ and for all $x \in \mathbb{R}$. This is equivalent to $|\sin{\frac{x}{n} - 0}| < \frac{1}{2}$. Taking $x=\frac{\pi n}{2}$ gives $1 < \varepsilon = \frac{1}{2}$. Contradiction.\\
+        \end{proof}
+    \end{enumerate}
+\end{document}

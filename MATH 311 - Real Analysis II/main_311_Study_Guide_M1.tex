@@ -1,0 +1,104 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kpfonts}
+\usepackage[mathscr]{euscript}
+\usepackage{commath}
+\usepackage{enumerate}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[margin=0.8in]{geometry}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\es}{\emptyset}
+\newcommand{\union}{\cup}
+\newcommand{\Union}{\bigcup}
+\newcommand{\inter}{\cap}
+\newcommand{\Inter}{\bigcap}
+\newcommand{\coleq}{\coloneqq}
+\newcommand{\script}[1]{\mathscr{#1}}
+\newcommand{\powset}[1]{\mathcal{P}(#1)}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\inverse}[1]{#1^{-1}}
+\newcommand{\define}[1]{\textbf{\underline{#1}}}
+\newcommand{\func}[3]{#1: #2 \to #3}
+\newcommand{\conv}{\xrightarrow{\enskip\enskip}}
+\renewcommand{\mod}[1]{\ (\mathrm{mod}\ #1)}
+\renewcommand{\Subset}{\subseteq}
+\renewcommand{\Supset}{\supseteq}
+
+\theoremstyle{definition}
+\newtheorem*{defn}{Definition}
+\newtheorem*{cor}{Corollary}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{ex}{Example}
+\newtheorem*{lem}{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+
+\begin{document}
+    \subsection*{Chapter 8: Functions on Euclidean Space}{
+        \begin{defn}
+            $F_n \xrightarrow{\mathrm{pw}}F$ if $\forall \varepsilon >0$, $\exists N=N(x)$ with $\|F_n(x)-F(x)\|<\varepsilon$ for $n\geq N$.
+        \end{defn}
+        
+        \begin{defn}
+            $F_n \xrightarrow{u}F$ if $\forall \varepsilon >0$, $\exists N$ w/ $\|F_n(x)-F(x)\|<\varepsilon$ $\forall n\geq N$ and $\forall x \in D$.
+        \end{defn}
+        
+        \begin{thm}
+            Let $\func{F_n,F}{D}{\R^q}$, $D \Subset \R^p$. If $\|F_n(x)-F(x)\|\leq b_n$ $\forall x \in D$ and $b_n \xrightarrow{}0$ and $\{b_n\} \Subset \R$, then $F_n\xrightarrow{u}F$.
+        \end{thm}
+        
+        \begin{thm}
+            If $F_n \xrightarrow{u}F$ and $F_n$ is continuous, then $F$ is  continuous.
+        \end{thm}
+        
+        \begin{thm}[W.M. Test]
+            If $\|F_k(x)\| \leq M_k$ for some $M_k > 0$ $\forall x \in D$ with $\sum_{k=1}^\infty M_k$ convergent $< \infty$. Then $\sum_{k=1}^\infty F_k$ is uniformly convergent.
+        \end{thm}
+        
+        \begin{defn}
+            $\func{L}{\R^p}{\R^q}$ is \define{linear} if $L(x+y)=L(x)+L(y)$ and $L(cx)=cL(x)$ $\forall x,y \in \R^p$ and $\forall c \in \R$.
+        \end{defn}
+    }
+    \subsection*{Chapter 9: Differentiation in Several Variables}{
+        \begin{defn}
+            $\frac{\partial f}{\partial y}=\lim_{h\to 0} \frac{f(0,h)-f(0,0)}{h}$.
+        \end{defn}
+        
+        \begin{defn}
+            We say $F$ is \define{differentiable} at $a$ iff $\exists$ linear function such that $\lim_{h\to 0} \frac{F(a+h)-F(a)-L(h)}{\|h\|}=0$.
+        \end{defn}
+        
+        \begin{thm}[Chain Rule]
+            $d(F\circ G)(a)=dF(G(a))dG(a)$.
+        \end{thm}
+        
+        \begin{defn}
+            Level surfaces are surfaces where $f(x,y,z)=c$, e.g. $S=f(x,y,z)=1$ for function $f(x,y,z)=x^2+y^2-z^2$. To find tangent plane to $S$ at $(a,b,c)$, calculate $\nabla f(a,b,c)=(a',b',c')$. Then tangent plane to $S$ is $a'(x-a)+b'(y-b)+c'(z-c)=0$.
+        \end{defn}
+        
+        \begin{thm}[Taylor Formula]
+            $f(a)+\dif f(a)h+\frac{1}{2!}\dif^2f(a)h^2+\cdots+\frac{1}{n!}\dif^nf(a)h^n$.
+        \end{thm}
+        
+        \begin{thm}
+            A critical point is a point $a$ in the domain such that $\dif f(a)=0$. Plug in these CPs to $\Delta=f_{x^2}f_{y^2}-f_{xy}^2$. If $\Delta<0$, saddle point. If $\Delta>0$, take $f_{x^2}$ at those CPs. If $f_{x^2}>0$, local min. If $f_{x^2}<0$, local max.
+        \end{thm}
+        
+        \begin{thm}[Inverse Function Theorem]
+            $\dif \inverse{F}(F(a))=\inverse{\dif F(a)}$.
+        \end{thm}
+        
+        \begin{thm}
+            $\dif G(a)=-\inverse{\left(\frac{\partial F}{\partial y} (a,b)\right)} \frac{\partial F}{\partial x}(a,b)$.
+        \end{thm}
+        
+    }
+\end{document}

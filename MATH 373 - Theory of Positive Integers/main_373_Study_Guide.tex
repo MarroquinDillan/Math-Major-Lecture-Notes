@@ -1,0 +1,282 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kpfonts}
+\usepackage[mathscr]{euscript}
+\usepackage{commath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[margin=0.8in]{geometry}
+
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}}
+\newcommand{\B}{\ensuremath{\mathcal{B}}}
+\newcommand{\floor}[1]{\lfloor #1 \rfloor}
+\newcommand{\wrt}{with respect to}
+\newcommand{\Iff}{if and only if}
+\newcommand{\script}[1]{\ensuremath{\mathscr{#1}}}
+\newcommand{\coleq}{\ensuremath{\coloneqq}}
+\newcommand{\powset}[1]{\ensuremath{\mathcal{P}(#1)}}
+\newcommand{\union}{\cup}
+\newcommand{\Union}{\bigcup}
+\newcommand{\inter}{\cap}
+\newcommand{\Inter}{\bigcap}
+\renewcommand{\Subset}{\subseteq}
+\renewcommand{\Supset}{\supseteq}
+\renewcommand{\mod}[1]{\ensuremath{(\mathrm{mod}#1})}
+
+\theoremstyle{definition}
+\newtheorem*{defn}{Definition}
+\newtheorem*{cor}{Corollary}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{ex}{Ex}
+\newtheorem*{lem}{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+
+\begin{document}
+    \subsection*{Chapter 1: The Basics}{
+        \begin{defn}[1.1 Divisibility]
+            If $a,b \in \Z$ with $a\neq0$ and there exists a $c \in \Z$ such that $b=ac$, then \textbf{$\mathbf{a}$ divides $\mathbf{b}$} and we write $\mathbf{a|b}$.
+        \end{defn}
+        
+        \begin{defn}[1.2 Prime/Composite]
+            Let $p \in \Z$. If $p\geq 2$ whose only positive divisors are $1$ and itself, then $p$ is a \textbf{prime}. If $p>1$ and $p$ is not prime, then $p$ is \textbf{composite}.
+        \end{defn}
+        
+        \begin{defn}[1.10 Positional Notation]
+            For any $a \in \N$ and any integer $b>1$, we can write $a$ as $\mathbf{a=c_nb^n+c_{n-1}b^{n-1}+\cdots+c_1b+c_0}$, where $n\geq0$ and $0\leq c_i<b$ for all $o\leq i\leq n$. This is denoted $\mathbf{a_{10}=(c_nc_{n-1}\cdots c_1c_0)_b}$ and is the \textbf{positional notation of $\mathbf{a}$ in base $\mathbf{b}$}.
+        \end{defn}
+        
+        \begin{thm}[1.9 Division Algorithm]
+            For any $b \in \N$ and any $a \in \Z$, $\exists! q,r \in \Z$ such that $\mathbf{a=bq+r}$, where $0\leq r< b$. (e.g. $2021=21\cdot96+5$)
+        \end{thm}
+    }
+    
+    \subsection*{Chapter 2: Divisibility}{
+        \begin{defn}[2.1 GCD]
+            If $d$ is the largest common divisor of $a$ and $b$, where $a,b$ are not both equal to $0$, then $d$ is the \textbf{greatest common divisor} of $a$ and $b$, denoted $\mathbf{d=(a,b)}$.
+        \end{defn}
+        
+        \begin{defn}[2.1 LCM]
+            If $m$ is the smallest common multiple of $a$ and $b$, where $a,b$ are not equal to $0$, then $m$ is the \textbf{least common multiple} of $a$ and $b$, denoted $\mathbf{m=[a,b]}$.
+        \end{defn}
+        
+        \begin{defn}[Pythagorean Triples]
+            If the lengths of a Pythagorean triangle are all integers, we say $(a,b,c)$ is a \textbf{Pythagorean Triple}. If gcd$(a,b,c)=1$, then $(a,b,c)$ is a \textbf{Primitive Pythagorean Triple}.
+        \end{defn}
+        
+        \begin{defn}[Greatest Integer Function]
+            If $\alpha \in \R$, then $\mathbf{[\alpha]}$ (or $\floor{\alpha}$) is the \textbf{greatest integer} that is $\leq \alpha$.
+        \end{defn}
+        
+        \begin{defn}[2.5 Exact Order of Division]
+            Let $m, n \in \N$ where $m\geq 2$ and $n\geq 1$. $\mathbf{m^f}$ \textbf{exactly divides} $\mathbf{n}$ if $m^f|n$ and $m^{f+1}\nmid n$. $f$ is the \textbf{exact order of division} of $n$ by $m$, denoted $\mathbf{m^f||n}$.
+        \end{defn}
+        
+        \begin{thm}[2.1]
+            If $a\neq 0$, then $a|0$ and $a|a$.\\
+            $1|b \; \forall b$.\\
+            If $a|b$, then $a|bc$.\\
+            If $a|b$ and $b|c$, then $a|c$.
+        \end{thm}
+        
+        \begin{thm}[2.2]
+            If $a|b$ and $b\neq 0$, then $|a|\leq |b|$.
+        \end{thm}
+        
+        \begin{cor}[2.3]
+            If $a|b$ and $b|a \; \forall a,b \in \Z$, then $a=b$.
+        \end{cor}
+        
+        \begin{thm}[2.4]
+            If $a,b \neq 0$ and $d=(a,b)$, then $d$ is the least element in the set of all positive integers of the form $ax+by$.
+        \end{thm}
+        
+        \begin{thm}[2.5]
+            $d=(a,b)$ \Iff{} $d>0$, $d|a$, $d|b$, and for any $f$ such that $f|a$ and $f|b$, we have $f|d$.
+        \end{thm}
+        
+        \begin{thm}[2.8]
+            If $a|bc$ and $(a,b)=1$, then $a|c$.
+        \end{thm}
+        
+        \begin{thm}[2.9]
+            If $p$ is prime and $p|bc$, then $p|b$ or $p|c$.
+        \end{thm}
+        
+        \begin{thm}[2.12]
+            If $(a, b_i)=1$ for $1\leq i \leq n$, then $(a,b_1b_2\cdots b_n)=1$.
+        \end{thm}
+        
+        \begin{thm}[2.13]
+            If $a|c$, $b|c$ and $(a,b)=1$, then $ab|c$.
+        \end{thm}
+        
+        \begin{thm}[2.18]
+            For $a,b \in \N$, $[a,b]=m$ \Iff{} $m>0$, $a|m$, $b|m$, and $m|n$ for any $n$ such that $a|n$ and $b|n$.
+        \end{thm}
+        
+        \begin{thm}[2.19]
+            For $a,b \in \N$, $(a,b)[a,b]=ab$.
+        \end{thm}
+        
+        \begin{thm}[2.22 FTA]
+            Every integer $a\geq 2$ is either prime or a product of primes, and the product is unique up to different orders of prime divisors of $a$. $\mathbf{a=p_1^{e_1}p_2^{e_2}\cdots p_n^{e_n}}$, where $p_1<p_2<\cdots<p_n$ are prime divisors of $n$ and $e_1\geq1, e_2\geq1, \cdots, e_n\geq 1$ is the \textbf{canonical representation of $\mathbf{a}$}
+        \end{thm}
+        
+        \begin{thm}[2.24]
+            If $a=p_1^{e_1}p_2^{e_2}\cdots p_n^{e_n}$ is the canonical representation of $a$, then $\mathbf{\tau(a)=(e_1+1)(e_2+1)\cdots(e_n+1)}$ and $\mathbf{\sigma(a)=\frac{p_1^{e_1+1}-1}{p_1-1}\frac{p_2^{e_2+1}-1}{p_2-1}\cdots\frac{p_n^{e_n+1}-1}{p_n-1}}$.
+        \end{thm}
+        
+        \begin{thm}[2.26]
+            $x,y,z \in \N$ where $x$ is even form a primitive Pythagorean triple \Iff{} $\exists s,t$ such that $s<t$, $(s,t)=1$, one of $s$ and $t$ is odd and the other is even, $x=2st$, $y=t^2-s^2$, $z=t^2+s^2$.
+        \end{thm}
+        
+        \begin{thm}[2.29]
+            If $a>0$ and $p$ is prime, then $p^e||a!$, where $e=\floor{\frac{a}{p}}+\floor{\frac{a}{p^2}}+\cdots+\floor{\frac{a}{p^r}}$, and $r$ satisfies $p^r\leq a< p^{r+1}$
+        \end{thm}
+    }
+    
+    \subsection*{Chapter 3: Primes}{
+        \begin{defn}[Mersenne]
+            Primes of the form $\mathbf{2^n-1}$ are called \textbf{Mersenne primes}.
+        \end{defn}
+        
+        \begin{defn}[Fermat]
+            Primes of the form $\mathbf{2^{2^n}+1}$ are called \textbf{Fermat primes $\script{F}(n)$}
+        \end{defn}
+        
+        \begin{defn}[3.1 Perfect]
+            If $\mathbf{\sigma(a)=2a}$, then $a$ is a \textbf{perfect number}.
+        \end{defn}
+        
+        \begin{thm}[3.2]
+            If $(a,d)=1$ where $a>0, d>0$, then there are infinitely many primes of the form $ax+d$.
+        \end{thm}
+        
+        \begin{thm}[3.8]
+            Let $\pi(x)$ be the number of primes $\leq x$. Then $\mathbf{\pi(x) \approx \frac{x}{\ln(x)}}$.
+        \end{thm}
+        
+        \begin{thm}[3.11]
+            If $2^n-1$ is a Mersenne prime, then $a=2^{n-1}(2^n-1)$ is perfect. Also, every even perfect number is of the form $2^{n-1}(2^n-1)$, where $2^n-1$ is a Mersenne prime.
+        \end{thm}
+    }
+    
+    \subsection*{Chapter 4: Congruence}{
+        \begin{defn}[4.1 Congruence]
+            If $m>0$ and $m|(a-b)$, then $\mathbf{a}$ \textbf{is congruent to $\mathbf{b\mod{m}}$} and $\mathbf{a\equiv b\mod{m}}$.
+        \end{defn}
+        
+        \begin{defn}[4.2 Least Residue]
+            If $a=mq+r$, where $0\leq r\leq m-1$, then $a\equiv r\mod{m}$ and $r$ is the \textbf{least residue of $\mathbf{a\mod{m}}$}.
+        \end{defn}
+        
+        \begin{defn}[4.4 LR Systems]
+            The set of integers $\{0,1,\ldots,m-1\}$ is a \textbf{least residue system $\mathbf{\mod{m}}$}. Any set of $m$ integers, no two of which are congruent mod $m$, is called a \textbf{complete modulo system modulo $\mathbf{m}$}
+        \end{defn}
+        
+        \begin{defn}[Pseudoprime]
+            If a composite number passes Fermat's test to base 2, then it's a \textbf{pseudoprime} to base 2.
+        \end{defn}
+        
+        \begin{defn}[Strong Pseudoprime]
+            If $n$ passes the base $a$ Miller's test and $n$ is composite, then $n$ is a \textbf{strong pseudoprime} to base $a$.
+        \end{defn}
+        
+        \begin{thm}[4.3]
+            If $a_i \equiv b_i \mod m$, where $i=1,2,\ldots,n$, then $\sum_{i=1}^n a_i \equiv \sum_{i=1}^n b_i \mod m$ and $\prod_{i=1}^n a_i \equiv \prod_{i=1}^n b_i \mod m$
+        \end{thm}
+        
+        \begin{thm}[4.6]
+            If $ac \equiv bc\mod{m}$, then $a\equiv b \mod{\frac{m}{d}}$, where $d=(c,m)$.
+        \end{thm}
+    
+        \begin{cor}[4.7]
+            If $(c,m)=1$ and $ac\equiv bc \mod m$, then $a\equiv b\mod m$.
+        \end{cor}
+        
+        \begin{thm}[4.8]
+            If $c\neq 0$ and $ac\equiv bc\mod{mc}$, then $a\equiv b\mod{m}$.
+        \end{thm}
+        
+        \begin{thm}[4.9]
+            If $a\equiv b\mod{m}$, $a\equiv b\mod{n}$, and $(m,n)=1$, then $a\equiv b\mod{mn}$.
+        \end{thm}
+        
+        \begin{cor}[4.10]
+            If $a\equiv b \mod{m_i}, \, 1\leq i\leq n$, and $m_1,m_2,\cdots,m_n$ are pairwise relatively prime, then $a\equiv b\mod{m_1m_2\cdots m_n}$.
+        \end{cor}
+        
+        \begin{thm}[4.14]
+            If $n \in \Z_+$, then $\phi(1)=1$, and for $n=p_1^{\alpha_1}p_2^{\alpha_2}\cdots p_r^{\alpha_r}\geq 2$ the canonical representation of $n$, we have $\phi(n)=n\prod_{i=1}^r(1-\frac{1}{p_i})$.
+        \end{thm}
+        
+        \begin{thm}[Fermat's Lil Thm]
+            If $p$ is prime and $(a,p)=1$, then $a^{p-1} \equiv 1\mod p$. This implies that if $p$ is prime, then $a^p \equiv a\mod{p}$.
+        \end{thm}
+        
+        \begin{thm}[4.17 Euler-Fermat]
+            If $(a,m)=1$, then $a^{\phi(m)}\equiv 1\mod{m}$, where $\phi(m)$ is the number of integers from $0$ to $m-1$ that are relatively prime to $m$.
+        \end{thm}
+    
+    }
+    
+    \subsection*{Chapter 5: Congruence Equations}{
+        \begin{defn}[5.1]
+            For an odd prime $p$ and $c \in \Z$ such that $(c,p)=1$, if $\mathbf{x^2\equiv c\mod{p}}$ is solvable, then $c$ is a \textbf{quadratic residue mod$\mathbf{p}$}.
+        \end{defn}
+        
+        \begin{defn}[5.2]
+            The \textbf{Legendre symbol} is defined as $(\frac{a}{p})$. Its value is $1$ if $a$ is a quadratic residue mod$p$, $0$ if $p|a$, or $-1$ if $a$ is a quadratic non-residue mod$p$, where $p$ is an odd prime.
+        \end{defn}
+        
+        \begin{thm}[5.1]
+            $ax\equiv b\mod{m}$ is solvable \Iff{} $d|b$, where $d=(a,m)$. In the case that $d|b$, the congruence equation has precisely $d$ incongruent solutions mod $m$ (e.g. $x_0, x_0+\frac{m}{d}, x_0+\frac{2m}{d}, \cdots, x_0+(d-1)\frac{m}{d})$, where $x_0$ can be found via Euclid's algorithm.
+        \end{thm}
+        
+        \begin{thm}[5.5 Chinese Remainder Theorem]
+            Suppose $m_1,m_2,m_s$ are pairwise relatively prime and $(a_i,m_i)=1$ for $1\leq i\leq s$. Then the system $a_1x\equiv b_1\mod{m_1}, \; a_2x\equiv b_2\mod{m_2}, \cdots, a_sx\equiv b_s\mod{m_s}$ has a unique solution mod$M$, where $M=\prod_{i=1}^s m_i$.
+        \end{thm}
+        
+        \begin{thm}[5.15 Gauss Quadratic Reciprocity]
+            If $p$ and $q$ are distinct odd primes, then $(\frac{p}{q})=(\frac{q}{p})$ if $p\equiv 1 \mod 4$ or $q \equiv 1 \mod 4$, or $-(\frac{q}{p})$ if $p\equiv q\equiv 3 \mod{4}$.
+        \end{thm}
+        
+        \begin{thm}[5.16]
+            For an odd prime $p$, we have $(\frac{2}{p})=1$ if $p\equiv 1$ or $7\mod{8}$, and $-1$ if $p\equiv 3$ or $5 \mod{8}$.
+        \end{thm}
+    
+    }
+    \subsection*{Chapter 6: Cryptography}{
+        \begin{defn}[Caesar Cipher]
+            Take $m=26$ and let $A,B,C,\ldots,Z$ be represented by the 26 least residues.\\ \textbf{Key:} $\mathbf{(r,s)}$ where $r$ is a multiplier and $s$ is a shift such that $1\leq r \leq 25$ and $(r,26)=1$, $0\leq s\leq 25$, and $(r,s)\neq (1,0)$.\\ \textbf{Encryption: $\mathbf{C \equiv rP+s \mod{26}}$, where $0 \leq C \leq 25$}.\\
+            \textbf{Decryption:} First find $r^{-1}$ such that $rr^{-1}\equiv \mod{26}$ via Euclid. Then $\mathbf{P\equiv r^{-1}(C-s)\mod{26}}$.
+        \end{defn}
+        
+        \begin{defn}[Exponentiation Cipher]
+            First change the plaintext to groups of letters and use numbers to represent them (e.g. $A=00, B=01,\ldots,Z=25$). Choose $p$ such that each group of numbers with $2m$ digits.\\
+            \textbf{Key:} $\mathbf{(k,p-1)=1}$.\\
+            \textbf{Encryption:} Compute the least residue of $T^k\mod{p}$, which is the ciphertext $C$.\\
+            \textbf{Decryption:} Compute deciphering key $q$ which satisfies $kq\equiv 1\mod{p-1}$ via Euclid. Then compute the least residue of $C^q\mod{p}$, which is the plaintext $T$.
+        \end{defn}
+        
+        \begin{defn}[Diffie-Hellman Key Exchange]
+            A method which makes it possible to share a common secret without meeting in person.\\
+            First Alice and Bob pick a prime $p$ and $r\in \Z$ such that $(r,p)=1$ and $(r,p-1)=1$.\\
+            Then Alice picks a $k_1$, computes $x_1\equiv r^{k-1}\mod{p}$, and send it to Bob. Bob also picks a $k_2$ and computes $x-2\equiv r^{k_2} \mod{p}$ and sends it to Alice.\\
+            Now Alice computes $k\equiv x_2^{k_1}\mod p$ and Bob computes $k\equiv x_1^{k-2}\mod{p}$.
+        \end{defn}
+        
+        \begin{defn}[RSA Cryptosystem]
+            An asymmetric cryptosystem where Alice and Bob have different keys.\\
+            \textbf{Key:} Pick 2 large primes $p$ and $q$, compute $n=pq$ and $\alpha(n)=pq(1-\frac{1}{p})(1-\frac{1}{q})$. Pick a number $e$ that is relatively prime to $n$ and $\alpha(n)$. Publish $\mathbf{(n,e)}$, keep $\alpha(n)$ secret.\\
+            \textbf{Encryption:} Compute $\mathbf{C\equiv m^e\mod{n}}$. Send $C$.\\
+            \textbf{Decryption:} Compute $d$ such that $ed\equiv 1\mod(p-1)(q-1)$. The pair $(n,d)$ is the private key. Compute $m\equiv C^d\mod{n}$.
+        \end{defn}
+    }
+\end{document}

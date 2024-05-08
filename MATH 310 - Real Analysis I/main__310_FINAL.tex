@@ -1,0 +1,79 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kpfonts}
+\usepackage{commath}
+\usepackage{amsthm}
+\usepackage{xfrac}
+\usepackage{setspace}
+\usepackage[margin=0.6in]{geometry}
+
+\onehalfspacing
+
+\begin{document}
+    \noindent FINAL EXAM STUDY GUIDE\\
+    
+    \noindent \underline{THEOREMS:}\\
+    \noindent \textbf{Upper/Lower Riemann Integrals: }$\displaystyle\overline{\int}f = \inf\{U(f,P) : P\text{ partition of $[a,b]$}\}$, and $\displaystyle\underline{\int} f = \sup\{L(f,P) : P\text{ partition of $[a,b]$}\}$\\
+    
+    \noindent \textbf{Theorem: }Let $f:[a,b] \to \mathbb{R}$. If $f$ is monotone, then $f$ is integrable.\\
+    
+    \noindent \textbf{Theorem: }Let $f:[a,b] \to \mathbb{R}$. If $f$ is continuous, then $f$ is integrable.\\
+    
+    \noindent \textbf{Mean Value Theorem for Integrals: }Let $f:[a,b] \to \mathbb{R}$ be continuous. Then $\exists c \in (a,b)$ such that $\displaystyle f(c) = \frac{1}{b-a}\int_a^b f(x) \dif x$.\\
+    
+    \noindent \textbf{Fundamental Theorem of Calculus: }If $f$ has an antiderivative $F$, then $\displaystyle\int_a^b f(x) \dif x = F(b)-F(a)$. Let $f:[a,b] \to \mathbb{R}$ be continuous. Then $\displaystyle F(x) = \int_a^x f(t) \dif t$ is differentiable and $F' = f$. Then $\displaystyle\int_a^b f(x) \dif x = F(b)-F(a)$.\\
+    
+    \noindent \textbf{Improper Integrability: } $f:[a,b) \to \mathbb{R}$ is improperly integrable if 1) $f$ is Riemann integrable on any interval $[a,c] \subset [a,b)$ and if 2) $\lim_{c\to b^-}\int_a^c f(x) \dif x$ exists and is finite.\\
+    
+    \noindent \underline{STUDY GUIDE:}\\
+    \noindent \textbf{A1: }Prove that $f:\mathbb{R} \to \mathbb{R}$ defined by $f(x) = -2$ for $x \in \mathbb{Q}$ and $f(x) = 3$ for $x \in \mathbb{R}\setminus \mathbb{Q}$ is NOT integrable on $[0,1]$.
+    \begin{proof}
+        Let $P= \{0=x_0,x_1,x_2,\ldots,x_n=1\}$ and $[x_{k-1},x_k]$ for $k \in \{1,2,\ldots,n\}$. Since $[x_{k-1},x_k] \cap \mathbb{R \setminus \mathbb{Q}} \neq \emptyset$ and $[x_{k-1},x_k] \cap \mathbb{Q} \neq \emptyset$,
+        \begin{align*}
+            &\inf\{f(x):x \in [x_{k-1},x_k]\} = -2 = m_k    &   &\sup\{f(x): x \in [x_{k-1},x_k]\} = 3 = M_k.\\
+            \text{So, }L(f,P) &= \sum_{k=1}^n m_k(x_{k-1}-x_k)   &   U(f,P) &= \sum_{k=1}^n M_k(x_{k-2}-x_k)\\
+            &= -2[(x_0-x_1)+(x_1-x_2)+\cdots+(x_{n-1}-x_n] = -2(x_0-_n) = -2   &   &= \cdots = -3.   
+        \end{align*}
+        Therefore, the upper and lower integrals will not be equal, so it is not integrable on $[0,1]$.
+    \end{proof}
+    
+    \noindent \textbf{B1: }$f: \mathbb{R} \to \mathbb{R}, f(x)=\cos x$ with partition $P = \{\frac{\pi}{2},\frac{2\pi}{3},\frac{3\pi}{4},\frac{5\pi}{6},\pi\}$ of $[\frac{\pi}{2},\pi]$. Evaluate $L(f,P)$ and $U(f,P)$.\\
+    \textbf{Answer: }$f(\pi/2)=0, \quad f(2\pi/3)=-\frac{1}{2}, \quad f(3\pi/4)=-\frac{\sqrt{2}}{2}, \quad f(5\pi/6)= -\frac{\sqrt{3}}{2}, \quad f(\pi)=-1$
+    \begin{align*}
+        m_1 &= \inf\{f(x) : x \in [\frac{\pi}{2}, \frac{2\pi}{3}]\} = -\frac{1}{2}  &   M_1 &= \sup\{f(x) : x \in [\frac{2\pi}{3}, \frac{3\pi}{4}]\} = 0\\
+        m_2 &= -\frac{\sqrt{2}}{2}, \, m_3 = -\frac{\sqrt{3}}{2}, \, m_4 = -1    &   M_2 &= -\frac{1}{2}, \, M_3 = -\frac{\sqrt{2}}{2}, \, M_4 = -\frac{\sqrt{3}}{2}\\
+        L(f,P) &= m_1(\frac{2\pi}{3}-\frac{\pi}{2})+\cdots+m_4(\pi-\frac{5\pi}{6})    &   U(f,P) &= M_1(\frac{2\pi}{3}-\frac{\pi}{2})+\cdots+M_4(\pi-\frac{5\pi}{6})\\
+        &= \cdots = \frac{\pi(-6-\sqrt{2}-\sqrt{3})}{24} &   &= \cdots = -\frac{\pi(1+\sqrt{2}+2\sqrt{3})}{24}
+    \end{align*}
+        
+    \noindent \textbf{C2: }Show $h(x) = \int-{e^-x}^{e^x} \frac{1}{t^4+1} \dif t$ is differentiable on $\mathbb{R}$ and find $h(0), \, h'(x), \,h'(0)$.
+    \begin{proof}
+        Define $k : \mathbb{R} \to \mathbb{R}, \, k(t) = \frac{1}{t^4+1}$. This is continuous, thus integrable on $[a,b]$. By the FTC, $k$ has an antiderivative $K: \mathbb{R} \to \mathbb{R}, \, K'(t) = k(t)$. Then $h(x) = K(e^x)-K(e^{-x})$ is also differentiable by composition.
+        \begin{align*}
+            h(0) &= \int_1^1 \frac{1}{t^4+1} \dif t = 0\\
+            h'(x) &= K'(e^x)e^x-K'(e^{-x})(-e^{-x}) = \frac{e^x+e^{-x}}{e^{4x}+1}\\
+            h'(0) &= \frac{1}{2}+\frac{1}{2} = 1.
+        \end{align*}
+        \end{proof}
+        
+        \noindent \textbf{D3: }$f:\mathbb{R} \to \mathbb{R}, \, f(x) = \sin x -4x$ for $x \leq 0, \, f(x) = 3\ln (1-x)$ for $0<x<1, \, e^{-x}$ for $x \geq 1$. Does $\lim_{x \to 1^-} f(x)$ exist? Determine $f'(0), \, f'(1)$ or prove it does not exist. Prove $f$ is integrable on $[-\pi, 0]$ and prove $f$ is integrable on $[-\pi, \frac{1}{2}]$. Then prove the improper integral $\int_1^\infty f^2(x) \dif x$ is convergent and evaluate.\\
+        \textbf{Answer: }$\lim_{x \to 1^-} f(x) = \lim_{x \to 1^-} 3\ln (1-x) = -\infty$. Since $f$ is not continuous at $x=1$, $f$ is not differentiable at $x=1$.
+        \begin{align*}
+            f_l'(0) &= \lim_{x \to 0^-} \frac{f(x)-f(0)}{x-0} = \lim_{x \to 0^-} \frac{\sin x -4x}{x} = -3  &   f_r'(0) &= \lim_{x \to 0^+} \frac{f(x)-f(0)}{x-0} = \lim_{x \to 0^+} \frac{3\ln (1-x)-0}{x} = -3\\
+            &\therefore \text{$f$ is differentiable @ $x=1$}
+        \end{align*}
+        On $[-\pi, 0], \, f(x)=\sin x -4x$ is continuous, thus integrable over this interval. Since $f$ is integrable on $[-\pi, 0] \cup [0, \frac{1}{2}]$, it is integrable on $[-\pi, \frac{1}{2}]$.\\
+        $\int_1^\infty f^2(x) \dif x = \int_1^\infty (e^{-x})^2 \dif x$. $e^{-2x}$ is continuous on any $[1,c], \, c \in (1, \infty) \implies$ it is integrable. Also, $\lim_{c \to \infty} \int_1^c e^{-2x} \dif x = \lim_{c \to \infty} -\frac{1}{2}e^{-2x}\Big|_1^c = \frac{1}{2e^2}$, so this exists.\\
+        
+        \noindent \textbf{E2: }Prove $f:\mathbb{R} \to \mathbb{R}, \, f(x) = e^{-\frac{1}{x^2}}$ for $x \neq 0$ and $f(0) = 0$ is differentiable. Is $g(x) = e^{-\frac{1}{x^2}} \ln x$ improperly integrable on $(0,1)$?\\
+        \textbf{Answer: }On the intervals $(-\infty, 0) \cup (0, \infty)$, $f$ is differentiable by composition and $f'(x) = e^{-\frac{1}{x^2}}\frac{2}{x^3}$.\\
+        $\lim_{x \to 0} \frac{f(x)-f(0)}{x-0} = \lim \frac{\frac{1}{x}}{e^\frac{1}{x^2}}$. Using L.R. we find that $f'(0) = 0$.\\
+        For $g$, there is a singularity at $x=0$: $\lim_{x \to 0^+} \frac{\ln x}{e^{\frac{1}{x^2}}} = 0$ (L.H.). So $g$ can be extended by continuity to $\overline{g}:[0,\infty) \to \mathbb{R}$, So $\int_0^1 g(x) \dif x = \int_0^1 \overline{g}(x) \dif x$. So this is improperly integrable on $(0,1)$.\\
+        
+        \noindent \textbf{F1: }$F: \mathbb{R} \tp \mathbb{R}$, $\, F(x) = x^2\sin (\frac{1}{x^2})$ for $x \neq 0$ and $F(0) = 0$. Prove $F$ is differentiable, determine $F'$, then determine if $F$ is integrable on $[-1,1]$ and if $F'$ is integrable on $[2,7]$ and $[-1,1]$.\\
+        \textbf{Answer: }$F$ is differentiable on $(-\infty,0) \cup (0, \infty)$ by composition. To see if differentiable at $x=0$, we evaluate $\lim_{x\to0}\frac{F(x)-F(0)}{x-0} = 0$.\\
+        $F'(x) = 2x\sin(\frac{1}{x^2})-\frac{2}{x}\cos(\frac{1}{x^2})$ for $x \neq 0$ and $0$ otherwise.\\
+        $F$ being differentiable on $\mathbb{R} \implies F$ is continuous on $[-1,1] \implies F$ is integrable on $[-1,1]$.\\
+        $F'$ being differentiable on $[2,7]$ by composition $\implies F'$ is continuous on $[2,7] \implies F'$ is integrable on $[2,7]$.\\
+        For $x_n = \frac{1}{\sqrt{2n\pi}}, \,F'(x_n) = 2x_n \sin(\frac{1}{x_n^2})-\frac{2}{x_n}\cos(\frac{1}{x_n^2}) = \cdots = -2\sqrt{2n\pi}$. So, $\lim_{n \to \infty} F'(x_n) = -\infty$. So $F'$ is not bounded on $[-1,1]$ and thus not integrable.
+\end{document}

@@ -1,0 +1,193 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kpfonts}
+\usepackage[mathscr]{euscript}
+\usepackage{commath}
+\usepackage{bbm}
+\usepackage{enumerate}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{wasysym}
+\usepackage[margin=0.8in]{geometry}
+
+\newcommand{\N}{\mathbbm{N}}
+\newcommand{\Z}{\mathbbm{Z}}
+\newcommand{\Q}{\mathbbm{Q}}
+\newcommand{\R}{\mathbbm{R}}
+\newcommand{\C}{\mathbbm{C}}
+\newcommand{\es}{\emptyset}
+\newcommand{\union}{\cup}
+\newcommand{\Union}{\bigcup}
+\newcommand{\inter}{\cap}
+\newcommand{\Inter}{\bigcap}
+\newcommand{\coleq}{\coloneqq}
+\newcommand{\script}[1]{\mathscr{#1}}
+\newcommand{\powset}[1]{\mathcal{P}(#1)}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\inverse}[1]{#1^{-1}}
+\newcommand{\define}[1]{\textbf{\underline{#1}}}
+\newcommand{\func}[3]{#1: #2 \to #3}
+\newcommand{\lcm}{\mathrm{lcm}}
+\renewcommand{\mod}[1]{\ (\mathrm{mod}\ #1)}
+\renewcommand{\Subset}{\subseteq}
+\renewcommand{\Supset}{\supseteq}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\theoremstyle{definition}
+\newtheorem*{defn}{Definition}
+\newtheorem*{cor}{Corollary}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{ex}{Example}
+\newtheorem*{lem}{Lemma}
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+
+%Abstract Algebra specific commands
+\newcommand{\Znx}{(\mathbb{Z}/n)^\times}
+\newcommand{\Rx}{\mathbb{R}^\times}
+\newcommand{\cyc}[1]{\langle#1\rangle}
+\newcommand{\im}{\mathrm{im}}
+\newcommand{\normal}{\unlhd}
+\newcommand{\ideal}{\unlhd}
+\newcommand{\iso}{\cong}
+\newcommand{\sgn}{\mathrm{sgn}}
+\newcommand{\ev}{\mathrm{ev}}
+\newcommand{\K}{\mathbbm{K}}
+\renewcommand{\H}{\mathbbm{H}}
+
+\begin{document}
+    \begin{center}
+        \textsc{Dillan Marroquin\\MATH 331.1001\\Scribing Week 13\\Due. 22 November 2021\\}
+    \end{center}
+        
+    \section*{Lecture 32}{
+        \subsection*{Properties of Elements in Rings}{
+            Recall from Lecture 6 the following:
+            \begin{thm}[6.2]
+                $(\Z/n^\times,*,[0])$, where $\Z/n^\times \coleq \{[k] \in \Z/n-\{[0]\}|\gcd(k,n)=1\}$ for $n>1$ is a group.
+            \end{thm}
+            
+            \begin{ex}
+                We have $Z/4^\times=\{[1],[3]\}$. Here, $[1]*[1]=[1]$ and $[3]*[3]=[8]=[1]$. Therefore, every element has a multiplicative inverse. Also, if you have $[a],[b] \in \Z/4$ such that $[a]*[b]=[0]$, then $[a],[b]$ need not be $[0]$: $[2]*[2]=[4]=[0]$. On the other hand, if $n=p$ prime, then $(\Z/p^\times)=\Z/p-\{[0]\}$. Every non-zero element of $\Z/p$ has a multiplicative inverse.
+            \end{ex}
+            
+            \begin{defn}[32.1]
+                Let $R$ be a ring. An element $a \in R$ is a \define{unit} iff it has a multiplicative inverse. i.e. $\exists u \in R$ such that $au=ua=1_R$. Define $R^\times \coleq \{a \in R|a\text{ is a unit}\}$.
+            \end{defn}
+            
+            \begin{prop}[32.2]
+                Let $(R,+,0_R,*,1_R)$ be a ring. Then\ldots
+                \begin{enumerate}
+                    \item $(R^\times,*,1_R)$ is a group.
+                    \item If $a \in R^\times$, its inverse is unique.
+                    \item If $1_R \neq 0_R$, $0_R \notin R^\times$.
+                \end{enumerate}
+            \end{prop}
+            
+            \begin{proof}
+                \begin{enumerate}
+                    \item Definition of a ring implies $(R,*,1_R)$ is a monoid. This implies $*$ is associative and $1_R$ is the identity element. Now we need to show $R^\times$ is closed with respect to $*$. Let $a,b\in R^\times$, and let $u,w$ be the inverses, respectively. WTS $a*b \in R^\times$. We have $a*u=1_R=u*a$ and $b*w=1_R=w*a$. Now consider $(w*u)*(a*b)=w*(u*a)*b=w*1_R*b=w*b=1_R$. So $(a*b)*(w*u)=a*(b*w)*u=a*1_R*u=a*u=1_R$. Therefore $a*b \in R^\times$.
+                    \item By 1. above, $R^\times$ is a group which implies that the inverse of any element in the group is unique.
+                    \item Use the contrapositive. Suppose $0_R \in R^\times$. By definition, $\exists u \in R$ such that $0_Ru=1_R$. Thus, $0_Ru=0_R$ by 26.3.
+                \end{enumerate}
+            \end{proof}
+            
+            \begin{defn}[32.3]
+                A ring $R$ is a \define{division ring} iff $R^\times=R-\{0_R\}$. A \define{field} is a commutative division ring. Fields are denoted $\K$.
+            \end{defn}
+            
+            Examples of fields: $\Q,\R,\C,\mathbbm{F}_p\coleq\Z/p$.\\
+            
+            Another example: $\K(x)\coleq\left\{\frac{p(x)}{q(x)}\big|p,q \in \K[x], \ q\neq 0\right\}$. These are rational functions in 1 variable.
+        }
+    }
+    \section*{Lecture 33}{
+        \begin{ex}[A division ring, but not a field]
+            The quarternions: $\H\coleq\{a+ib+jc+kd|a,b,c,d\in \R\}$, where $i*i=j*j=k*k=-1 \in \R$, $i*j=k$, $j*i=-k$ (non-commutative). If $q=a+ib+jc+kd$, then $\overline{q}\coleq a-ib-jc-kd$ is the conjugate of $q$ and $q*\overline{q}=a^2+b^2+c^2+d^2$.\\ For $q\neq 0 \in \H$, $\inverse{q}q=q\inverse{q}=1$, $\inverse{q}=\frac{\overline{q}}{q\overline{q}}$.\\
+            Subrings: $\R \leq \C \leq \H$. Group of Units: $\Rx\leq \C^\times \leq \H^\times$ subgroups. "Norm 1 integer units": $\{\pm1\} \leq \{\pm1,\pm i\} \leq \{\pm1, \pm i, \pm j, \pm k\}$.
+        \end{ex}
+        
+        \begin{defn}[33.1]
+            Let $R\neq 0$ be a ring. An element $a \neq 0 \in R$ is a \define{zero divisor} if $\exists b \neq 0$ such that $ab=0$ or $ba=0$.
+        \end{defn}
+        
+        \begin{ex}
+            \begin{enumerate}
+                \item $[3]\in \Z/6$ is a zero divisor since $[3]\cdot[2]=[6]=[0]$, but $[3]\neq[0]$, $[2] \neq [0]$.
+                \item Let $R$ be a non-trivial ring: $R\times R$. Then an element $(1,0)\cdot(0,1)=(0,0)$ is a zero divisor.
+                \item For the integers $\Z$, there exists no such zero divisor.
+            \end{enumerate}
+        \end{ex}
+        
+        \begin{defn}[33.2]
+            A ring $R$ is an \define{integral domain} iff
+            \begin{enumerate}
+                \item $R \neq 0$
+                \item $R$ is commutative
+                \item $R$ has no zero divisors
+            \end{enumerate}
+        \end{defn}
+        
+        \begin{prop}[33.3]
+            A field $\K$ is an integral domain.
+        \end{prop}
+        
+        \begin{rmk}
+            An \define{entire ring} as defined in Paulin's notes is a ring $R\neq 0$ that has no zero divisors.
+        \end{rmk}
+        
+        \subsection*{Polynomial Rings and Zero Divisors}{
+            Suppose $f,g \in \R[x]-\{0\}$. Then $\deg(f)=m$, $\deg(g)=n$, and $\deg(fg)=m+n$.\\
+            On the other hand, $f=[3]x^3$, $g=[2]x^2+x \in \Z6[x]$. So $\deg(f)=3$, $\deg(g)=2$, and $\deg(fg)=[3]x^4 < \deg(f)+\deg(g)$.
+            
+            \begin{thm}[33.4]
+                Let $R$ be an integral domain. Then\ldots
+                \begin{enumerate}
+                    \item If $f,g \in R[x]-\{0_R\}$, then $\deg (fg)=\deg(f)+\deg(g)$.
+                    \item $\R[x]$ is an integral domain.
+                \end{enumerate}
+            \end{thm}
+        }
+    }
+    \section*{Lecture 34}{
+        \begin{proof}[Proof (Thm 33.4)]
+            \begin{enumerate}
+                \item Let $\deg f=n\geq0$, $\deg g=m \geq 0$. Then $f=\sum_{i=0}^n a_ix^i$, $g=\sum_{j=0}^m b_jx^j$ for $a_i, \ b_j \in R$. By definition of degree, $a_n\neq 0$ and $b_m \neq 0$. Consider $fg=a_nb_mx^{n+m}+(a_nb_{m-1}+a_{n-1}b_m)x^{n+m-1}+\cdots+a_0b_0$. Note that $a_nb_m\neq 0$ since $R$ is an integral domain and $a_n\neq 0$, $b_n\neq 0$. So $\deg fg=n+m=\deg f+\deg g$.
+                \item Let $f, \ g\in R[x]-\{0\}$. WTS $fg\neq 0$. Therefore $\deg f=n \geq 0$, $\deg g=m \geq 0$. Therefore as in 1. above, we have $fg=a_nb_mx^{n+m}+\cdots$ with $a_n \neq 0$ and $b_m \neq 0$. Thus $a_nb_mx^{n+m}\neq 0$ implies $fg\neq 0$.
+            \end{enumerate}
+        \end{proof}
+        
+        \begin{cor}[34.1]
+            If $\K$ is a field, then $\K(x)$ is an integral domain.
+        \end{cor}
+        
+        \begin{rmk}
+            If $R$ is an integral domain and we have $ac=bc$ in $R$ with $c\neq 0$, then $a=b$.
+        \end{rmk}
+        
+        \subsection*{Principal and Prime Ideals in Commutative Rings}{
+            From here on, $R$ is assumed to be a non-trivial commutative ring (so $0_r\neq 1_r$).
+            
+            \begin{prop}[34.2]
+                Let $a \in R$. The subset $(a)\coleq\{ra|r\in R\}\Subset R$ is an ideal called the \define{principal ideal} generated by $a$.
+            \end{prop}
+            
+            \begin{ex}
+                We have $n\Z=(n)$ when $R=\Z$.
+            \end{ex}
+            
+            \begin{defn}[34.3]
+                An ideal $I \ideal R$ is \define{principal} iff $\exists a \in I$ such that $I=(a)$.
+            \end{defn}
+            
+            \begin{thm}[34.4]
+                Every ideal in $\Z$ is principal.
+            \end{thm}
+            
+            \begin{proof}
+                Suppose $I\ideal \Z$ is an ideal. By definition of ideal, $(I,+,0) \leq (\Z,+,0)$ is a subgroup. Recall $\Z$ is a cyclic (additive) group. In particular, $\Z=\cyc{1}$. Theorem 13.3 says every subgroup of a cyclic group is cyclic. Therefore $\exists n\in I$ such that $I=\cyc{n}=n\Z$. As an ideal, $n\Z=(n)$.
+            \end{proof}
+        }
+    }
+\end{document} 

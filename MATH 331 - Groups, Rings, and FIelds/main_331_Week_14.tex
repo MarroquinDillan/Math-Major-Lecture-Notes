@@ -1,0 +1,131 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kpfonts}
+\usepackage[mathscr]{euscript}
+\usepackage{commath}
+\usepackage{bbm}
+\usepackage{enumerate}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{wasysym}
+\usepackage[margin=0.8in]{geometry}
+
+\newcommand{\N}{\mathbbm{N}}
+\newcommand{\Z}{\mathbbm{Z}}
+\newcommand{\Q}{\mathbbm{Q}}
+\newcommand{\R}{\mathbbm{R}}
+\newcommand{\C}{\mathbbm{C}}
+\newcommand{\es}{\emptyset}
+\newcommand{\union}{\cup}
+\newcommand{\Union}{\bigcup}
+\newcommand{\inter}{\cap}
+\newcommand{\Inter}{\bigcap}
+\newcommand{\coleq}{\coloneqq}
+\newcommand{\script}[1]{\mathscr{#1}}
+\newcommand{\powset}[1]{\mathcal{P}(#1)}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\inverse}[1]{#1^{-1}}
+\newcommand{\define}[1]{\textbf{\underline{#1}}}
+\newcommand{\func}[3]{#1: #2 \to #3}
+\newcommand{\lcm}{\mathrm{lcm}}
+\renewcommand{\mod}[1]{\ (\mathrm{mod}\ #1)}
+\renewcommand{\Subset}{\subseteq}
+\renewcommand{\Supset}{\supseteq}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\theoremstyle{definition}
+\newtheorem*{defn}{Definition}
+\newtheorem*{cor}{Corollary}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{ex}{Example}
+\newtheorem*{lem}{Lemma}
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+
+%Abstract Algebra specific commands
+\newcommand{\Znx}{(\mathbb{Z}/n)^\times}
+\newcommand{\Rx}{\mathbb{R}^\times}
+\newcommand{\cyc}[1]{\langle#1\rangle}
+\newcommand{\im}{\mathrm{im}}
+\newcommand{\normal}{\unlhd}
+\newcommand{\ideal}{\unlhd}
+\newcommand{\iso}{\cong}
+\newcommand{\sgn}{\mathrm{sgn}}
+\newcommand{\ev}{\mathrm{ev}}
+\newcommand{\K}{\mathbbm{K}}
+\renewcommand{\H}{\mathbbm{H}}
+
+\begin{document}
+    \begin{center}
+        \textsc{Dillan Marroquin\\MATH 331.1001\\Scribing Week 14\\Due. 29 November 2021\\}
+    \end{center}
+        
+    \section*{Lecture 35}{
+        An ideal $I \ideal R$ is \define{principal} iff $\exists a \in I$such that $I=(a)=\{ra|r\in R\}$.
+        
+        \begin{ex}
+            \begin{enumerate}
+                \item Let $R=\Z$, $I=n\Z=(n)$.
+                \item For every ring, the zero ideal is principal and $R$ is a principal ideal (i.e. $\{0_R\}=(0)$), $R=(1)$.)
+            \end{enumerate}
+        \end{ex}
+        
+        \begin{defn}[35.1]
+            A ring $R$ is a \define{principal ideal ring (PIR)} iff every ideal of $R$ is principal.\\
+            $R$ is a \define{principal ideal domain (PID)} iff $R$ is an integral domain and $R$ is a PIR.
+        \end{defn}
+        
+        Recall Theorem 34.4 which stated that $\Z$ is a PID (wasn't worded like this).
+        
+        \begin{prop}[35.2]
+            $\forall n>1$, $\Z/n/Z$ is a PIR.
+        \end{prop}
+        
+        \begin{prop}[35.3]
+            A field $\K$ has exactly 2 ideals: the zero ideal and $\K$.
+        \end{prop}
+        
+        \begin{cor}[35.4]
+            \begin{enumerate}
+                \item A field is a PID.
+                \item If $\K$ is a field and $\func{\varphi}{\K}{S}$ is a ring homomorphism, then $\varphi$ is injective OR $S$ is the zero ring.
+                \item $\Z/n\Z$ is a PID if $n$ is prime.
+            \end{enumerate}
+        \end{cor}
+        
+        \begin{rmk}[35.5]
+            \begin{enumerate}
+                \item Nice Theorem in Paulin: "If $R$ is a finite integral domain, then $R$ is a field." So, $\Z/n\Z$ being an integral domain implies $(\Z/n\Z)^\times=\{[k]|\gcd(k,n)=1\}=\{[1],[2],\ldots,[n-1]\}$ since this is a field. Therefore if $d|n$ and $d<n$, then $d=1$. Thus $n$ is prime and we conclude $\Z/n\Z$ is a PID iff $\Z/n\Z$ is a field iff $n=p$ prime.
+                \item $\Z[x]$ is an integral domain by Theorem 33.4, but is not a PID.
+            \end{enumerate}
+        \end{rmk}
+        
+        \subsection*{How to Get More Examples of PIDs?}{
+            Recall in Theorem 13.3 (wayyyy back then), we showed that every subgroup of a cyclic group is cyclic. Crucial in our proof was the division algorithm in $\Z$.
+            
+            \begin{defn}[35.6]
+                Let $R$ be a commutative ring such that $0\neq 1$.
+                \begin{enumerate}
+                    \item A \define{Euclidean function} on $R$ is a set-theoretic function $\func{N}{R-\{0_R\}}{\N\union \{0\}}$ such that
+                    \begin{enumerate}
+                        \item $\forall a\in R$, $\forall b\in R-\{0_R\}$, $N(a)\leq N(ab)$.
+                        \item $\forall a \in R$ and $\forall b\neq 0\in R$, $\exists q,r\in R$ such that $a=bq+r$ with either $r=0$ OR $N(r)<N(b)$.
+                    \end{enumerate}
+                    \item An integral domain is the \define{Euclidean domain} iff $R$ admits a Euclidean function.
+                \end{enumerate}
+            \end{defn}
+            
+            \begin{thm}[35.7]
+                The following are Euclidean domains:
+                \begin{enumerate}
+                    \item $\Z$ with $N(m)\coleq |m| \ \forall m\neq 0$ (absolute value).
+                    \item Any field $\K$ with $N(a)\coleq 1 \ \forall a\neq 0\in \K$.
+                    \item $\Z[i]$ with $N(k+ib)\coleq a^2+b^2 \ \forall a+ib\neq 0$.
+                    \item Polynomial Ring $\K[x]$ with coefficients in a field $\K$, $N(f)\coleq \deg(f) \ \forall f\neq 0$.
+                \end{enumerate}
+            \end{thm}
+        
+        }
+    }
+\end{document} 

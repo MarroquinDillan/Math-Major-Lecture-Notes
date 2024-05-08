@@ -1,0 +1,142 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kpfonts}
+\usepackage[mathscr]{euscript}
+\usepackage{commath}
+\usepackage{enumerate}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[margin=0.8in]{geometry}
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\es}{\emptyset}
+\newcommand{\union}{\cup}
+\newcommand{\Union}{\bigcup}
+\newcommand{\inter}{\cap}
+\newcommand{\Inter}{\bigcap}
+\newcommand{\coleq}{\coloneqq}
+\newcommand{\script}[1]{\mathscr{#1}}
+\newcommand{\powset}[1]{\mathcal{P}(#1)}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\inverse}[1]{#1^{-1}}
+\newcommand{\define}[1]{\textbf{\underline{#1}}}
+\newcommand{\func}[3]{#1: #2 \to #3}
+\renewcommand{\mod}[1]{\ (\mathrm{mod}\ #1)}
+\renewcommand{\Subset}{\subseteq}
+\renewcommand{\Supset}{\supseteq}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\theoremstyle{definition}
+\newtheorem*{defn}{Definition}
+\newtheorem*{cor}{Corollary}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{ex}{Example}
+\newtheorem*{lem}{Lemma}
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+
+%Abstract Algebra specific commands
+\newcommand{\Znx}{(\mathbb{Z}/n)^\times}
+\newcommand{\Rx}{\mathbb{R}^\times}
+\newcommand{\cyc}[1]{\langle#1\rangle}
+\newcommand{\im}[1]{\mathrm{im}#1}
+\newcommand{\normal}{\unlhd}
+
+\begin{document}
+    \begin{center}
+        \textsc{Dillan Marroquin\\MATH 331.1001\\Scribing Week 8\\Due. 18 October 2021\\}
+    \end{center}
+        
+    \noindent\section*{\textbf{\textsc{Lecture 19}}}{
+        \begin{thm}[19.1]
+            Let $H\normal G$ be a normal subgroup.
+            \begin{enumerate}
+                \item The set of left cosets $G/H$ is a group with binary operation $xH*yH=xyH$ and identity element $e_{G/H}\coleq e_GH=H$.
+                \item The group structure from 1. makes $\func{\pi}{G}{G/H}, \, \pi(g)\coleq gH$ a surjective group homomorphism.
+            \end{enumerate}
+        \end{thm}
+        
+        \begin{proof}
+            \noindent\begin{enumerate}
+                \item The main point is to check that the binary operation is well-defined (since all group axioms will follow immediately from those on $G$). Suppose $x'H=xH$ and $y'H=yH$. WTS $x'y'H=xyH$. The first two equalities imply $\exists h,\Tilde{h}\in H$ such that $x'=xh$ and $y'=yh$. WTS $\exists h'$ such that $x'y'=xyh$. Consider $x'y'=xhy\Tilde{h}=xehy\Tilde{h}=xy\inverse{y}hy\Tilde{h}$. Since $H \normal G$, $gh\inverse{g}\in H$, where $g \coleq \inverse{y}$. Therefore $\exists h' \in H$ such that $\inverse{y}hy=h'$ which implies that the RHS$=xyh'\Tilde{h}\in xyH$. Thus $x'y'\in xyH$.
+                \item This is straightforward: $\pi(xy)=xyH=xH*yH=\pi(x)*\pi(y)$. This is surjective vacuously.
+            \end{enumerate}
+        \end{proof}
+        
+        \subsection*{Basic Examples of Quotient Groups}{
+            \begin{rmk}
+                Groups of the form $G/H$ are called \define{Quotient/Factor Groups}.
+            \end{rmk}
+                
+            \begin{ex}
+                Let $G=S_3, \, H=\cyc{\sigma}$. Note $G/H=\{H,\tau H\}$ is a group of order $[G:H]=2$. So $G/H\cong \Z/2$ by theorem 15.2.
+            \end{ex}
+                
+            \begin{prop}[19.2]
+                Let $\func{\varphi}{G}{G'}$ be a group homomorphism. Then $\ker\varphi$ is a normal subgroup of $G$.
+            \end{prop}
+                
+            \begin{rmk}
+                Proposition 19.2 implies that if $H\leq G$ is a subgroup and there exists a function $\func{\varphi}{G}{G'}$ such that $H=\ker \varphi$, then $H\normal G$.   
+            \end{rmk}
+            
+            \begin{prop}[19.3]
+                Let $H\normal G$ be a normal subgroup. Then the kernel of $\func{\pi}{G}{G/H}$ is $H$.
+            \end{prop}
+        }
+    }
+    \noindent\section*{\textbf{\textsc{Lecture 20}}}{
+        \define{Notation:} Let $G$ be abelian, $H\leq G$ a subgroup. If we write $G$ additively, then we write cosets of $H$ as $a+H=aH$. We write the group operation in $G/H$ as $x+H+y+H\coleq (x+y)+H$.\\
+        i.e. $\Z/n$: $k+n\Z$ and for $\Q/\Z$: $\frac{a}{b}+\Z$.
+        
+        \subsection*{Example of Analyzing $G/H$ via Proposition 19.2/19.3}{
+            \begin{itemize}
+                \item Consider $\func{\det}{GL_2(\R)}{\Rx}$.\\
+                $\ker(\det)=\{A\in GL_2|\det A =1\}\coleq SL_2(\R)$. Proposition 19.2 implies $\ker(\det)\normal GL_2$.\\
+                Note: $SL_2$ is not abelian.
+                \item We will be analyzing $GL_2/SL_2\coleq\{ASL_2|A\in SL_2\}$.
+                \item We will also analyze left cosets:
+            \end{itemize}
+            
+            \begin{lem}[20.1]
+                Let $H\leq G$ be a subgroup. Then $xH=yH$ iff $\inverse{x}y\in H$.
+            \end{lem}
+            
+            \begin{proof}
+                This will be \#1 on PS 5. He tricked us!
+            \end{proof}
+            
+            \define{Observations:}\hfill
+            \begin{enumerate}
+                \item By the above Lemma, $ASL_2=BSL_2$ iff $\inverse{A}B\in SL_2$ iff $\det(\inverse{A}B)=1$ iff $\det\inverse{A}\det B=1$ iff $\det A=\det B$.
+                \item $\forall A\in GL_2, \, ASL_2=\big[\begin{smallmatrix} \det A & 0\\ 0 & 1 \end{smallmatrix}\big]SL_2$ which implies that as a set, $GL_2/SL_2 \coleq \Big\{\big[\begin{smallmatrix} r & 0\\ 0 & 1 \end{smallmatrix}\big]SL_2| r\in \R\setminus\{0\}\Big\}$.
+                \item Note: $\big[\begin{smallmatrix} r & 0\\ 0 & 1 \end{smallmatrix}\big]SL_2=\big[\begin{smallmatrix} r' & 0\\ 0 & 1 \end{smallmatrix}\big]SL_2$ iff $r=r'$.
+            \end{enumerate}
+            
+            \noindent But what about the group operation? By definition,\\$\big[\begin{smallmatrix} r & 0\\ 0 & 1 \end{smallmatrix}\big]SL_2*\big[\begin{smallmatrix} s & 0\\ 0 & 1 \end{smallmatrix}\big]SL_2=\big[\begin{smallmatrix} rs & 0\\ 0 & 1 \end{smallmatrix}\big]SL_2=\big[\begin{smallmatrix} sr & 0\\ 0 & 1 \end{smallmatrix}\big]SL_2=\big[\begin{smallmatrix} s & 0\\ 0 & 1 \end{smallmatrix}\big]SL_2*\big[\begin{smallmatrix} r & 0\\ 0 & 1 \end{smallmatrix}\big]SL_2$. Therefore, $GL_2/SL_2$ is abelian!\\
+            This is AMAZINGLY important because $G$ and $H$ are non-abelian, thus $G,H$ being non-abelian does NOT imply that $G/H$ is non-abelian.\\
+    
+            \noindent Observation 1 implies that we have a well-defined function $\func{\overline{\det}}{GL_2/SL_2}{\R\setminus\{0\}}, \, \overline{\det}\Big(\big[\begin{smallmatrix} r & 0\\ 0 & 1 \end{smallmatrix}\big]SL_2\Big)\coleq r=\det\Big(\big[\begin{smallmatrix} r & 0\\ 0 & 1 \end{smallmatrix}\big]\Big)$. ${\overline{\det}}$ is a group homomorphism. Also, it is surjective since $\func{\det}{GL_2}{\Rx}$ is surjective. It is also injective by Observation 3. Therefore, $\overline{\det}$ is a group isomorphism and thus $GL_2/SL_2 \cong \Rx$.
+        }
+        \subsection*{1st Isomorphism for Groups}{
+            \begin{thm}[20.2]
+                Let $\func{\varphi}{G}{G'}$ be a group homomorphism. Then the function $\func{\overline{\varphi}}{G/\ker\varphi}{\im\varphi}, \, \overline{\varphi}(x\ker\varphi)\coleq \varphi(x)$ is a group isomorphism.
+            \end{thm}
+            
+            \begin{proof}
+                (See Paulin).
+            \end{proof}
+            
+            \begin{ex}
+                Let $\func{\varphi}{\Z}{S_3}, \, \varphi(k)\coleq \sigma^k$ be a group homomorphism such that $\sigma=\big(\begin{smallmatrix} 1 & 2 & 3\\ 2 & 3 & 1 \end{smallmatrix}\big)$. Hence, $\im \varphi=\cyc{\sigma}=\{e,\sigma,\sigma^2\}$. Then $\ker\varphi=\{k \in \Z|\sigma^k=e\}$. Lemma 14.3 says if $\sigma^k=e$, then $|\sigma|\big|k$ which implies $k\in 3\Z$. By Theorem 20.2, $\Z/3 \cong \cyc{\sigma}$ on $\overline{\varphi}$. 
+            \end{ex}
+        }
+        
+        \noindent\define{Q:} 2 subgroups from $\varphi: G \to H$: $\ker\varphi\leq G$ and $\im\varphi\leq H$. We've already seen that $\ker\varphi$ is always normal, but what about $\im \varphi$ in $H$??
+    }
+\end{document} 

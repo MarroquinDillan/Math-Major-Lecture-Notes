@@ -1,0 +1,67 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kpfonts}
+\usepackage{commath}
+\usepackage{amsthm}
+\usepackage{xfrac}
+\usepackage[margin=0.6in]{geometry}
+
+\begin{document}
+    \noindent Dillan Marroquin\\ MATH 310.1002: Homework 12\\
+    Due. Mon, November 23
+
+    \begin{enumerate}
+        \item Use regular partitions $P_n$ and Theorem 5.1.8 to prove that $f(x) = x$ is integrable on $[a,b]$ and to evaluate
+            \[\int_a^b x \dif x.\]
+        \begin{proof}
+            Define the partition $P_n$ as $P_n = \{a = x_0 < x_1 < x_2 < \cdots < x_n = b \}$. Notice that this divides $[a,b]$ into $n$ subintervals with length $\Delta x = \frac{b-a}{n}$. Also note that $m_k = \inf\{f(x) : x \in [x_{k-1}, x_k]\} = x_{k-1}$ and $M_k = \sup\{f(x) : x \in [x_{k-1}, x_k\} = x_k$ since $f$ is strictly increasing on $\mathbb{R}$. Denote $x_k = a+k\Delta x$. Then
+                \begin{align*}
+                    U(f, P_n) &= \sum_{k=1}^n M_k(x_k-x_{k-1}) = \sum_{k=1}^n x_k \cdot \frac{b-a}{n}     &    L(f, P_n) &= \sum_{k=1}^n m_k(x_k-x_{k-1}) =  \sum_{k=1}^n x_{k-1} \cdot \frac{b-a}{n}\\
+                   &= \sum_{k=1}^n \bigg(a+k \cdot \frac{b-a}{n}\bigg)\frac{b-a}{n}      &       &= \sum_{k=1}^n \bigg(a+(k-1) \cdot \frac{b-a}{n}\bigg)\frac{b-a}{n}\\
+                   &= \sum_{k=1}^n \frac{a(b-a)}{n} + \frac{k(b-a)^2}{n^2}     &    &= \sum_{k=1}^n \frac{a(b-a)}{n}+\frac{(k-1)(b-a)^2}{n^2}   
+                \end{align*}
+            So $f$ is integrable on $[a,b]$ and
+                \[\int_a^b x \dif x = \frac{b^2-a^2}{2}.\]
+        \end{proof}
+        
+        \item Use the fact that every nondegenerate interval contains both rational and irrational numbers to prove that the function $f$ given below is not integrable on $[0,1]$.
+            \[f(x) = 
+            \begin{cases}
+                1, \quad &\text{if }x \in \mathbb{Q}\\
+                0, \quad &\text{otherwise}
+            \end{cases}\]
+        \begin{proof}
+            Let $P = \{0 = x_0,x_1, \ldots,x_n = 1\}$ be a partition of $[0,1]$. Consider the interval $[x_{k-1},x_k]$ for $k \in \{1,2,.\ldots,n\}$. Since $[x_{k-1},x_k] \cap \mathbb{Q} \neq \varemptyset$, then $\sup\{f(x) : x \in [x_{k-1},x_k]\} = 1 = M_k$ and since $[x_{k-1}, x_k] \cap (\mathbb{R} \setminus \mathbb{Q}) \neq \varemptyset$, then $\inf\{f(x) : x \in [x_{k-1},x_k]\} = 0 = m_k$. So it follows that
+                \begin{align*}
+                    L(f,P) &= \sum_{k=1}^n m_k(x_k-x_{k-1}) = \sum_{k=1}^n 0(x_k-x_{k-1})     &        U(f,P) &= \sum_{k=1}^n M_k(x_k-x_{k-1}) = \sum_{k=1}^n (x_k-x_{k-1})\\
+                    &= 0.    &      &= (x_1-x_0)+(x_2-x_1)+\cdots+(x_n-x_{n-1}) = 1-0 = 1.\\
+                    &\implies  \underline{\int} f = \sup L(f,P) = 0  &   &\implies \overline{\int} f = \inf U(f,P) = 1.
+                \end{align*}
+            Since the upper integral of $f$ does not equal the lower integral of $f$, $f$ is not integrable on $[0,1]$.
+        \end{proof}
+        
+        \item Use regular partitions $P_n$ and Theorem 5.1.8 to prove that $g(x) = x^2$ is integrable on $[2,5]$ and evaluate
+            \[\int_2^5 x^2 \dif x.\]
+        \begin{proof}
+            Define the partition $P_n$ to be $P_n = \{2 = x_0,x_1,x_2,\ldots,x_n = 5\}$. This divides the interval $[2,5]$ into $n$ subintervals, each with length $\Delta x = \frac{5-2}{n} = \frac{3}{n}$. Consider the interval $[x_{k-1}, x_k]$ for $k \in \{1,2,3,\ldots,n\}$. Then $M_k = \sup\{x^2 : x \in [x_{k-1},x_k]\} = 25$ and $m_k = \inf\{x^2 : x \in [x_{k-1},k]\} = 4$ and thus
+            \begin{align*}
+                L(f,P) &= \sum_{k=1}^n m_k(x_k-x_{k-1}) = 4\sum_{k=1}^n (x_k-x_{k-1})     &        U(f,P) &= \sum_{k=1}^n M_k(x_k-x_{k-1}) = 25\sum_{k=1}^n (x_k-x_{k-1})\\
+                &= 4\big[(x_1-x_0)+(x_2-x_1)+\cdots+(x_n-x_{n-1})\big]    &      &= 25\big[(x_1-x_0)+(x_2-x_1)+\cdots+(x_n-x_{n-1})\big]\\
+                &= 4(5-2) = 12.     &       & = 25(5-2) = 75.
+            \end{align*}
+        \end{proof}
+        
+        \item Consider the function $f : \mathbb{R} \to \mathbb{R}, \, f(x) = x^2-3x$ and the partition $P = \{0,1,2,3,4,5,6\}$ of the interval $[0,6]$. Evaluate $L(f,P)$ and $U(f,P)$.\\
+        \textbf{Answer: }
+            \begin{align*}
+                m_1 &= \inf\{x^2-3x:x \in [0,1]\} = -2       &       m_2 &= \inf\{x^2-3x:x \in [1,2]\} = -2.25     &        m_3 &= \inf\{x^2-3x:x \in [2,3]\} = -2\\
+                m_4 &= \inf\{x^2-3x:x \in [3,4]\} = 0       &       m_5 &= \inf\{x^2-3x:x \in [4,5]\} = 4     &        m_6 &= \inf\{x^2-3x:x \in [5,6]\} = 10\\\\
+                M_1 &= \sup\{x^2-3x:x \in [0,1]\} = 0       &       M_2 &= \sup\{x^2-3x:x \in [1,2]\} = -2     &        M_3 &= \sup\{x^2-3x:x \in [2,3]\} = 0\\
+                M_4 &= \sup\{x^2-3x:x \in [3,4]\} = 4       &       M_5 &= \sup\{x^2-3x:x \in [4,5]\} = 10     &        M_6 &= \sup\{x^2-3x:x \in [5,6]\} = 18
+            \end{align*}
+            \begin{align*}
+                L(f,P) &= \sum_{k=1}^n m_k(x_k-x_{k-1}) = 1(-2+2.25-2+0+4+10) = 12.25\\
+                U(f,P) &= \sum_{k=1}^n M_k(x_k-x_{k-1}) = 1(0-2+0+4+10+18) = 20
+            \end{align*}
+    \end{enumerate}
+\end{document}

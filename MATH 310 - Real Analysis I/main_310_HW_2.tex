@@ -1,0 +1,109 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb}
+
+
+\title{MATH 310.1002: Homework 2}
+\author{Dillan Marroquin}
+\date{September 9, 2020}
+\begin{document}
+\maketitle
+
+
+    \begin{enumerate}
+        \item Prove that the equation $x^2 = 3$ has no rational solution.
+            \begin{proof}
+                First, observe that $\pm \sqrt{3}$ are the only real solutions to this equation. We must prove that $-\sqrt{3}$ and $\sqrt{3}$ are both irrational. Assume by the contrary that $\sqrt{3}$ and $-\sqrt{3}$ are both rational. Then there are $p,q \in \mathbb{Z}$ such that $\sqrt{3} = \frac{p}{q}$, where $\frac{p}{q}$ is fully reduced. Squaring both sides and solving for $p^2$ gives $p^2 = 3q^2$, so $3|p^2$. Now we must prove that $3|p$ which is given by 2 cases, both using the contrapositive approach.
+                
+                \textbf{Case 1:} Suppose there is a remainder of $1$ when dividing $p$ by $3$. Then there exists an $a \in \mathbb{Z}$ such that $p = 3a + 1 $. Then $p^2 = 9a^2 + 6a + 1 = 3(3a^2 + 2a) + 1$. Since there is a remainder of $1$ when dividing $p^2$ by $3$, then $3 \nmid p^2$.
+                
+                \textbf{Case 1:} Suppose there is a remainder of $2$ when dividing $p$ by $3$. Then there exists an $a \in \mathbb{Z}$ such that $p = 3a + 2 $. Then $p^2 = 9a^2 + 12a + 3 + 1 = 3(3a^2 + 4a + 1) + 1$. Since there is a remainder of $1$ when dividing $p^2$ by $3$, then $3 \nmid p^2$.
+                
+                Since $3|p$, we can write that $p = 3k$ for some $k \in \mathbb{Z}$. We now get $\frac{3k}{q} = \sqrt{3}$. After squaring both sides and solving for $9k^2$ we get $9k^2= 3q^2$. This is a contradiction since this implies that $\frac{p}{q}$ is not in lowest terms. A similar case can be said about $-\sqrt{3}$.
+                
+            \end{proof}
+
+        \item Give an example of irrational numbers $a, b$ such that $a + b$ and $ab$ are rational.
+        
+            \textbf{Answer:} A conjugate pair satisfies these conditions. I chose $a = 1 + \sqrt{2}$ and $b = 1 - \sqrt{2}$.
+            
+            \begin{proof}
+                We must prove that there does exist $a,b \notin \mathbb{Q}$ such that $a + b \in \mathbb{Q}$ and $ab \in \mathbb{Q}$. Let $a = 1 + \sqrt{2}$ and $b = 1 - \sqrt{2}$. Then $a + b = (1 + \sqrt{2}) + (1 - \sqrt{2}) = 2 \in \mathbb{Q}$. Also, $ab = (1 + \sqrt{2})(1 - \sqrt{2}) = 1 - 2 = -1 \in \mathbb{Q}$.
+                
+            \end{proof}
+            
+        \item Give an example of irrational numbers $a, b$ such that $a^b$ is rational.
+        
+            \textbf{Answer:} A great example would be $e ^ {\ln{2}}$ since these are inverse operations!
+            
+            \begin{proof}
+                We must prove that there does exist $a,b \notin \mathbb{Q}$ such that $a^b \in \mathbb{Q}$. Let $a = e$ and $b = \ln{2}$. Then $a^b = e^{\ln{2}} = 2 \in \mathbb{Q}$.
+                
+            \end{proof}
+        
+        \item Describe the set of upper bounds of each of the following sets.
+            \begin{enumerate}
+                \item $A = \{3,1,0\}$\\
+                    \textbf{Answer:} Set of upper bounds of $A = [3, \infty)$.\\
+                    
+                \item $B = \mathbb{N}$\\
+                    \textbf{Answer:} The set $B$ has no set of upper bounds.\\
+                    
+                \item $C = \{e^{-x} : x \geq 0\}$\\
+                    \textbf{Answer:} Set of upper bounds of $C = [1, \infty)$.\\
+                    
+                \item $D = \{r \in \mathbb{Q} : r^2 < 5\}$\\
+                    \textbf{Answer:} Set of upper bounds of $D = [\sqrt{5}, \infty)$.\\
+                    
+                \item $E = \{\frac{2n-1}{n} : n \in \mathbb{N}\}$\\
+                    \textbf{Answer:} Set of upper bounds of $E = [2, \infty)$.\\
+                    
+            \end{enumerate}
+            
+        \item For each of the above examples, determine whether the set is bounded above and, if so, find its least upper bound.
+            \begin{enumerate}
+                \item \textbf{Answer:} Yes, $A$ is bounded above and $\sup A = 3$.
+                    
+                \item \textbf{Answer:} No, $B$ is not bounded above. Can be proven using Peano's axioms (in particular \textbf{N2}).
+                    
+                \item \textbf{Answer:} Yes, $C$ is bounded above and $\sup C = 1$.
+                    
+                \item \textbf{Answer:} Yes, $D$ is bounded above and $\sup D = \sqrt{5}$.
+                    
+                \item \textbf{Answer:} Yes, $E$ is bounded above and $\sup E = 1$.\\
+                    
+            \end{enumerate}
+            
+        
+        \item Show that the following set is bounded above and find its least upper bound.
+            \[S = \{x : x^2 < 2x+3\}\]
+            
+            \begin{proof}
+                First, we will solve the above inequality for $0$ to give $x^2 - 2x - 3 < 0$ and then factor to give $(x - 3)(x + 1) < 0$. For this inequality to be true, $-1 < x < 3$, so $S = (-1, 3)$ and thus $S \subset \mathbb{R}$. Let $m \in \mathbb{R}$ such that $m \geq x$ for every $x \in S$. Then $m \geq 3$, and the set is bounded above.
+                
+                \textbf{Answer:} $\sup S = 3$.
+            
+            \end{proof}
+        
+        \item Let $a,b \in \mathbb{R}$. Suppose that $a - \frac{1}{n} < b$ for every $n \in \mathbb{N}$. Prove that $a \leq b$.
+            \begin{proof}
+                Suppose to the contrary that $a > b$. Then, $a - b > 0$. If we rewrite the above inequality as $a-b < \frac{1}{n}$ and then take the reciprocal of both sides, we get $\frac{1}{a-b} > n$ for all $n \in \mathbb{N}$. This is a contradiction since $\frac{1}{a-b}$ would be an upper bound for $\mathbb{N}$, but this is clearly not the case.
+                
+            \end{proof}
+        
+        \item Let $A$ be a nonempty set with least upper bound $m$. Prove that for every $n \in \mathbb{N}$, there is an $a \in A$ such that
+            \[m - \frac{1}{n} < a.\]
+            
+            \begin{proof}
+                For the contrary, assume that there exists some $n \in \mathbb{N}$ such that for every $a \in A$ we have $m - \frac{1}{n} \geq a$. This would mean that $m - \frac{1}{n}$ is an upper bound for $A$. This is a contradiction since $m - \frac{1}{n} < m$ and is actually a lower bound by definition.
+                
+            \end{proof}
+            
+    \end{enumerate}
+
+
+\end{document}

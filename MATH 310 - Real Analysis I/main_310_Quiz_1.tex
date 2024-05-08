@@ -1,0 +1,25 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb}
+
+\begin{document}
+    \noindent MATH 310.1002: Quiz 1\\
+    Dillan Marroquin\\
+    14 September, 2020
+
+    \begin{enumerate}
+        \item Prove using the definition that $\lim\frac{n-3}{5n-1}=\frac{1}{5}$. Write your work clearly, scan it in ONE pdf file and submit it here.
+            
+            \begin{proof}
+                Let $\epsilon > 0$. Then we must show that there exists a $\delta$ such that $0 < \delta < n$ implies $\Big|\tfrac{n-3}{5n-1} - \tfrac{1}{5}\Big| < \epsilon$. Rewriting the expression in absolute values gives us the following:
+                    \[\Big|\tfrac{n-3}{5n-1} - \tfrac{1}{5}\Big| = \Big|\tfrac{5n-15-5n+1}{25n-5}\Big| = \Big|\tfrac{-14}{5(5n-1)}\Big| = \tfrac{14}{5|5n-1|}< \tfrac{14}{5n-1} < \epsilon.\]
+               If this is the case, then $\Big|\tfrac{n-3}{5n-1} - \tfrac{1}{5}\Big| < \epsilon$ when $\tfrac{14}{5n-1} < \epsilon$, or whenever $n > \tfrac{14}{5\epsilon} + 1$. Thus, we may choose $\delta = \tfrac{14}{5\epsilon} + 1$.
+                
+            \end{proof}
+
+    \end{enumerate}
+\end{document}

@@ -1,0 +1,53 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kpfonts}
+\usepackage{commath}
+\usepackage{amsthm}
+\usepackage{xfrac}
+\usepackage[margin=0.6in]{geometry}
+
+\begin{document}
+    \noindent Dillan Marroquin\\ MATH 310.1002: Homework 11\\
+    Due. Mon, November 9
+
+    \begin{enumerate}
+        \item Use the Mean Value Theorem to prove that
+            \[\sqrt{x}-\sqrt{y} < \frac{x-y}{2} \quad \text{if} \quad x > y \geq 1.\]
+        \begin{proof}
+            Consider the function $f:\mathbb{R \to \mathbb{R}}, \, f(x) = 2\sqrt{x}-x+y-2\sqrt{y} < 0$. Proving the above claim is the same as proving that $f(x) < 0$ when $x>y\geq1$. To prove this, we differentiate $f(x)$ with respect to $x$ and find the critical points: $\od{}{x} f(x) = \frac{1}{\sqrt{x}}-1$ and the only critical point is at $x=1$ since $f'(x) = 0 =  \frac{1}{\sqrt{(1)}} - 1  \implies x=1$. Choose $x_1=2$ as a test point. Then $f'(2) = \frac{1}{\sqrt{2}} -1< 0$ and so the function is decreasing when $x \in (1, \infty)$. By the Mean Value Theorem, the function $f(x) < 0$ when $x > y \geq 1$.\\
+        \end{proof}
+        
+        \item Prove that $e^x < 1+x+ \frac{x^2}{2}$ for all $x < 0$.
+        \begin{proof}
+            We will prove this by instead proving that $f(x) = \frac{x^2}{2}+x-e^x+1 > 0$ for all $x < 0$. We first take the derivative of $f$ and find its critical points. Observe that $f$ is continuous, so the only critical points are the values of $x$ that make $f'(x) = 0$. Observe that $f'(x) = x-e^x+1 = 0 \iff x=0$. Choosing $x=1$ gives $f'(1) = 2-e < 0$ and choosing $x=-1$ gives $f'(-1) = -\frac{1}{e} < 0$, so $f$ is decreasing on $(-\infty,0) \cup (0, \infty)$. However, since $f(0) = 0$ and $f$ is decreasing, then $f(x) > 0$ for all $x < 0$.\\
+        \end{proof}
+        
+        \item Show that the function $f(x) = \ln{(2x+3)}$ is uniformly continuous on $(0, \infty)$.
+        \begin{proof}
+            First, observe that $|f'(x)| = \Big|\frac{2}{2x+3}\Big| = \frac{2}{2x+3}$ for $x \in (0, \infty)$. We must find an $M>0 \in \mathbb{R}$ with the property that $|f'(x)| \leq M$ for all $x \in (0, \infty)$. To do this, we take the limit as $x$ approaches infinity and as x approaches $0^+$.
+                \begin{align*}
+                    \lim_{x \to \infty} f(x) &= \lim_{x \to \infty} \frac{2}{2x+3}   &  \lim_{x \to 0^+} f(x) &= \lim_{x \to 0^+} \frac{2}{2x+3}\\
+                    &= \frac{2}{\infty} = 0     &       &= \frac{2}{2(0)+3} = \frac{2}{3}
+                \end{align*}
+            Thus, we may choose $M = \frac{2}{3}$. By Theorem 4.3.9, $f$ is uniformly continuous on $(0, \infty)$.\\
+        \end{proof}
+        
+        \item Use L'Hospital's Rule to evaluate the following limit. Check that all hypotheses are satisfied.
+            \[\lim _{x \to \infty} x\sin{\frac{1}{x}}\]
+        \textbf{Answer: }We will first rewrite this limit to be $\lim\limits_{x \to \infty} x\sin{\frac{1}{x}}$ and observe that this is differentiable. Since $\frac{1}{x} \neq 0$ nor does its derivative equal $0$, we may apply L'Hospital's Rule:\\
+            \begin{align*}
+                \lim_{x \to \infty} x \sin{\frac{1}{x}} &= \lim_{x \to \infty} \frac{\sin{\frac{1}{x}}}{\frac{1}{x}} = \frac{0}{0} \qquad \textit{Indeterminate}\\
+                &\xrightarrow{L.R.} \lim_{x \to \infty} \frac{-\frac{1}{x^2}\cos{\frac{1}{x}}}{-\frac{1}{x^2}} = \lim_{x \to \infty} \cos{\frac{1}{x}} = 1.
+            \end{align*}
+        
+        \item Define $x^x = e^{x\ln{x}}$ for $x > 0$. Prove that $\lim\limits_{x \to 0^+} x^x = 1$.
+        \begin{proof}
+            We prove this limit is $1$ by finding $\lim\limits_{x \to 0+} \exp({x\ln{x}}) = \exp\big({\lim\limits_{x \to 0^+} x\ln{x}}\big)$. We know that the answer has a base $e$, so we now work on the inner limit:
+            \begin{align*}
+                \lim_{x \to 0^+} x\ln{x} &= \lim_{x \to 0^+} \frac{\ln{x}}{\frac{1}{x}} = \frac{-\infty}{\infty} \qquad \textit{Indeterminate, apply L'Hospital's Rule}\\
+                &\xrightarrow{L.R.} \lim_{x \to 0^+} \frac{\frac{1}{x}}{-\frac{1}{x^2}} = \lim_{x \to 0^+} \frac{\frac{1}{x}}{-\frac{1}{x^2}} \cdot \frac{x}{x} = \lim_{x \to 0^+} \frac{1}{-\frac{1}{x}} = \frac{1}{-\infty} = 0.
+            \end{align*}
+        Thus, $\lim\limits_{x \to 0^+} x^x = e^0 = 1$.\\
+        \end{proof}
+    \end{enumerate}
+\end{document}

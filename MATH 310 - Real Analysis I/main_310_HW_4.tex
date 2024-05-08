@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage{enumitem}
+\usepackage[utf8]{inputenc}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{paracol}
+\usepackage[margin=0.6in]{geometry}
+\usepackage{amssymb}
+
+\begin{document}
+    \noindent MATH 310.1002: Homework 4\\
+    Dillan Marroquin\\
+    21 September, 2020
+
+    \begin{enumerate}[label=\Roman*.]
+        \item \textbf{Using the properties of the limits determine}
+        
+        \begin{enumerate}[label = \arabic*.]
+        %Q1
+            \item \[\lim_{n\to \infty} \frac{\cos(n^2)}{n}\]
+            \textbf{Answer: }We will apply the Squeeze Theorem. Observe that $-1 \leq \cos{n^2} \leq 1$, so then $-\frac{1}{n} \leq \frac{\cos{n^2}}{n} \leq \frac{1}{n}$ and 
+                \[\lim_{n \to \infty} -\frac{1}{n} = \lim_{n \to \infty} \frac{1}{n} = 0.\]\\
+            So,
+                \[\lim_{n\to \infty} \frac{\cos(n^2)}{n} = 0.\]
+        %Q2    
+            \item \[\lim_{n\to \infty} \frac{n^2+1}{2n-3}\]
+            \textbf{Answer: }
+                \[\lim_{n \to \infty} \frac{n^2+1}{2n-3} = \lim_{n \to \infty} \frac{n(n+1/n)}{n(2-3/n)} = \lim_{n \to \infty} \frac{n+1/n}{2-3/n} = \lim_{n \to \infty} \frac{n}{2} = \infty\]\\
+        %Q3    
+            \item \[\lim_{n\to \infty} \frac{6n(\sqrt{n}+1)}{(2\sqrt{n}-1)^3}\]
+            \textbf{Answer: }
+                \[\lim_{n \to \infty} \frac{6n(\sqrt{n}+1)}{(2\sqrt{n}-1)^3} = \lim_{n \to \infty} \frac{6n(\sqrt{n}+1)}{-12n+8n\sqrt{n}+6\sqrt{n}-1} = \lim_{n \to \infty} \frac{6n\sqrt{n}\Big(1+\frac{1}{\sqrt{n}}\Big)}{n\sqrt{n}\Big(-\frac{12}{\sqrt{n}}+8+\frac{6}{n}-\frac{1}{n\sqrt{n}}\Big)}\]
+                \[ = \lim_{n \to \infty} \frac{6+\frac{6}{\sqrt{n}} }{-\frac{12}{\sqrt{n}}+8+\frac{6}{n}-\frac{1}{n\sqrt{n}}} = \frac{6}{8} = \frac{3}{4}.\]\\
+            
+            \item \[\lim_{n\to \infty} \Big(\sqrt{n^2+5n+1}-\sqrt{n^2-n+1}\Big)\]
+            \textbf{Answer: }
+            \begin{align*} 
+                &= \lim_{n\to \infty} \Big(\sqrt{n^2+5n+1}-\sqrt{n^2-n+1}\Big) \cdot \frac{\sqrt{n^2+5n+1}+\sqrt{n^2-n+1}}{\sqrt{n^2+5n+1}+\sqrt{n^2-n+1}}\\
+                &=\lim_{n\to \infty} \frac{n^2+5n+1-n^2+n-1}{\sqrt{n^2+5n+1}+\sqrt{n^2-n+1}}\\
+                &=\lim_{n\to \infty} \frac{6n}{\sqrt{n^2+5n+1}+\sqrt{n^2-n+1}}\\
+                &=\lim_{n\to \infty} \frac{1/n}{1/n} \cdot \frac{6n}{\sqrt{n^2+5n+1}+\sqrt{n^2-n+1}}\\
+                &=\lim_{n\to \infty} \frac{6}{\sqrt{1+5/n +1/n^2}+\sqrt{1-1/n+1/n^2}}\\
+                &= 3.
+            \end{align*}            
+            \item \[\lim_{n\to \infty} \sqrt[n]{n!}\]
+            \textbf{Answer: }We will solve using Squeeze Theorem. Denote $\sqrt[n]{n} = 1+x_n$ so that $n = (1+x_n)^n$. Now observe that $x_n > 0$ implies that $\sqrt[n]{n}-1 > 0$. Then it follows that 
+                \[n=1+nx_n+\frac{n(n-1)}{2}x_{n}^2+ \cdots > \frac{n(n-1)}{2}x_n^2\]
+                \[\frac{2n}{n(n-1)} > x_n^2\]
+                \[\sqrt{\frac{2}{n-1}} > x_n > 0.\]
+            Then by the Squeeze Theorem, $\lim_{n \to \infty}x_n = \lim_{n \to \infty} \sqrt{\frac{2}{n-1}} = \lim_{n \to \infty}0 = 0$. We now know $\lim_{n \to \infty} \sqrt[n]{n} = 1$ by consequence. It now suffices to find a sequence $(y_n)_n$ such that $\sqrt[n]{n!} > y_n$. Take $y_n = \sqrt{n}$.  Since $\lim_{n \to \infty} \sqrt{n} = \infty$, by the Squeeze Theorem, $\lim_{n\to \infty} \sqrt[n]{n!} = \infty$ as well.\\
+            
+            \item \[\lim_{n\to \infty} \sqrt[n]{2^n+3^n+5^n}\]
+            \textbf{Answer: }We will solve using Squeeze Theorem. First, we observe that $\sqrt[n]{5^n} \leq \sqrt[n]{2^n+3^n+5^n} $ and that $\lim_{n \to \infty} \sqrt[n]{5^n} = 5$. Next, we observe that $\sqrt[n]{5^n + 5^n + 5^n} > \sqrt[n]{2^n+3^n+5^n}$ and that $\lim_{n \to \infty} \sqrt[n]{5^n + 5^n + 5^n} = \lim_{n \to \infty} 5\sqrt[n]{3} = 5 \cdot 1 = 5$.\\
+            Thus, $\lim_{n\to \infty} \sqrt[n]{2^n+3^n+5^n} = 5$ by the Squeeze Theorem.
+            
+            \item \[\lim_{n\to \infty} \sum_{k=1}^n \frac{\sin k}{n^2+k}\]
+            \textbf{Answer: }Looks to be 0.\\
+            
+            \item
+            \[\lim_{n\to \infty} (n\sin{n}-n\sqrt{n})\]
+            \textbf{Answer: }We will solve using Squeeze Theorem. Observe that $-1 \leq \sin{n} \leq 1$. Subtracting $\sqrt{n}$ and multiplying by $n$ on all sides gives $n(-1-\sqrt{n}) \leq n(\sin{n}-\sqrt{n}) \leq n(1-\sqrt{n})$. Now we observe that $\lim_{n \to \infty} n(-1-\sqrt{n}) = \infty(-\infty) = -\infty$ and that $lim_{n \to \infty} n(1-\sqrt{n}) = \infty(-\infty) = -\infty$.\\
+            Therefore by the Squeeze Theorem, $\lim_{n \to \infty} (n\sin{n} - n\sqrt{n}) = -\infty$.\\
+            
+            
+        \end{enumerate}
+        \item Determine the values of $a, b \in \mathbb{R}$ for which
+            \[\lim_{n \to \infty} \Big(\sqrt{an^2+bn+5}-2n\Big) = 3\]
+        \textbf{Answer: }
+            \[\sqrt{an^2+bn+5}-2n = \frac{\sqrt{an^2+bn+5}^2-(2n)^2}{\sqrt{an^2+bn+5}+2n} = \frac{(a-4)n^2+bn+5}{n\Big[s\sqrt{a+\frac{b}{n}+\frac{5}{n^2}}+2\Big]} = \frac{(a-4)n+b+\frac{5}{n}}{\sqrt{a+\frac{b}{n}+\frac{5}{n^2}}+2}.\]
+        Observe that if $a-4 \neq 0$, the limit is either $\infty$ or $-\infty$. This is a contradiction, so $a-4 = 0$ and thus $a=4$. Now we may solve for $b$:
+            \[\lim_{n \to \infty} \frac{b+\frac{5}{n}}{\sqrt{4+\frac{b}{n}+\frac{5}{n^2}}+2} = \frac{b}{4} = 3.\]
+        Thus, $b = 12$ and $a=4$.\\
+        \item Give an example of two sequences $(x_n)_n$, $(x_y)_n$ such that $\lim x_n = 1$, $\lim y_n = \infty$, and the $(x_n ^ {y_n})_n$ is not convergent.\\
+        \textbf{Answer: }Let us choose $y_n = n$ and $x_n = \sqrt[n]{\frac{1}{n}+1}$. Then $(x_n^{y_n})_n$ diverges.
+        
+    \end{enumerate}
+\end{document}

@@ -1,0 +1,190 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kpfonts}
+\usepackage[mathscr]{euscript}
+\usepackage{commath}
+\usepackage{bbm}
+\usepackage{enumerate}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{wasysym}
+\usepackage[margin=0.8in]{geometry}
+
+\newcommand{\N}{\mathbbm{N}}
+\newcommand{\Z}{\mathbbm{Z}}
+\newcommand{\Q}{\mathbbm{Q}}
+\newcommand{\R}{\mathbbm{R}}
+\newcommand{\C}{\mathbbm{C}}
+\newcommand{\es}{\emptyset}
+\newcommand{\union}{\cup}
+\newcommand{\Union}{\bigcup}
+\newcommand{\inter}{\cap}
+\newcommand{\Inter}{\bigcap}
+\newcommand{\coleq}{\coloneqq}
+\newcommand{\script}[1]{\mathscr{#1}}
+\newcommand{\powset}[1]{\mathcal{P}(#1)}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\inverse}[1]{#1^{-1}}
+\newcommand{\define}[1]{\textbf{\underline{#1}}}
+\newcommand{\func}[3]{#1: #2 \to #3}
+\renewcommand{\mod}[1]{\ (\mathrm{mod}\ #1)}
+\renewcommand{\Subset}{\subseteq}
+\renewcommand{\Supset}{\supseteq}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\theoremstyle{definition}
+\newtheorem*{defn}{Definition}
+\newtheorem*{cor}{Corollary}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{ex}{Example}
+\newtheorem*{lem}{Lemma}
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+
+%Abstract Algebra specific commands
+\newcommand{\Znx}{(\mathbb{Z}/n)^\times}
+\newcommand{\Rx}{\mathbb{R}^\times}
+\newcommand{\cyc}[1]{\langle#1\rangle}
+\newcommand{\im}[1]{\mathrm{im}#1}
+\newcommand{\normal}{\unlhd}
+\newcommand{\iso}{\cong}
+
+\begin{document}
+    \begin{center}
+        \textsc{Dillan Marroquin\\MATH 331.1001\\Scribing Week 9\\Due. 25 October 2021\\}
+    \end{center}
+        
+    \section*{\textbf{\textsc{Lecture 21}}}{
+        \define{Q:} Is the image of a group homomorphism $\func{\varphi}{G}{H}$ a normal subgroup of $H$?\\
+        \define{A:} Nope! As an example, take $G=\Z$, $H=S_3$, $\tau=\big(\begin{smallmatrix} 1&2&3\\ 1&3&2 \end{smallmatrix}\big)$. Then $\im\varphi=\{\varphi(k)|k\in \Z\}=\{\tau^k|k\in \Z\}=\cyc{\tau}$. We know from past lectures that $\cyc{\tau}\leq S_3$ is not a normal subgroup.
+        
+        \subsection*{Permutation Groups}{
+            \begin{defn}[21.1]
+                Let $X$ be a set. The \define{permutation group of $X$} is the set $\Sigma(X)\coleq\{\func{f}{X}{X}|f\text{ is a bijection}\}$ with binary operator being function composition, $\circ$, and identity element $e(x)=x$, $\forall x\in X$.
+            \end{defn}
+            
+            \noindent Most important example: $X=\mathbbm{n}=\{1,\ldots,n\}$, $n\geq 1$. Then $\Sigma(X)=S_n$ is the \define{symmetric group on n-letters ($\mathbf{\mathrm{Sym}_n}$, $\mathbf{\Sigma_n}$)}.
+        
+            \begin{prop}[21.2]
+                Let $X=\{x_1,\ldots,x_n\}$ be an $n$-element set. Then $\Sigma(X)\iso S_n$.
+            \end{prop}
+        }
+        \subsection*{Permutation Group of a Group: $\Sigma(G)$}{
+            \begin{rmk}
+                Paulin uses the idea of a "group action." This is important, but we'll ignore it.
+            \end{rmk}
+            
+        \noindent Let $G$ be a group. Then $\Sigma(G)\coleq\{\func{f}{G}{G}|f\text{ is a set-theoretic bijection}\}$.\\
+        Let $g \in G$. Define a function $\func{L_g}{G}{G}$, $L_g(x)\coleq gx$, $\forall x\in G$. Note that $L_g$ is not a group homomorphism if $g\neq e_G$, but it is a bijection.
+        
+        \begin{ex}
+            Let $G=\Z$. Then $L_g(a)=g*_Ga=a+n$ (translation by $n$).
+        \end{ex}
+        
+        \begin{lem}[21.3]
+            Let $G$, $H$ be groups and let $\func{\varphi}{G}{H}$ be a group homomorphism. If $\varphi$ is injective, then $\varphi$ induces a group isomorphism $G\iso \im\varphi\leq H$.
+        \end{lem}
+        
+        \begin{thm}[21.4 Cayley's Theorem]
+            Let $G$ be a group, $\Sigma(G)$ be the permutation group of the SET $G$. Let $\func{\varphi}{G}{\Sigma(G)}$ be the function $\varphi(g)\coleq L_g$. Then
+            \begin{enumerate}
+                \item $\varphi$ is a group homomorphism and
+                \item $\varphi$ induces a group isomorphism between $G$ and the subgroup $\im\varphi\leq \Sigma(G)$.
+            \end{enumerate}
+        \end{thm}
+        
+        \begin{cor}[21.5]
+            Every finite group is isomorphic to a subgroup of $S_n$.
+        \end{cor}
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 22}}}{
+        \begin{proof}[Proof of Theorem 21.4]
+            \begin{enumerate}
+                \item Want to show $\forall g,g'\in G$, $\varphi(gg')=\varphi(g)\circ\varphi(g')$ i.e. we want to show $L_{gg'}=(L_g\circ L_{g'})(x)$. The left-hand side $=gg'x$ and the right-hand side $=L_g(L_{g'}(x))=L_g(g'x)=gg'x$.
+                \item Suffices to show $\func{\varphi}{G}{\im\varphi}$ is injective since any function is surjective onto its image (Lemma 21.3). By Prop. 17.1, we want to show $\ker\varphi=\{e_G\}$. Suppose $g\in \ker\varphi$. Then $\varphi(g)=\id_G$, i.e. $\forall x\in G$, $L_g(x)=\id_G(x)=x$. Since $x\in G$, $\inverse{x} \in G$. Therefore $gx=x$ implies $g=e_G$. Thus injective.
+            \end{enumerate}
+        \end{proof}
+        
+        \begin{cor}[21.5]
+            Every finite group $G$ of order $n$ is isomorphic to a subgroup of $S_n=\Sigma(\{1,2,\ldots,n\}$.
+        \end{cor}
+        
+        \subsection*{Structure of Symmetric Group $S_n$}{
+            \noindent $S_n$ is B I G! $|S_n|=n!$, so it's too hard to write the elements of $S_n$ as $\big(\begin{smallmatrix} 1&2&3&\ldots&n\\ 1&6&1&\ldots&7 \end{smallmatrix}\big)$.
+            
+            \begin{defn}[22.1]
+                Let $i_1,i_2,\ldots,i_k$ be distinct elements of $\mathbbm{n}=\{1,\ldots,n\}$ with $1\leq k\leq n$. Then $(i_1,i_2,\ldots, i_k)\in S_n$ denotes the function $i_1 \mapsto i_2,i_2\mapsto i_3,\ldots, i_{k-1}\mapsto i_k, i_k \mapsto i_1$. Every other element of $\mathbbm{n}$ gets mapped to itself. $(i_1,\ldots, i_k)$ is a \define{k-cycle}. 2-cycles are \define{transpositions}.
+            \end{defn}
+            
+            \begin{ex}
+                \begin{enumerate}
+                    \item Our friends $\sigma$, $\tau \in S_3$, where $\sigma=\big(\begin{smallmatrix} 1&2&3\\ 2&3&1 \end{smallmatrix}\big)$ and $\tau=\big(\begin{smallmatrix} 1&2&3\\ 1&3&2 \end{smallmatrix}\big)$. $\smiley$ In cycle notation we have $\sigma=(1\;2\;3)$ and $\tau=(2\;3)$
+                    \item Let $\rho=\big(\begin{smallmatrix} 1&2&3&4\\ 4&1&2&3 \end{smallmatrix}\big)\in S_4$. Then $\rho=(1\;4\;3\;2)$.
+                    \item $\id_\mathbbm{n}\in S_n$ and $\id_\mathbbm{n}=(1)=(2)=(3)=\cdots$.
+                \end{enumerate}
+            \end{ex}
+            
+            \begin{rmk}
+                \begin{enumerate}
+                    \item Example 3 shows there are multiple ways to express cycles- Ex 1: $\sigma=(3\;1\;2)=(2\;3\;1)$, $\tau=(2\;3)=(3\;2)$.
+                    \item Without context, it's unclear where these cycles live. e.g. $(1\;2\;3)$ could be in $S_3$ or $S_4$ corresponding to $\big(\begin{smallmatrix} 1&2&3&4\\ 2&3&1&4 \end{smallmatrix}\big)$.
+                \end{enumerate}
+            \end{rmk}
+            
+            \begin{prop}
+                Let $\sigma=(i_1\;i_2\;\ldots\;i_k)\in S_n$ be a $k$-cycle. Then:
+                \begin{enumerate}
+                    \item $|\sigma|=k$ and
+                    \item $\inverse{\sigma}=(i_k\;i_{k-1}\;\ldots\;i_2\;i_1)$.
+                \end{enumerate}
+            \end{prop}
+        }
+    }
+    
+    \section*{\textbf{\textsc{Lecture 23}}}{
+        \begin{rmk}
+            This is important! Not every element in $S_n$ is a cycle!
+        \end{rmk}
+        
+        \begin{ex}
+            $\eta=\big(\begin{smallmatrix} 1&2&3&4\\ 2&1&4&3 \end{smallmatrix}\big)\in S_4$. Note that $|\eta|=2$. Prop. 22.1(1) implies $\eta=(i_1\;i_2)$. So $\eta$ leaves 2 elements of $\{1,2,3,4\}$ fixed, which is false.
+        \end{ex}
+        
+        \subsection*{Composition of Cycles: "Important" Group Operation in $S_n$ into Cycle Notation}{
+            \begin{ex}
+                \begin{enumerate}
+                    \item Let $\sigma=(1\;3\;5\;2)$, $\tau=(2\;5\;6)\in S_6$. Then $\sigma\circ\tau=\sigma\tau=(1\;3\;5\;2)(2\;5\;6)=(1\;3\;5\;6)$.
+                    \item Let $\sigma=(1\;3\;5\;2)$, $\tau=(1\;6\;3\;4)\in S_6$. Then $\sigma\tau=(1\;3\;5\;2)(1\;6\;3\;4)=(1\;6\;5\;2)(3\;4)$ which is NOT a cycle!
+                \end{enumerate}
+            \end{ex}
+            
+            \noindent\define{Observation:} $\alpha=(1\;6\;5\;2)$, $\beta=(3\;4)$ commute: $\alpha\beta=\beta\alpha$.
+            
+            \begin{defn}[23.1]
+                2 cycles $(i_1\;i_2\;\ldots\;i_r)$ and $(j_1\;j_2\;\ldots\;j_s)$ are \define{disjoint} iff $\forall k=1,\ldots,r$, $i_k\neq j_l$, $\forall l=1,\ldots,s$.
+            \end{defn}
+            
+            \begin{prop}[23.2]
+                If $\sigma$, $\tau \in S_n$ are disjoint cycles, $\sigma\tau=\tau\sigma$.
+            \end{prop}
+            
+            \begin{proof}
+                We want to show $\forall m \in \mathbbm{n}$, $\sigma\tau(m)=\tau\sigma(m)$. Let $I\coleq\{i_1,\ldots,i_r\}$, $J\coleq\{j_1,\ldots,j_k\}$. Let $m\in \mathbbm{n}$. We observe 3 different cases:\\
+                \define{Case 1:} $m \notin I$, $m\notin J$. By definition of cycle, $\tau(m)=m$ and $\sigma(m)=m$. Therefore $\sigma\tau(m)=m=\tau\sigma(m)$.\\
+                \define{Case 2:} $m\in I$. Consider $\sigma\tau(m)$. Since $m\in I$, $m\notin J$ and therefore $\tau(m)=m$ which implies $\sigma\tau(m)=\sigma(m)$. Consider $\tau\sigma(m)$. Then $\sigma(m)\in I$ which implies $\sigma(m)\notin J$ and therefore $\tau\sigma(m)=\sigma(m)$.\\
+                \define{Case 3:} $m\in J$. Same as Case 2, just swap the roles of $I,J$.
+            \end{proof}
+            
+            \begin{rmk}
+                Let $\sigma=(1\;2\;3)$ and $\tau=(2\;3)\in S_3$. Then $\sigma\tau=(1\;2\;3)(2\;3)=(1\;2)\neq(1\;3)=(2\;3)(1\;2\;3)=\tau\sigma$.
+            \end{rmk}
+            
+            \begin{cor}[23.3]
+                Let $\alpha \in S_n$ be the product of disjoint cycles $\sigma_1,\sigma_2,\ldots,\sigma_k\in S_n$. Then $|\sigma|=\mathrm{lcm}\{|\sigma_1|,|\sigma_2|,\ldots,|\sigma_k|\}$.
+            \end{cor}
+        }
+    }
+\end{document} 
