@@ -1,0 +1,150 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kpfonts}
+\usepackage[mathscr]{euscript}
+\usepackage{commath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[margin=0.8in]{geometry}
+
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}}
+\newcommand{\B}{\ensuremath{\mathcal{B}}}
+\newcommand{\wrt}{with respect to}
+\newcommand{\nbd}{neighborhood}
+\newcommand{\Iff}{if and only if}
+\newcommand{\ts}{topological space}
+\newcommand{\es}{\ensuremath{\emptyset}}
+\newcommand{\script}[1]{\ensuremath{\mathscr{#1}}}
+\newcommand{\coleq}{\ensuremath{\coloneqq}}
+\newcommand{\powset}[1]{\ensuremath{\mathcal{P}(#1)}}
+\newcommand{\define}[1]{\textbf{\underline{#1}}}
+\newcommand{\card}[1]{\ensuremath{\mathbf{card} (#1)}}
+\newcommand{\func}[3]{\ensuremath{#1: #2 \to #3}}
+\newcommand{\closure}[1]{\ensuremath{\overline{#1}}}
+\newcommand{\ball}[3]{\ensuremath{B_{#1}^{#2}(#3)}}
+\newcommand{\Ball}[3]{\ensuremath{\overline{B}_{#1}^{#2}(#3)}}
+\newcommand{\homeo}{\cong}
+\newcommand{\id}{\ensuremath{\mathrm{id}}}
+\newcommand{\tp}{\ensuremath{\mathscr{T}}}
+\newcommand{\Ts}[2]{\ensuremath{(#1,#2)}}
+\newcommand{\tpcof}{\ensuremath{\tp_\text{cof}}}
+\newcommand{\tpdisc}{\ensuremath{\tp_\text{disc}}}
+\newcommand{\tptriv}{\ensuremath{\tp_\text{triv}}}
+\newcommand{\tpeuc}{\ensuremath{\tp_\text{Euc}}}
+\newcommand{\Beuc}{\ensuremath{\B_\text{Euc}}}
+\newcommand{\union}{\cup}
+\newcommand{\Union}{\bigcup}
+\newcommand{\inter}{\cap}
+\newcommand{\Inter}{\bigcap}
+\newcommand{\interior}[1]{\ensuremath{\mathring{#1}}}
+\newcommand{\bound}[1]{\ensuremath{\partial #1}}
+\renewcommand{\Subset}{\subseteq}
+\renewcommand{\Supset}{\supseteq}
+
+\theoremstyle{definition}
+\newtheorem*{defn}{Definition}
+\newtheorem*{cor}{Corollary}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{ex}{Ex}
+\newtheorem*{lem}{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+
+\begin{document}
+    \begin{center}
+        \textsc{Dillan Marroquin\\MATH 440.1001\\Scribing Week 9\\Due. 29 March 2021\\}
+    \end{center}
+        
+    \noindent\section*{\textbf{\textsc{Lecture 22}}}{
+        \subsection*{Properties Inherited by Subspaces}{
+        \begin{itemize}
+            \item Recall Thm 21.3: If $X$ is metrizable, then $X$ is $T_i$ for $I=0,1,2,3,4$.
+        \end{itemize}
+        
+        \begin{prop}[22.1]
+            If $A \Subset X$ is a subspace and $X$ is metrizable, then $A$ is $T_i$ for $i=0,1,2,3,4$.
+        \end{prop}
+        
+        \begin{lem}[22.2]
+            If $X$ is metrizable and $A \Subset X$ is a subspace, then $A$ (equipped with the subspace topology) is metrizable.
+        \end{lem}
+        
+        \begin{proof}
+            $X$ metrizable implies there exists a metric $\func{d}{X\times X}{\R}$ such that $\tp_x=\tp_d$. Define $\func{d_A}{A\times A}{\R}$ as $d_A(a_1,a_2) \coleq d(a_1,a_2)$. This implies that $a \in A$, $\ball{a}{d_A}{\varepsilon} \coleq \{a\in A|d(a,a')<\varepsilon\}=\ball{a}{d}{\varepsilon}$, where $\ball{a}{d}{\varepsilon}\coleq \{x\in X|d(a,x)<\varepsilon\}$. By definition of the subspace topology, every open subset $V\Subset A$ is of the form $V=A\inter U$ with $U \Subset X$ open. By definition of the metric topology, $U=\Union_{x\in U}\ball{x}{d}{\varepsilon_x}$. Therefore $V=\Union_{x\in U}\ball{x}{d}{\varepsilon_x} \inter A=\Union_{x\in V} \ball{x}{d_A}{\varepsilon_x}$. We thus conclude that the subspace topology on $A$ equals $\tp_{d_A}$.
+        \end{proof}
+        
+        \begin{thm}[22.3]\hfill
+            \begin{enumerate}
+                \item If $X$ is Hausdorff ($T_2$), then every subspace in $X$ is $T_2$.
+                \item If $X$ is $T_1$ and $T_3$, then every subspace $A \Subset X$ is $T_1$ and $T_3$.
+            \end{enumerate}
+        \end{thm}
+        }
+        
+        \noindent\underline{FACT:} The closure of a subset $B \Subset Z$ is equal to $\closure{B} \inter Z$, where $\closure{B}$ is a closure as a subset of $X$.
+    }
+    
+    \noindent\section*{\textbf{\textsc{Lecture 23}}}{
+        \subsection*{Compactness}{
+            \begin{itemize}
+                \item Topological property that implies an analog of the Extreme Value Theorem from calculus: If $\func{f}{[a,b]}{\R}$ is continuous, then $\exists c,d\in[a,b]$ such that $f(c)\leq f(x) \leq f(d) \; \forall x\in [a,b]$.
+                \item Compact spaces have a notion of "finiteness." 
+            \end{itemize}
+        
+            \begin{defn}[23.1]
+                An \define{open cover} of a \Ts{} $X$ is a collection $\script{U}=\{U_\alpha\}_{\alpha \in A}$ of open subsets of $X$ such that $X=\Union_{\alpha \in A}  I_\alpha$.\\
+                If $\script{U'}=\{U_\beta\}_{\beta \in A'} \Subset \script{U}$ is a subcollection of $\script{U}$ such that $X=\Union_{\beta \in A'}U_\beta$, then $\script{U'}$ is a \define{subcover} of $\script{U}$.
+            \end{defn}
+        
+            \begin{ex}[23.2 Simple Ex]
+                Let $X=[0,1] \Subset \R$ be a subspace.\\
+                Define $\ \script{U}\coleq\{[0,1/10),(1/3,1]\} \union \{(1/n+2,1/n)\}_{n\geq 2}^\infty$. This is an open cover: show that if $r\in [1/10,1/3]$ then there is an $n$ such that $r \in (1/n+2,1/n)$.\\
+                Also, $\script{U'}\coleq \{[0,1/10),(1/3,1]\} \union \{1/n+2,1/n)\}_{n=2}^9$ is a subcover.\\
+                Notice that $\script{U'}$  is a finite subcover!!!
+            \end{ex}
+        
+            \begin{defn}[23.3]
+                A \Ts{} $X$ is \define{compact} \Iff{} every open cover of $X$ has a finite subcover.
+            \end{defn}
+        
+            \begin{ex}[23.4 Non-Ex]
+                Let $X=\R$ be a space equipped with Euclidean topology. This is NOT compact!\\
+                Consider $\script{U}=\{(-n,n)\}_{n\in \N}^\infty$. This has no finite subcover.
+            \end{ex}
+        
+            \begin{rmk}[23.5]
+                Heine-Borel Theorem: Every closed interval $[a,b] \Subset \R$ is compact. More generally, every closed and \underline{bounded} subspace of $\R^n$ is compact. e.g. $S^n \Subset \R^{n+1}, \, \Ball{\Vec{x}}{}{\varepsilon} \Subset \R^m$.
+            \end{rmk}
+        }
+    
+        \subsection*{Useful Abstract Properties of Compact Spaces}{
+            \begin{thm}[23.6]
+                Let $\func{f}{X}{Y}$ be a continuous function between topological spaces $X$ and $Y$. If $X$ is compact, then the subspace $f(X) \Subset Y$ is compact.
+            \end{thm}
+            
+            \begin{proof}
+                Let $\script{W}=\{W_\alpha\}_{\alpha \in A}$ be an open cover of $f(X)$. We want to show $\script{W}$ has a finite subcover. The definition of the subspace topology implies $\forall \alpha \in A, \, \exists$ open subset $V_\alpha \Subset Y$ such that $W_\alpha=f(X) \inter V_\alpha$. Let $U_\alpha \coleq f^{-1}(V_\alpha)$. Then $\script{U}=\{U_\alpha\}_{\alpha\in A}$ is an open cover of $X$. $X$ being a compact space implies that there exists a finite subcover $\script{U'}\coleq\{U_{\alpha_i}\}_{i=1}^N$ of $\script{U}$. Hence $f(X)=\Union_{i=1}^N f(U_{\alpha_i}) \Subset \Union_{i=1}^N V_{\alpha_i}$. Hence $\{W_{\alpha_i}=f(X)\inter V_\alpha\}_{i=1}^N$ is a finite subcover of $\script{W}$.
+            \end{proof}
+            
+            \begin{rmk}[23.7]
+                Theorem 23.6 implies that compactness is a topological property. That is, if $\func{f}{X}{Y}$ is a homeomorphism between spaces $X$ and $Y$, then $X$ is compact \Iff{} $Y$ is compact.
+            \end{rmk}
+            
+            \begin{itemize}
+                \item \underline{Application:} Recall that for $a<b\in\R, \, \R \homeo (a,b)$ on the Euclidean topology.
+            \end{itemize}
+            
+            \begin{cor}[23.8]
+                $\R$ is not homeomorphic to $[a,b]$ for any $a,b\in R$. Hence $[a,b] \not\homeo (a,b)$.
+            \end{cor}
+            
+            \begin{proof}
+                This follows directly from the Heine-Borel Theorem, Ex 23.4, Theorem 23.6, and from transitivty.
+            \end{proof}
+        }
+    }
+\end{document}

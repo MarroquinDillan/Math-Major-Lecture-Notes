@@ -1,0 +1,105 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{units}
+\usepackage[margin=0.6in]{geometry}
+
+
+\renewcommand{\familydefault}{\sfdefault}
+\begin{document}
+    \noindent STAT 461.1002: Homework 4\\
+    Dillan Marroquin\\
+    5 October, 2020\\
+
+    \quad \textbf{Section 3.2 Problems}
+    \begin{enumerate}
+        \item 3.2.4 An entrepreneur owns six corporations, each with more than \$10 million in assets. The entrepreneur consults the \textit{U.S. Internal Revenue Data Book} and discovers that the IRS audits 15.3\% of businesses of that size. What is the probability that two or more of these businesses will be audited?\\
+        \textbf{Answer: }This is asking for the probability that AT LEAST 2 businesses will be audited, i.e. $P(X \geq 2)$.
+            \begin{align*}
+                P(X \geq 2) &= 1-[P(X = 0)+P(X = 1)]\\
+                &= 1-\bigg[{6 \choose 1}(0.153)^1(1-0.153)^{6-1}+{6\choose 0}(0.153)^0(1-0.153)^{6-0}\bigg]\\
+                &= 1-(0.4001840112+0.3692329601)\\
+                &\approx 0.23058.
+            \end{align*}
+
+        \item Consider the experiment of rolling six fair 6-sided dice. The sample space $S$ is all length-6 sequences made up of integers 1 to 6, \textit{with} replacement.   \begin{enumerate}
+            \item Find the probability of all dice yielding the same number.\\
+            \textbf{Answer: }Observe $|S| = 6^6 = 46656$. Then the probability of 1 of those sequences occurring is $\nicefrac{1}{46656}$.\\
+            There are 6 ways for all dice to yield the same number: $(1,1,1,1,1,1),(2,2,2,2,2,2),\ldots,(6,6,6,6,6,6)$. So, the probability of this happening is $\nicefrac{6}{46656} = \nicefrac{1}{7776}$.
+                
+            \item Find the probability that all the numbers are distinct.\\
+            \textbf{Answer: }Denote event $A = \{\text{all numbers are distinct}\}$. The outcomes where all numbers are distinct are any of the form $\{(1,2,3,4,5,6)\}$ where each digit can be assigned to any coin. Then there are 36 outcomes of this form and $\nicefrac{36}{46656} = \nicefrac{1}{1296}$.\\
+            \end{enumerate}
+
+        \item Let $Y_i$ be a random variable (for $i = 1,2,3$) given by the following functions of the outcomes in the experiment described above (in Problem 2). For each of these new random variables $Y_i$ given below, describe (1) the new sample space associated with $Y_i$ (i.e., $S_{Y_i}$) and (2) the probability function $P(Y_i = k)$ for appropriate values of $k$.
+            \begin{enumerate}
+                \item $Y_1$ is the number of even integers in the sequence.\\
+                \textbf{Answer: }\\
+                $S_{Y_1} = \{\}$
+                
+                \item $Y_2$ is the number of 2s in the sequence.\\
+                \textbf{Answer: }\\
+                $S_{Y_1} = \{\}$
+                
+                \item \textbf{(461 only)} $Y_3$ is the number of integers greater than 4 in the sequence.\\
+                \textbf{Answer: }\\
+                $S_{Y_1} = \{\}$
+            \end{enumerate}
+            
+        \item 3.2.11 If a family has four children, is it more likely they will have two boys and two girls or three of one sex and one of the other? Assume that the probability of a child being a boy is $\nicefrac{1}{2}$ and that the births are independent events.\\
+        \textbf{Answer: }$P(A) = (\text{2 boys and 2 girls}) = P(\text{2 boys (or girls) in 4 children})$
+            \begin{align*}
+                P(A) &= {4 \choose 2} \bigg(\frac{1}{2}\bigg)^2\bigg(1-\frac{1}{2}\bigg)^{4-2} = 6 \cdot \frac{1}{4} \cdot \frac{1}{4} = \frac{3}{8}.
+            \end{align*}
+        $P(B) = P(\text{3 of 1 sex and one of the other}) = P(\text{3 boys or 1 boy})$.
+            \begin{align*}
+                P(B) &= 2\bigg[{4 \choose 3} \bigg(\frac{1}{2}\bigg)^3\bigg(1-\frac{1}{2}\bigg)^{4-3}\bigg] = 2\bigg(4 \cdot \frac{1}{8} \cdot \frac{1}{2}\bigg) = \frac{1}{2}.
+            \end{align*}
+        So it is more likely that the family will have 3 of one sex and one of the other.\\
+    
+        \item 3.2.22 A city has 4050 children under the age of ten, including 514 who have not been vaccinated for measles. Sixty-five of the city’s children are enrolled in the ABC Day Care Center. Suppose the municipal health department sends a doctor and a nurse to ABC to immunize any child who has not already been vaccinated. Find a formula for the probability that exactly $k$ of the children at ABC have not been vaccinated.\\
+        \textbf{Answer: } Children not vaccinated in city $= r = 514$, vaccinated children in city $w = 3536$.\\
+        Total children in city $= N = 4050$, total children at ABC Day Care $= n = 65$.
+            \begin{align*}
+                P(X=k) = \frac{{r \choose k}{w \choose n-k}}{{N \choose n}} = \frac{{514 \choose k}{3536 \choose 65-k}}{{4050 \choose 65}}
+            \end{align*}
+        
+        \item 3.2.26 Keno is a casino game in which the player has a card with the numbers 1 through 80 on it. The player selects a set of $k$ numbers from the card, where $k$ can range from one to fifteen. The “caller” announces twenty winning numbers, chosen at random from the eighty. The amount won depends on how many of the called numbers match those the player chose. Suppose the player picks ten numbers. What is the probability that among those ten are six winning numbers?\\
+        \textbf{Answer: }This is the same as asking for the probability that at least 6 out of 10 are winning numbers, so\\ $P(X=6)+P(X=7) \cdots P(X=10) = P(X \geq 6)$. If we let $r=20$, $w=60$, $N=80$, and $n=10$, we can input each value of $k$ accordingly.
+            \begin{align*}
+                P(X \geq 6) &= \frac{{20 \choose 6}{60 \choose 4}}{{80 \choose 10}}+ \frac{{20 \choose 7}{60 \choose 3}}{{80 \choose 10}}+ \frac{{20 \choose 8}{60 \choose 2}}{{80 \choose 10}}+ \frac{{20 \choose 9}{60 \choose 1}}{{80 \choose 10}}+ \frac{{20 \choose 10}{60 \choose 0}}{{80 \choose 10}}\\
+                &= 0.01147939+0.001611143+0.000135419+0.000006120+0.000000112\\
+                &\approx 0.0132. 
+            \end{align*}
+        
+        \item \textbf{(461 Only)} 3.2.34 Some nomadic tribes, when faced with a life-threatening contagious disease, try to improve their chances of survival by dispersing into smaller groups. Suppose a tribe of twenty-one people, of whom four are carriers of the disease, split into three groups of seven each. What is the probability that at least one group is free of the disease? (\textit{Hint:} Find the probability of the complement.)\\
+        \textbf{Answer: }There are 3 different situations for the number of carriers in each tribe: (0,1,3), (0,2,2), and (0,0,4) where $(g_1,g_2,g_3)$ are the number of carriers in each respective tribe (ignoring order). To consider order, we will multiply by 3 to the Hypergeometric formula:
+            \begin{align*}
+                P(\geq 1 \text{ group is free of disease}) &= 3\Bigg(\frac{{7 \choose 0}{7 \choose 1}{7 \choose 3}}{{21 \choose 4}} + \frac{{7 \choose 0}{7 \choose 2}{7 \choose 2}}{{21 \choose 4}} + \frac{{7 \choose 0}{7 \choose 0}{7 \choose 4}}{{21 \choose 4}}\Bigg)\\
+                &= 3\bigg(\frac{245+441+35}{5985}\bigg)\\
+                &\approx 0.361. 
+            \end{align*}
+        
+        \textbf{Section 3.3 Problems}\\
+        \item 3.3.1(a) An urn contains five balls numbered 1 to 5. Two balls are drawn simultaneously. Let $X$ be the larger of the two numbers drawn. Find $P_X(k)$.\\
+        \textbf{Answer: }This is a hypergeometric distribution. The sample space $S = \{\text{all possible outcomes of both balls drawn}\}$. 
+            \[S = \{(1,2),(1,3),(1,4),(1,5),(2,3),(2,4),(2,5),(3,4),(3,5),(4,5)\}\]
+        The probability of each event is $\nicefrac{1}{10}$, so
+        \begin{align*}
+            P(X = 1) &= \frac{1}{10}\\
+            P(X = 2) &= \frac{2}{10} = \frac{1}{5}\\
+            P(X = 3) &= \frac{3}{10}\\
+            P(X = 4) &= \frac{4}{10} = \frac{2}{5}\\
+            P(X = 5) &= \frac{5}{10} = \frac{1}{2}
+        \end{align*}
+        
+        \item 3.3.7 Suppose a particle moves along the $x$-axis beginning at 0. It moves one integer step to the left or right with equal probability. What is the pdf of its position after four steps?\\
+        \textbf{Answer: }Let $X = \text{The particle's position after 4 integer steps} = \{-4,-2,0,2,4\}$. -4 and 4 occur once, -2 and 2 occur four times, and 0 occurs six times. If each outcome has the same probability of $\nicefrac{1}{4^2} = \nicefrac{1}{16}$, then
+            \begin{align*}
+            P(X = -4) &= \frac{1}{16}\\
+            P(X = -2) &= 4(\frac{1}{16}) = \frac{1}{4}\\
+            P(X = 0) &= 6(\frac{1}{16}) = \frac{3}{8}\\
+            P(X = 2) &= 4(\frac{1}{16}) = \frac{1}{4}\\
+            P(X = 4) &= \frac{1}{16}.
+            \end{align*}
+    \end{enumerate}
+\end{document}

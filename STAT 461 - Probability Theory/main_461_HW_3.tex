@@ -1,0 +1,87 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{xfrac}
+\usepackage[margin=0.6in]{geometry}
+\usepackage{graphicx}
+
+
+\renewcommand{\familydefault}{\sfdefault}
+\begin{document}
+    \noindent STAT 461.1002: Homework 3\\
+    Dillan Marroquin\\
+    21 September, 2020\\
+
+    \quad \textbf{Section 2.5 Problems}
+    \begin{enumerate}
+        \item 2.5.12 A roulette wheel has thirty-six numbers colored red or black according to the pattern indicated below:
+        Define the events\\
+        \quad A: red number appears\\
+        \quad B: even number appears\\
+        \quad C: number is less than or equal to 18\\
+        Show that these events satisfy Equation 2.5.4 but not Equation 2.5.3.\\
+        \textbf{Answer: } Observe that $P(A) = P(B) = P(C) = \sfrac{1}{2}$. So, $P(A) \cdot P(B) \cdot P(C) = \sfrac{1}{2} \cdot \sfrac{1}{2} \cdot \sfrac{1}{2} = \sfrac{1}{8}$. If we compare this probability with $P(A \cap B \cap C)$, we will see that they are not equal: $P(A \cap B \cap C) = \sfrac{4}{36} = \frac{1}{9} \neq \frac{1}{8}$\\
+        So, these events do not satisfy Equation 2.5.3. Now to show that these events do satisfy Equation 2.5.4:\\
+        
+        Let\\
+        $P(A \cap B) = P(\text{a red and even number appears}) = P(2,4,10,12,24,26,32,34,36) = \sfrac{1}{4}$,
+        \\ $P(A \cap C) = P(\text{a red number less than or equal to 18 appears}) = P(1,2,3,4,5,10,11,12,13) = \sfrac{1}{4}$,
+        \\ and $P(B \cap C) = P(\text{an even number less than or equal to 18 appears}) = P(2,4,6,8,10,12,14,16,18) = \sfrac{1}{4}$.\\
+        So, $P(A \cap B) = P(A)P(B) = \sfrac{1}{4}$, $P(A \cap C) = P(A)P(C) = \sfrac{1}{4}$, and $P(B \cap C) = P(B)P(C) = \sfrac{1}{4}$ and Equation 2.5.4 is satisfied.
+        
+
+        \item 2.5.22 According to an advertising study, 15\% of television viewers who have seen a certain automobile commercial can correctly identify the actor who does the voiceover. Suppose that ten such people are watching TV and the commercial comes on. What is the probability that at least one of them will be able to name the actor? What is the probability that exactly one will be able to name the actor?\\
+        \textbf{Answer: }Let $A_i = \{\text{the }i^{\text{th}} \text{ viewer identifies an actor}\}$ and $P(A_i) = 0.15$. Observe that $P(A_i^C) = 1-0.15 = 0.85$, so $P(A_1^C \cap A_2^C \cap \cdots \cap A_{10}^C) = (0.85)^{10} = 0.1968744$ because every event $A_i$ is independent of each other. So, $P(A_1 \cup A_2 \cup \cdots \cup A_{10}) = 1-0.1969 = 0.8031$. Therefore, the probability that at least one out of $10$ people will name an actor is $0.8301$.\\
+            
+
+        \textbf{Section 2.6 Problems}
+        \item 2.6.1 A chemical engineer wishes to observe the effects of temperature, pressure, and catalyst concentration on the yield resulting from a certain reaction. If she intends to include two different temperatures, three pressures, and two levels of catalyst, how many different runs must she make in order to observe each temperature-pressure-catalyst combination exactly twice?\\
+        \textbf{Answer: }Use the multiplication rule and multiply by 2: $2 \cdot 3 \cdot 2 = 24$ runs.\\
+            
+        \item 2.6.4 Suppose that the format for license plates in a certain state is two letters followed by four numbers.
+            \begin{enumerate}
+                \item How many different plates can be made?\\
+                \textbf{Answer: }Direct use of the multiplication rule: $26 \cdot 26 \cdot 10 \cdot 10 \cdot 10 \cdot 10 = 6,760,000$ different license plates can be made.\\
+                \item How many different plates are there if the letters can be repeated but no two numbers can be the same?\\
+                \textbf{Answer: }Same as above, however no repeats of numbers decreases the options for the numbers: $26 \cdot 26 \cdot 10 \cdot 9 \cdot 8 \cdot 7 = 3,407,040$ different plates.\\
+                \item How many different plates can be made if repetitions of numbers and letters are allowed except that no plate can have four zeros?\\
+                \textbf{Answer: }Total number of different plates with repeats without 4 zeros: $\text{total number of different plates - plates with 4 zeros}$.  $6,760,000 - (26 \cdot 26) = 759,324$ different plates.\\
+            \end{enumerate}
+    
+        \item 2.6.5 How many integers between 100 and 999 have distinct digits, and how many of those are odd numbers?\\
+        \textbf{Answer: }Observe that the 1st digit has only 9 possibilities while the 2nd and 3rd have 10. So, $9 \cdot (10-1) \cdot (10-2) = 9 \cdot 9 \cdot 8$. So there are 648 integers with distinct digits.\\
+        For the second part, observe that the 1st digit has 9 possibilities, the 2nd has 10, and the 3rd digit has only 5 since it can only be an odd number. So, $9 \cdot 10 \cdot 5 = 450$ different odd integers.\\
+        
+        \item 2.6.10 An octave contains twelve distinct notes (on a piano, five black keys and seven white keys). How many different eight-note melodies within a single octave can be written if the black keys and white keys need to alternate?\\
+        \textbf{Answer: }If we are starting the melody with a black key, then there are $5 \cdot 7 \cdot 5 \cdot 7 \cdot 5 \cdot 7 \cdot 5 \cdot 7 = 1,500,625$ different melodies. If we are starting with a white key, then there are also $1,500,625$ different melodies. Thus, there are $2(1,500,625) = 3,001,250$ possible 8-note melodies.\\
+        
+        \item \textbf{461 Only }2.6.15 Suppose that two cards are drawn—in order—from a standard 52-card poker deck. In how many ways can the first card be a club and the second card be an ace?\\
+        \textbf{Answer: }We can apply the multiplication rule. If there are 13 possibilities to draw a club and 4 possibilities to draw an ace, then $13 \cdot 4 = 52$ different ways. However, there is a possibility that the first card drawn is an ace of clubs, so instead we have $12 \cdot 4 = 48$. If the first card was an ace, then we would have 3 additional possibilities. So, 51 different ways. \\
+
+        \item 2.6.38 How many ways can the letters in the word\\
+            \[SLUMGULLION\]
+        be arranged so that the three $L$’s precede all the other consonants?\\
+        \textbf{Answer: }Note that there are $n_1 = 7$ consonants total with $n_2 = 3$ of them being $L$s and $n_3 = 4$ vowels for a total of 11 different letter positions. Let us find 7 out of 11 positions for our consonants: $\binom{11}{7} = \frac{11!}{7!(11-7)!} = 330$. If we choose the first 3 spots to be $L$s, then there are only $4! = 24$ possible arrangements for the rest of the consonants. The vowels can be arranged $\frac{4!}{2!} = 12$ ways, so using the multiplication rule, we have $330 \cdot 24 \cdot 12 = 95040$ different arrangements.\\
+        
+        \item \textbf{461 Only }2.6.53 Nine students, five men and four women, interview for four summer internships sponsored by a city newspaper\\
+            \begin{enumerate}
+                \item In how many ways can the newspaper choose a set of four interns?\\
+                \textbf{Answer: }We can apply the definition of combination directly: $\binom{9}{4} = \frac{9!}{4!(9-4)!} = 126$ different ways.\\
+                
+                \item In how many ways can the newspaper choose a set of four interns if it must include two men and two women in each set?\\
+                \textbf{Answer: }We can apply the combination definition twice:\\ $\binom{4}{2} = \frac{4!}{2!(4-2)!} = 6$ different ways for two women.\\
+                $\binom{5}{2} = \frac{5!}{2!(5-2)!} = 10$ different ways for two men. So $8 \cdot 10 = 60$ different ways.\\
+                
+                \item How many sets of four can be picked such that not everyone in a set is of the same sex?\\
+                \textbf{Answer: }This is trickier. For women, there is $\binom{4}{4} = \frac{4!}{4!(4-4)!} = 1$ way to be grouped.\\
+                For men, there are $\binom{5}{4} = \frac{5!}{4!(5-4)!} = 5$ different ways.\\
+                Subtracting this from the total possible ways to choose a set of 4, we obtain $126-1-5 = 120$ ways.\\
+            \end{enumerate}
+            
+        \item A group of $n$ families, each with $m$ members, are to be lined up for a photograph. In how many ways can the $nm$ people be arranged if members of a family must stay together?\\
+        \textbf{Answer: }Observe that $n$ families can be arranged $n!$ ways and the members of each $n$ family can be arranged $m!$ ways. So, the members of each family can be arranged in $m!^n$ ways.\\
+        
+        \item \textbf{Bonus Problem} 2.6.46 Show that $(k!)!$ is divisible by $k!(k-1)!$. (Hint: Think of a related permutation problem whose solution would require Theorem 2.6.2.)\\
+        \textbf{Answer: }If we consider $(k-1)!$ groups, then we can choose $k!$ to be categorized into these groups. By Theorem 2.6.2, we can arrange these objects $\frac{(k!)!}{(k!)^{(k-1)!}}$ times. This implies that $(k!)!$ is divisible by $k!(k-1)!$ since the answer to this is an integer.
+        
+    \end{enumerate}
+\end{document}

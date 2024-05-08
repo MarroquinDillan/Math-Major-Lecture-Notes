@@ -1,0 +1,117 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{commath}
+\usepackage{units}
+\usepackage{kpfonts}
+\usepackage[margin=0.6in]{geometry}
+\usepackage{multicol}
+
+\begin{document}
+    \noindent STAT 461.1002: Homework 7\\
+    Dillan Marroquin\\
+    10 November, 2020\\
+
+    \noindent \textbf{Section 3.8 Problems}
+    \begin{enumerate}
+        \item 3.8.3 part (a) Let $X$ and $Y$ be two independent random variables. Given the marginal pdfs shown below, find the pdf of $X+Y$. In each case, check to see if $X+Y$ belongs to the same family of pdfs as do $X$ and $Y$.\\
+        $p_X(k) = e^{-\lambda} \frac{\lambda^k}{k!}$ and $p_Y(k) = e^{-\mu}\frac{\mu^k}{k!}$, $k=0,1,2,\ldots$.\\
+        \textbf{Answer: } We directly apply Theorem 3.8.3, where $W=X+Y$.
+            \begin{align*}
+                p_W(w) &= \sum_\text{all x} p_X(x) \cdot p_Y(w-x)\\
+                &= \sum_\text{all x} e^{_\lambda}\frac{\lambda^x}{x!} \cdot e^{-\mu}\frac{\mu^{w-k}}{(w-k)!}\\
+                &= e^{-\lambda-\mu} \sum_\text{all x} \frac{\lambda^x\mu^{w-k}}{x!(w-k)!}\\
+                &= \frac{e^{-\lambda - \mu}}{w!} (\lambda+\mu)^w = \frac{e^{-\lambda-\mu} (\lambda+\mu)^w}{w!}
+            \end{align*}
+        We note that $W=X+Y$ belongs to the same family of pdfs as $X$ and $Y$.\\
+        
+        \item 3.8.7 Let $Y$ be a continuous nonnegative random variable. Show that $W=Y^2$ has pdf $f_W(w) = \frac{1}{2\sqrt{w}}f_Y(\sqrt{w})$. (\textit{Hint: }First find $F_W(w)$.)\\
+        \textbf{Answer: }Observe that we can express $F_W(w)$ differently: $F_W(w) = P(W \leq w) = P(Y^2 \leq w) = P(Y \leq \sqrt{w}) = F_Y(\sqrt{w})$, so then $F_W(w) = F_Y(\sqrt{w})$.\\
+        Now we recall that $f_W(w) = \od{}{w}F_W(w) = \od{}{w}F_Y(\sqrt{w}) = \frac{1}{2\sqrt{w}}f_Y(\sqrt{w})$. So then $W=Y^2$ has pdf $f_W(w) = \frac{1}{2\sqrt{w}}f_Y(\sqrt{w})~$
+        
+        \item 3.8.8 Let $Y$ be a uniform random variable over the interval $[0,1]$. Find the pdf of $W=Y^2$.\\
+        \textbf{Answer: }We discovered in problem 2 that the pdf of a continuous nonnegative random variable $W=Y^2$ is $f_W(w)=\frac{1}{2\sqrt{w}}f_Y(\sqrt{w})$. So then $f_W(w) = \frac{1}{2\sqrt{w}}(0) + \frac{1}{2\sqrt{w}}(1) = \frac{1}{2\sqrt{w}}, \, 0 \leq w \leq 1$.\\
+        
+        \item 3.8.13 Suppose that $X$ and $Y$ are two independent random variables, where $f_X(x) = xe^{-x}, \, x \geq 0$, and $f_Y(y) = e^{-y}, \, y\geq 0$. Find the pdf of $\nicefrac{Y}{X}$.\\
+        \textbf{Answer: } We directly apply Theorem 3.8.4 to find the pdf, where $W=\nicefrac{Y}{X}$:
+            \begin{align*}
+                f_W(w) &= \int_{-\infty}^\infty |x|f_X(x)f_Y(wx) \dif x\\
+                &= \int_0^\infty |x|xe^{-x}\cdot e^{-wx} \dif x = \int_0^\infty x^2e^{-x(1+w)} \dif x
+            \end{align*}
+        Now we integrate by parts with $u=x^2, \, \dif u=2x, \, v=-\frac{e^{-x(1+w)}}{1+w}, \, \dif v=e^{-x(1+w)}$.
+            \begin{align*}
+                f_W(w) = \int_0^\infty x^2e^{-x(1+w)} \dif x &= \frac{-x^2e^{-x(1+w)}}{1+w} - \int_0^\infty \frac{-2xe^{-x(1+w)}}{1+w} \dif x\\
+                &= \frac{-x^2e^{-x(1+w)}}{1+w}\bigg|_0^\infty -\frac{2}{1+w} \int_0^\infty xe^{-x(1+w)} \dif x\\
+                &= \frac{2}{1+w} \int_0^\infty xe^{-x(1+w)} \dif x
+            \end{align*}
+        Again, we integrate by parts with $u=x, \, \dif u=1, \, v= -\frac{e^{-x(1+w)}}{1+w}, \, \dif v=e^{-x(1+w)}$.
+            \begin{align*}
+                f_W(w) &= \frac{2}{1+w}\bigg(-\frac{xe^{-x(1+w)}}{1+w}\bigg|_0^\infty-\int_0^\infty  -\frac{e^{-x(1+w)}}{1+w} \dif x\bigg)\\
+                &= \frac{2}{(1+w)^2} \int_0^\infty e^{-x(1+w)} \dif x = -\frac{2}{(1+w)^2}\bigg(\frac{e^{-x(1+w)}}{1+w}\bigg)\bigg|_0^\infty = \frac{2}{(1+w)^3}, \, \text{for all }w \geq 0.
+            \end{align*}
+    \end{enumerate}
+    
+    \noindent\textbf{Section 3.9 Problems}
+    \begin{enumerate}\setcounter{enumi}{4}
+        \item 3.9.5 Suppose that $X_i$ is a random variable for which $E(X_i) = \mu \neq 0, \, i=1,2,\ldots ,n$. Under what conditions will the following be true?
+            \[E\Bigg(\sum_{i=1}^n a_iX_i\Bigg) = \mu\]
+        \textbf{Answer: }We first rewrite the expression on the left-hand side of the above equation using the properties of expected value:
+            \begin{align*}
+                E\Bigg(\sum_{i=1}^n a_iX_i\Bigg) = \sum_{i=1}^n a_i E[X_i] = \sum_{i=1}^n a_i\mu = \mu\sum_{i=1}^n a_i
+            \end{align*}
+        We now make the observation that in order for the initial equation to be true, $\sum\limits_{i=1}^n a_i = 1$.\\
+        
+        \item \textbf{(461 only)} 3.9.2 Suppose that $f_{X,Y} (x,y) = \lambda^2e^{-\lambda(x+y)}, \, 0 \leq x, \, 0 \leq y$. Find $E(X+Y)$.\\
+        \textbf{Answer: }First, we find the marginal PDFs of $X$ and $Y$:
+            \begin{align*}
+                f_X(x) &= \int_0^\infty \lambda^2e^{-\lambda(x+y)} \dif y = \lambda^2e^{-\lambda x} \int_0^\infty e^{-\lambda y} \dif y = \lambda^2e^{-\lambda x}\bigg( -\frac{e^{-\lambda y}}{\lambda}\bigg)\bigg|_0^\infty = \lambda^2e^{-\lambda x}\bigg(0+\frac{1}{\lambda}\bigg) = \lambda e^{-\lambda x}, \, \forall x\geq 0\\
+                f_Y(y) &= \int_0^\infty \lambda^2e^{-\lambda(x+y)} \dif x = \lambda^2e^{-\lambda y} \int_0^\infty e^{-\lambda x} \dif x = \cdots = \lambda e^{-\lambda y}, \, \forall y \geq 0
+            \end{align*}
+        We now compute $E[X]$ and $E[Y]$:
+            \begin{align*}
+                E[X] &= \int_0^\infty x\lambda e^{-\lambda x} \dif x = -\lambda^2xe^{-\lambda x}\Big|_0^\infty - \int_0^\infty -\lambda^2 e^{-\lambda x} \dif x = 0-\bigg(\frac{1}{\lambda e^{\lambda x}}\bigg)\bigg|_0^\infty = \frac{1}{\lambda}\\
+                E[Y] &= \int_0^\infty y\lambda e^{-\lambda y} \dif y = E[X] = \frac{1}{\lambda}\\
+                &\therefore \;E[X+Y] = 2\frac{1}{\lambda} = \frac{2}{\lambda}.
+            \end{align*}
+        
+        \item 3.9.14 Show that $\mathrm{Cov}(aX+b, \, cY+d) = ac\mathrm{Cov}(X,Y)$ for any constants $a,b,c,$ and $d$.\\
+        \textbf{Answer: }
+            \begin{align*}
+                \mathrm{Cov}(aX+b,cY+d) &= E[(aX+b)(cY+d)]-E[aX+b] \cdot E[cY+d]\\
+                &= E[acXY+adX+bcY+bd] -E[aX+b] \cdot E[cY+d]\\
+                &= E[acXY] + E[adX] + E[bcY] + E[bd] -E[aX+b] \cdot E[cY+d]\\
+                &= acE[XY]+adE[X]+bcE[Y]+bd-(aE[X]+b)(cE[Y]+d)\\
+                &= acE[XY]+adE[X]+bcE[Y]+bd-acE[X]E[Y]-adE[X]-bcE[Y]-bd\\
+                &= acE[XY]-acE[X]E[Y]\\
+                &= ac(E[XY]-E[X]E[Y])\\
+                &= ac\mathrm{Cov}(X,Y).    
+            \end{align*}
+        
+        \item 3.9.18 Suppose that $f_{X,Y}(x,y) = \frac{2}{3}(x+2y), \, 0 \leq x \leq 1, \, 0 \leq y \leq 1$. Find $\mathrm{Var}(X+Y)$.\\
+        \textbf{Answer: }Okay. This one's kinda lengthy. $\mathrm{Var}(X+Y) = \mathrm{Var}(X)+\mathrm{Var}(Y)+2\mathrm{Cov}(X,Y)$. So we will find $\mathrm{Var}(X)$, $\mathrm{Var}(Y)$, and $2\mathrm{Cov}(X,Y)$ seperately:
+            \begin{align*}
+                f_X(x) &= \frac{2}{3}\int_0^1 x+2y \dif y = \frac{2}{3}(xy+y^2)\Big|_0^1 = \frac{2}{3}(x+1), \, \forall x \in [0,1]     &      f_Y(y) &= \frac{2}{3}\int_0^1 x+2y \dif x = \frac{2}{3}\bigg(\frac{x^2}{2}+2xy\bigg)\bigg|_0^1 = \frac{2}{3}\bigg(\frac{1}{2}+2y\bigg), \, \forall y \in [0,1]\\
+                E[X] &= \frac{2}{3} \int_0^1 x^2+x \dif x = \frac{2}{3}\bigg(\frac{x^3}{3}+\frac{x^2}{2}\bigg)\bigg|_0^1 = \frac{2}{3}\bigg(\frac{1}{3}+\frac{1}{2}\bigg) = \frac{5}{9}        &       E[Y] &= \frac{2}{3}\int_0^1 \frac{y}{2}+2y^2 \dif y = \frac{2}{3}\bigg(\frac{y^2}{4}+\frac{2y^3}{3}\bigg)\bigg|_0^1 = \frac{11}{18}\\
+                E[X^2] &= \frac{2}{3} \int_0^1 x^3+x^2 \dif x =        &       E[Y^2] &= \frac{2}{3}\int_0^1 \frac{y^2}{2}+2y^3 \dif y = \frac{2}{3}\bigg(\frac{y^3}{6}+\frac{y^4}{2}\bigg)\bigg|_0^1 = \frac{4}{9}\\
+                \mathrm{Var}(X) &= \frac{7}{18}-\frac{25}{81} = \frac{13}{162}      &       \mathrm{Var}(Y) &= \frac{4}{9}-\frac{121}{324} = \frac{23}{324}
+            \end{align*}
+            \begin{align*}
+                E[XY] &= \int_0^1\int_0^1 \frac{2x^2y+4xy^2}{3} \dif y \dif x = \int_0^1 \bigg(\frac{x^2y^2}{3}+\frac{4xy^3}{9}\bigg)\bigg|_0^1 \dif x = \int_0^1 \frac{x^2}{3}+\frac{4x}{9} \dif x = \frac{x^3+2x^2}{9}\bigg|_0^1 = \frac{1}{3}\\
+                2\mathrm{Cov}(X,Y) &= 2\bigg[\frac{1}{3}-\bigg(\frac{5}{9} \cdot \frac{11}{18}\bigg)\bigg] = -\frac{1}{81}\\
+                \mathrm{Var}(X+Y) &= \frac{13}{162}+\frac{23}{324}-\frac{1}{81} = \frac{5}{36}. \qquad \text{Wow.} 
+            \end{align*}
+        
+        \item 3.9.21 A \textit{Poisson random variable} has pdf $p_X(k) = e^{-\lambda} \frac{\lambda^k}{k!}, \, k=0,1,2,\ldots$ and $\lambda > 0$. Also, $E(X) = \lambda$. Suppose the Poisson random variable $U$ is the number of calls for technical assistance received by a computer company during the firm’s nine normal workday hours, with the average number of calls per hour equal $7.0$. Also suppose each call costs the company \$50. Let $V$ be a Poisson random variable representing the number of calls for technical assistance received during a day’s remaining fifteen hours. Assume the average number of calls per hour is four for that time period and that each such call costs the company \$60. Find the expected cost and the variance of the cost associated with the calls received during a twenty-four-hour day.\\
+        \textbf{Answer: }It is given that $E[U_i] = 7.0$, where $i = 1,2,\ldots , 9$ is the $i$-th hour in the workday. It is also given that $E[V_j] = 4$, where $j=1,2,\ldots ,15$ is the $j$-th hour in the remaining $15$ hours. If we set $W$ to be the sum of $50 \cdot U_i$ for each $i$ and $60 \cdot V_j$ for each $j$. So then we must find $E[W]$ and $\mathrm{Var}(W)$...
+            \begin{align*}
+                E[W] &= E\Bigg[50\sum_{i=1}^9 U_i + 60\sum_{j=1}^{15} V_j \Bigg] = 50\sum_{i=1}^9 E[U_i] + 60\sum_{j=1}^{15} E[V_j] \\
+                &= 50\sum_{i=1}^9 7 + 60\sum_{j=1}^{15} 4 = 50(9)(7) + 60(15)(4) = \$6750\\
+                \mathrm{Var}(W) &= 50^2(9)(7)+60^2(15)(4) = \$373,500
+            \end{align*}
+    \end{enumerate}
+        
+    \noindent\textbf{Optional R Basics}
+    \begin{enumerate}\setcounter{enumi}{9}
+        \item Set up R and start working through basic exercises (see R setup and R exercises on Canvas)\\
+        \textbf{Answer: }\\
+    \end{enumerate}
+\end{document}

@@ -1,0 +1,84 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kpfonts}
+\usepackage[mathscr]{euscript}
+\usepackage{commath}
+\usepackage{bbm}
+\usepackage{enumerate}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{wasysym}
+\usepackage{wrapfig}
+\usepackage[margin=0.8in]{geometry}
+
+\newcommand{\N}{\mathbbm{N}}
+\newcommand{\Z}{\mathbbm{Z}}
+\newcommand{\Q}{\mathbbm{Q}}
+\newcommand{\R}{\mathbbm{R}}
+\newcommand{\C}{\mathbbm{C}}
+\newcommand{\es}{\emptyset}
+\newcommand{\union}{\cup}
+\newcommand{\Union}{\bigcup}
+\newcommand{\inter}{\cap}
+\newcommand{\Inter}{\bigcap}
+\newcommand{\coleq}{\coloneqq}
+\newcommand{\script}[1]{\mathscr{#1}}
+\newcommand{\powset}[1]{\mathcal{P}(#1)}
+\newcommand{\id}{\mathrm{id}}
+\newcommand{\inverse}[1]{#1^{-1}}
+\newcommand{\define}[1]{\textbf{\underline{#1}}}
+\newcommand{\func}[3]{#1: #2 \to #3}
+\newcommand{\lcm}{\mathrm{lcm}}
+\renewcommand{\mod}[1]{\ (\mathrm{mod}\ #1)}
+\renewcommand{\Subset}{\subseteq}
+\renewcommand{\Supset}{\supseteq}
+\renewcommand{\qedsymbol}{$\blacksquare$}
+
+\theoremstyle{definition}
+\newtheorem*{defn}{Definition}
+\newtheorem*{cor}{Corollary}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{ex}{Example}
+\newtheorem*{lem}{Lemma}
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+
+%Abstract Algebra specific commands
+\newcommand{\Znx}{(\mathbb{Z}/n)^\times}
+\newcommand{\Rx}{\mathbb{R}^\times}
+\newcommand{\cyc}[1]{\langle#1\rangle}
+\newcommand{\im}{\mathrm{im}}
+\newcommand{\normal}{\unlhd}
+\newcommand{\ideal}{\unlhd}
+\newcommand{\iso}{\cong}
+\newcommand{\sgn}{\mathrm{sgn}}
+\newcommand{\ev}{\mathrm{ev}}
+\newcommand{\K}{\mathbbm{K}}
+\renewcommand{\H}{\mathbbm{H}}
+
+\begin{document}{
+    \noindent\define{Max Flow - Fulkerson Alg.:} Longest Path Problem. Let $E_i=$ earliest time to get to place (use D.P.), $E_{ij}=$ earliest time to complete $ij$. Find $E_i=\max[E_i+e_{ij}, \, E_i+e_{ik}, \, E_i+e_{il}]$, stop after all nodes have been included, then choose longest path. Can also find $L_i=$ lowest time to complete $=\min L_i <$ or $>t_{ij}$.\\
+    Make a chart: Activity $\quad ij \quad t_{ij} \quad E_i \quad E_{ij} \quad L_i \quad TF_{ij}$, where $TF_{ij}=L_i-E_{ij}=$ Flexibility. A \define{critical path} is a path with 0 flexibility.\\\define{Ex:} Form LP to find the max \# of barrels/hr sent from $so$ (source) to $si$ (sink). Note that flow must pass thru some/all of stations 1, 2, and 3. Let $x_{ij}=$ barrels/hr thru arc $(i,j)$, $x_0=$ barrels entering $si$.
+    \begin{align*}
+        \text{LP: }\max z=x_0\\
+        \text{s.t. }x_{so,1}&\leq 2 & x_{so,2}&\leq 3 & x_{1,2}&\leq 3 & x_{2,si}&\leq 2\\ x_{1,3}&\leq 4 & x_{3,si}&\leq 1 & x_0&=x_{so,1}+x_{so,2} & x_{so,1}&=x_{1,2}+x_{1,3}\\
+        x_{so,2}+x_{12}&=x_{2,si} & x_{13}&=x_{3,si} & x_{3,si}+x_{2,si}&=x_0 & x_{ij} &\geq 0
+    \end{align*}
+    
+    \noindent\define{Inventory - EOQ:} Purchase Cost $=C(z)=K+cz$, Holding Cost $=H(z)=hz$, $h=$ hold cost, $Q^*=\sqrt{\frac{2ak}{h}}=$ how much, $\frac{Q^*}{a}=$ time between, $k=$ fixed cost, $c=$ var cost, $a=$ rate needed.\\
+    \define{Ex:} Let Demand $=4000$gallons/month, Charge $=\$50+\$0.7$/gallon refill, Annual Hold Fee $=\$0.3$.\\
+    Order Size $=Q^*=\sqrt{\frac{2(4000)(50)}{0.025}}=4000$ gallons, \# of orders/year$=\frac{12(4000)}{4000}=12$, Time b/w Orders$=\frac{4000}{12(4000)}=\frac{1}{12} \xrightarrow{}$ once a month, Lead Time of 2 weeks: $\frac{12a\cdot LT}{52}=1846.15 \xrightarrow{}$ reorder at $1846.15$ gallons.
+    
+    \noindent\define{EOQ Delayed Case:} $Q^*=\sqrt{\frac{2ak}{h}\cdot \frac{p+h}{p}} \xrightarrow{}$ order, $S^*=\sqrt{\frac{2ak}{h}\cdot\frac{p}{p+h}}\xrightarrow{}$ max inventory, $Q^*-S^*=$ max shortage, Penalty $=pz$.
+    
+    \noindent\define{Dynamic Program:} Start at the end. State: stages, states, recursion. $V_i(x)=\max/\min x$ s.t. $x_i\leq x(r_i(x_i)+v_i+(x-x_i))$. 1) Start at the end w/ all possibilities, 2) Move to previous step and test all possibilities which include step before vals, in the 1st step do once, w/ all utility. *Can use DP for shortest/longest path also (easier).
+    
+    \noindent\define{NLPs:} 1) $\overline{\nabla}(f(x)+\sum_{i=1}\lambda_i\overline{\nabla}g_i(x))=0$, 2) Feasible $g_i(x) \leq 0$, $i=1, \,\ldots, \, m$, 3) $\lambda\geq 0$, 4) $\lambda_i\cdot g_i(x)=0=i, \, \ldots, \, m$.\\
+    \define{Ex:}\\\\\\\\\\\\
+    
+    
+
+
+}
+\end{document}

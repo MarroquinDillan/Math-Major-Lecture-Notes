@@ -1,0 +1,412 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kpfonts}
+\usepackage[mathscr]{euscript}
+\usepackage{commath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[margin=0.8in]{geometry}
+
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}}
+\newcommand{\B}{\ensuremath{\mathcal{B}}}
+\newcommand{\wrt}{with respect to}
+\newcommand{\nbd}{neighborhood}
+\newcommand{\Iff}{if and only if}
+\newcommand{\ts}{topological space}
+\newcommand{\es}{\ensuremath{\emptyset}}
+\newcommand{\script}[1]{\ensuremath{\mathscr{#1}}}
+\newcommand{\coleq}{\ensuremath{\coloneqq}}
+\newcommand{\powset}[1]{\ensuremath{\mathcal{P}(#1)}}
+\newcommand{\define}[1]{\textbf{\underline{#1}}}
+\newcommand{\card}[1]{\ensuremath{\mathbf{card} (#1)}}
+\newcommand{\func}[3]{\ensuremath{#1: #2 \to #3}}
+\newcommand{\closure}[1]{\ensuremath{\overline{#1}}}
+\newcommand{\ball}[3]{\ensuremath{B_{#1}^{#2}(#3)}}
+\newcommand{\Ball}[3]{\ensuremath{\overline{B}_{#1}^{#2}(#3)}}
+\newcommand{\homeo}{\cong}
+\newcommand{\id}{\ensuremath{\mathrm{id}}}
+\newcommand{\tp}{\ensuremath{\mathscr{T}}}
+\newcommand{\Ts}[2]{\ensuremath{(#1,#2)}}
+\newcommand{\tpcof}{\ensuremath{\tp_\text{cof}}}
+\newcommand{\tpdisc}{\ensuremath{\tp_\text{disc}}}
+\newcommand{\tptriv}{\ensuremath{\tp_\text{triv}}}
+\newcommand{\tpeuc}{\ensuremath{\tp_\text{Euc}}}
+\newcommand{\Beuc}{\ensuremath{\B_\text{Euc}}}
+\newcommand{\union}{\cup}
+\newcommand{\Union}{\bigcup}
+\newcommand{\inter}{\cap}
+\newcommand{\Inter}{\bigcap}
+\newcommand{\interior}[1]{\ensuremath{\mathring{#1}}}
+\newcommand{\bound}[1]{\ensuremath{\partial #1}}
+\renewcommand{\Subset}{\subseteq}
+\renewcommand{\Supset}{\supseteq}
+
+\theoremstyle{definition}
+\newtheorem*{defn}{Definition}
+\newtheorem*{cor}{Corollary}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{ex}{Ex}
+\newtheorem*{lem}{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+
+\begin{document}
+    \subsection*{\underline{\textsc{Definitions}}}{
+        \begin{defn}[Norm]
+            Given $\Vec{x}=(x_1,x_2,\ldots,x_n) \in \R^n$, the \define{norm} of $x$ is defined by $\norm{x}\coleq(x_1^2+x_2^2+\cdots+x_n^2)^{1/2}$.
+        \end{defn}
+        
+        \begin{defn}[Metric]
+            A \define{metric} on a set $X$ is a function $d:X\times X \to \R$ such that
+            \begin{enumerate}
+                \item $d(x,y) \geq 0$ for all $x,y \in X$ and $d(x,y)=0$ \Iff{} $x=y$.
+                \item $d(x,y)=d(y,x) \; \forall x,y\in X$.
+                \item $d(x,z)\leq d(x,y)+d(y,z), \, \forall x,y,z \in X$.
+            \end{enumerate}
+            A \define{metric space $(X,d)$} is a set $X$ equipped with a metric.
+        \end{defn}
+        
+        \begin{defn}[Euclidean Metric]
+            The \define{Euclidean Metric} $d$ on $\R^n$ is defined by\\ $d(\Vec{x},\Vec{y})\coleq\norm{\Vec{x}-\Vec{y}}=[(x_1-y_1)^2+(x_2-y_2)^2+\cdots+(x_n-y_n)^2]^{1/2}$
+        \end{defn}
+        
+        \begin{defn}[Open/Closed Balls]
+            Let $\Vec{x} \in \R^n$ and $\varepsilon > 0$. The \define{open ball} of radius $\varepsilon$ centered at $\Vec{x}$ with respect to the metric $d_p$ is the subset $\ball{\Vec{x}}{p}{\varepsilon} \coleq \{\Vec{y} \in \R^n|d_p(\Vec{x},\Vec{y}) < \varepsilon\}$.\\
+            Respectively, the \define{closed ball} is the subset $\Ball{\Vec{x}}{p}{\varepsilon} \coleq \{\Vec{y} \in \R^n|d_p(\Vec{x},\Vec{y}) \leq \varepsilon\}$.
+        \end{defn}
+        
+        \begin{defn}[3.1 Continuity]
+            A function $\func{f}{\R}{\R}$ is \define{continuous at $\Vec{a} \in \R^n$} with respect to the metric $d_p$ \Iff{} $\forall \varepsilon>0, \, \exists \delta>0$ such that $d_p(\Vec{a},\Vec{x})<\delta \implies d_p(f(\Vec{a}),f(\Vec{x}))<\varepsilon$.\\
+            We say $f$ is \define{continuous} with respect to the metric $d_p$ \Iff{} $f$ is continuous $\forall \Vec{a} \in \R^n$.
+        \end{defn}
+        
+        \begin{defn}[3.3 Converging Sequence]
+            Let $S$ be a set. A \define{sequence} in $S$ is a function $\func{\sigma}{\N}{S}$.\\
+            A sequence $\{\Vec{x_k} \Subset \R^n\}$ \define{converges to $\Vec{a} \in \R^n$} with respect to the metric $d_p$ \Iff{} $\forall \varepsilon>0, \, \exists N \in \N$ such that $d_p(\Vec{x_k},\Vec{a})<\varepsilon \; \forall k\geq N$.
+        \end{defn}
+        
+        \begin{defn}[4.1 Closed/Open Subsets]
+            Let $A \Subset \R^n$. $A$ is \define{closed in $\R^n$} \Iff{} $\forall$ convergent sequences $\{x_k\} \Subset A$, we have $\lim\limits_{k \to \infty} x_k \in A$.\\
+            $A$ is \define{open in $\R^n$} \Iff{} $\R^n-A$ is closed.\\
+        \end{defn}
+        
+        \begin{defn}[6.1 Topological Space]
+            A \define{topological space} is a pair $\Ts{X}{\tp}$ consisting of a set $X$ and a collection $\tp \Subset \powset{X}$ of subsets of $X$ satisfying the following axioms:
+            \begin{enumerate}
+                \item $X \in \tp$ and $\es \in \tp$.
+                \item If $\{U_i\}_{i\in I}$ is a collection of subsets of $X$ and $\forall i\in I$ and $U_i \in \tp$, then $\Union\limits_{i\in I} U_i\in \tp$.
+                \item If $\{U_1,U_2,\ldots,U_n\}$ is a finite collection of subsets of $X$ such that $U_i \in \tp \; \forall i=1\ldots n$, then $\Inter\limits_{i=1}^n U_i \in \tp$.
+            \end{enumerate}
+        \end{defn}
+        
+        \begin{defn}[6.2]
+            Let $\Ts{X}{\tp}$ be a topological space.
+            \begin{enumerate}
+                \item A subset $U \Subset X$ is \define{open} \Iff{} $U \in \tp$.
+                \item A subset $A \Subset X$ is \define{closed} \Iff{} $X-A \in \tp$ is open.
+                \item Elements $x\in X$ are \define{points} of $X$.
+                \item If $x \in X$ and $U \in \tp$ such that $x \in U$, then $U$ is a \define{\nbd{}} of $x$.
+            \end{enumerate}
+        \end{defn}
+        
+        \begin{defn}[Different Topologies]
+            Let $X$ be a set. Then
+            \begin{enumerate}
+                \item \define{Metric Topology}: Let $(X,d)$ be a metric space. $\tp_d \coleq \{U \Subset X|U= \es \text{ or }\forall x \in U, \; \exists\varepsilon>0 \text{ such that } \ball{x}{}{\varepsilon} \Subset U\}$.
+                \item \define{Discrete Topology}: $\tpdisc \coleq \{U \Subset X\} = \powset{X}\}$, i.e. every subset of $X$ will be open.
+                \item \define{Trivial Topology}: $\tptriv \coleq \{X,\es\} \Subset \powset{X}$.
+                \item \define{Cofinite Topology} (6.5): $\tpcof \coleq \{U \Subset X | U = \es \text{ or } X-U \text{ is finite}\}$.
+                \item \define{Subspace Topology} (7.1): Let $A \Subset X$. Then $\tp_A \coleq \{U \inter A|U \in \tp\}$.
+            \end{enumerate}
+        \end{defn}
+        
+        \begin{defn}[6.4 Comparable]
+            Let $X$ be a set and let $\tp_1, \, \tp_2$ be topologies on $X$. We say $\tp_1$ and $\tp_2$ are \define{comparable} \Iff{} $\tp_1 \Subset \tp_2$ or vice-versa. If $\tp_1 \Subset \tp_2$, we say $\tp_1$ is \define{coarser/smaller} than $\tp_2$ and that $\tp_2$ is \define{finer/larger} than $\tp_1$.
+        \end{defn}
+        
+        \begin{defn}[8.2 Limit Points]
+            Let $X$ be a \ts{} and $A \Subset X$ a subset. A point $y \in X$ is a \define{limit point} of $A$ \Iff{} for every open subset $U \Subset X$ containing $y$, $A \inter (U-\{y\}) \neq \es$. Define $L(A) \coleq \{y\in X| \text{$y$ is a limit point of $A$}\}$.
+        \end{defn}
+        
+        \begin{defn}[9.2 Closure]
+            Let $X$ be a \ts{}, $A \Subset X$ a subset. The \define{closure} of $A$ in $X$, $\closure{A}$, is the intersection of all closed subsets of $X$ containing $A$, that is, $\closure{A} \coleq \Inter B$ such that $B \Subset X$ is closed and $A \Subset B$.
+        \end{defn}
+        
+        \begin{defn}[10.3 Interior/Boundary]
+            Let $X$ be a space, $A \Subset X$ be a subset. The \define{interior} of $A$, $\interior{A}$, is the union of all open subsets contained in $A$, that is,  $\interior{A}\coleq \Union U$ such that $U \Subset A$ is open.\\
+            The \define{boundary} of $A$ is the subset $\bound{A} \coleq \closure{A}-\interior{A}$.
+        \end{defn}
+        
+        \begin{defn}[11.1 Dense/Separable]
+            Let $X$ be a \ts{}. A subset $A \Subset X$ is \define{dense} \Iff{} $\closure{A}=X$.\\
+            $X$ is \define{separable} \Iff{} $X$ contains a countable dense subset, that is, $\exists A \Subset X$ such that $\card{A}=\card{\N}$ and $\closure{A} = X$.
+        \end{defn}
+        
+        \begin{defn}[11.2 Basis]
+            If $X$ is a set, a \define{basis for a topology} on $X$ is a collection $\B$ of subsets of $X$ (called basis elements) such that
+            \begin{enumerate}
+                \item For each $x \in X$, there is at least 1 element $B \in \B$ such that $x \in B$.
+                \item If $B_1,B_2 \in \B$ and $x \in B_1\inter B_2$, then $\exists B_3 \in \B$ such that $x \in B_3 \Subset B_1 \inter B_2$.
+            \end{enumerate}
+        \end{defn}
+        
+        \begin{defn}[14.1 2nd Countability]
+            A \ts{} $\Ts{X}{\tp}$ is \define{2nd Countable} \Iff{} there is a countable basis $\B =\{B_i\}_{i\geq1}^\infty$ for the topology $\tp$.
+        \end{defn}
+        
+        \begin{defn}[15.1 Continuity]
+            Let $\Ts{X}{\tp_X}, \, \Ts{Y}{\tp_Y}$ be topological spaces. Let $x \in X$. A function $\func{f}{X}{Y}$ is \define{continuous at $x$} \Iff{} for every open subset $V \Subset Y$ containing $f(x)$, there is an open subset $U \Subset X$ such that $x\in U$ and $f(U) \Subset V$. $\func{F}{X}{Y}$ is \define{continuous} \Iff{} $\forall x \in X$, $f$ is continuous at $x$.
+        \end{defn}
+        
+        \begin{defn}[17.1 Homeomorphism]
+            A continuous injective and surjective function $\func{f}{X}{Y}$ between topological spaces is a \define{homeomorphism} \Iff{} its set-theoretic inverse $\func{f^{-1}}{Y}{X}$ is continuous.\\
+            Two spaces are \define{homeomorphic} \Iff{} there exists a homeomorphism $\func{f}{X}{Y}$ between them. We write $X \cong Y$.
+        \end{defn}
+        
+        \begin{defn}[18.1 Open/Closed maps]
+            A map $\func{f}{X}{Y}$ is an \define{open} (or \define{closed} map \Iff{} for each open (or closed) subset $B \Subset X$, the image $f(B) \Subset Y$ is open (or closed).
+        \end{defn}
+        
+        \begin{defn}[19.3 Metrizable]
+            A topological space $\Ts{X}{\tp}$ is \define{metrizable} \Iff{} there is a metric $\func{d}{X\times X}{\R}$ such that the metric topology $\tp_d$ equals $\tp$.
+        \end{defn}
+        
+        \begin{defn}[19.5 Topological Property]
+            A property \define{$P$} of a \ts{} is a \define{topological property} \Iff{} it is preserved by a homeomorphism. i.e. if $\Ts{X}{\tp_X}$ has a property $P$ and $\Ts{X}{\tp_X} \cong \Ts{Y}{\tp_Y}$, then $\Ts{Y}{\tp_Y}$ also has property $P$.
+        \end{defn}
+        
+        \begin{defn}[19.7 Converging Sequence]
+            A sequence of points $\{x_n\}_{n\geq1}^\infty$ of a \ts{} $X$ \define{converges to a point $x \in X$} \Iff{} for every open \nbd{} $U$ of $x$, there is an $N>0$ such that $x_n \in U \; \forall n>N$.  
+        \end{defn}
+        
+        \begin{defn}[19.9 Hausdorff]
+            A space $\Ts{X}{\tp}$ is \define{Hausdorff} \Iff{} for each pair of distinct points $x\neq y \in X$, there exist open subsets $U,V \Subset X$ such that $x \in U, \, y\in V$ and $U \inter V =  \es$.
+        \end{defn}
+        
+        \begin{defn}[20.5]\hfill
+            \begin{enumerate}
+                \item $X$ is \define{$T_0$} \Iff{} for any points $x\neq y \in X$, there exist open subsets $U \Subset X$ such that $x \in U$ and $y \notin U$ OR $y \in U$ and $x \notin U$. 
+                \item $X$ is \define{$T_1$} \Iff{} $\forall x\in X, \, \{x\} \Subset X$ is closed.
+                \item $X$ is \define{$T_2$} \Iff{} $X$ is Hausdorff.
+                \item $X$ is \define{$T_3$} \Iff{} for every closed subset $A \Subset X$ and $\forall x \in X-A$, there exist open subsets $U_A,U_X \in X$ such that $A \Subset U_A$ and $x \in U_X$.
+                \item $X$ is \define{$T_4$} \Iff{} for any pair of disjoint closed subsets $A,B \Subset X$, there exist disjoint open subsets $U,V \Subset X$ such that $A \Subset U$ and $B \Subset V$.
+            \end{enumerate}
+        \end{defn}
+        
+        \begin{defn}[23.1]
+                An \define{open cover} of a \Ts{} $X$ is a collection $\script{U}=\{U_\alpha\}_{\alpha \in A}$ of open subsets of $X$ such that $X=\Union_{\alpha \in A}  I_\alpha$.\\
+                If $\script{U'}=\{U_\beta\}_{\beta \in A'} \Subset \script{U}$ is a subcollection of $\script{U}$ such that $X=\Union_{\beta \in A'}U_\beta$, then $\script{U'}$ is a \define{subcover} of $\script{U}$.
+        \end{defn}
+        
+        \begin{defn}[23.3]
+            A \Ts{} $X$ is \define{compact} \Iff{} every open cover of $X$ has a finite subcover.
+        \end{defn}
+        
+        
+    }
+    \newpage
+    
+    \subsection*{\underline{\textsc{Theorems and Such}}}{
+        \begin{thm}[3.4]
+            $\func{f}{\R^n}{\R^m}$ is continuous at $\Vec{a} \in \R^n$ \Iff{} for any sequence $\{\Vec{x_k}\} \Subset \R^n$ that converges to $\Vec{a}$, the sequence $\{\Vec{y_k}\} \Subset \R^m$ where $\Vec{y_k} = f(\Vec{x_k}$ converges to $f(\Vec{a})$. That is, $f(\lim \Vec{x_k}) = \lim f(\Vec{x_k})$.
+        \end{thm}
+    
+        \begin{prop}[4.2]
+            A nonempty subset $U \Subset \R^n$ is open \Iff{} $\forall x \in U, \; \exists \varepsilon>0$ such that $\ball{x}{}{\varepsilon} \Subset U$.
+        \end{prop}
+        
+        \begin{prop}[4.5]
+            Let $\func{f}{\R^n}{\R^m}$.
+            \begin{enumerate}
+                \item $f$ is continuous at $x \in \R^n$ \Iff{} for all open subsets $V \Subset \R^m$ containing $f(x)$, there is an open subset $U \Subset \R^n$ containing $x$ such that $U \Subset f^{-1}(V)$.
+                \item $f$ is continuous \Iff{} for every open subset $V \Subset \R^m$, the subset $U=f^{-1}(V)$ is open in $\R^n$.
+            \end{enumerate}
+        \end{prop}
+        
+        \begin{thm}[5.2] \hfill
+            \begin{enumerate}
+                \item $\R^n$ and $\es$ are open subsets of $\R^n$.
+                \item If $\{U_i\}_{i\in I}$ is a collection of open subsets of $\R^n$, then $\Union_{i\in I} U_i$ is an open subset.
+                \item If $\{U_1,\ldots,U_m\}$ is a finite collection of open subsets of $\R^n$, then $\Inter\limits_{i=1}^m U_i$ is an open subset. 
+            \end{enumerate}
+        \end{thm}
+        
+        \begin{thm}[8.1] Let $X$ be a \ts{}. Then
+        \begin{enumerate}
+            \item $X$ and $\es$ are closed subsets.
+            \item Finite unions of closed subsets are closed.
+            \item Arbitrary intersections of closed subsets are closed.
+        \end{enumerate}
+        \end{thm}
+        
+        \begin{thm}[8.4]
+            Let $X$ be a \ts{} and let $A \Subset X$. Then $A$ is closed \Iff{} $L(A) \Subset A$.
+        \end{thm}
+        
+        \begin{rmk}[9.1]
+            Useful trick to show a subset $V \Subset X$ is open:\\ For each $y\in V$, find an open subset $U_y \Subset X$ such that $y \in U_y$ and $U_y \Subset V$. Then this implies that $V=\Union\limits_{y \in V} U_y$ by Axiom 2 of a \ts{} and so $V$ is open.
+        \end{rmk}
+        
+        \begin{thm}[9.5]
+            Let $A \Subset X$ be a subset of a \ts{} $X$. Then $\closure{A}=A \union L(A)$.
+        \end{thm}
+        
+        \begin{prop}[10.1]
+            Let $X$ be a space, $Y \Subset X$ a subspace. Then $B \Subset Y$ is closed in Y \Iff{} there is a closed subset $A \Subset X$ such that $B=Y \inter A$.
+        \end{prop}
+        
+        \begin{prop}[10.6]
+            Let $X$ be a space, $A \Subset X$, and $x \in X$. Then $x\in \interior{A}$ \Iff{} there is an open \nbd{} $V \Subset X$ of $x$ such that $V \Subset A$.
+        \end{prop}
+        
+        \begin{prop}[10.7]
+            Let $X$ be a space, $A\Subset X$, and $x \in X$. Then $x \in \bound{A}$ \Iff{} for every open \nbd{} $U \Subset X$ of $x$, we have $U \inter A \neq \es$ and $U \inter (X-A) \neq \es$.
+        \end{prop}
+        
+        \begin{prop}[11.3]
+            The subset $A \Subset X$ is dense \Iff{} $A\inter U \neq \es$, where $U$ is any non-empty open subset of $X$.
+        \end{prop}
+        
+        \begin{prop}[12.1]
+            Let $X$ be a set, $\B$ be a basis for a topology on $X$.
+            \begin{enumerate}
+                \item The collection of subsets $\tp_\B \coleq \{U \Subset X | \forall x\in U, \, \exists B \in \B \text{ such that } x\in B \Subset U\}$ is a topology on $X$ generated by $\B$.
+                \item A subset $U \Subset \Ts{X}{\tp_\B}$ is open \Iff{} $U$ is a union of elements in $\B$.
+            \end{enumerate}
+        \end{prop}
+        
+        \begin{prop}[12.2]
+            If $\Ts{X}{\tp}$ is a \ts{} and $\B \Subset \tp$ such that $\forall U \in \tp$ and $\forall x \in U$ $\exists B \in \B$ such that $x \in B \Subset U$, then $\B$ is a basis and $\tp_\B = \tp$.
+        \end{prop}
+        
+        \begin{prop}[12.4 Comparison Lemma]
+            Let $\tp, \, \tp'$ be topologies on $X$ and let $\B, \, \B'$ be bases for $\tp, \, \tp'$ respectively. Then $\tp \Subset \tp'$ \Iff{} $\forall x \in X$ and $\forall B \in \B$ containing $x$, $\exists B' \in \B'$ such that $x \in B' \Subset B$.
+        \end{prop}
+        
+        \begin{thm}[14.2]
+            If $\Ts{X}{\tp}$ is 2nd countable, then $X$ contains a countable dense subset. That is, $\Ts{X}{\tp}$ is separable.
+        \end{thm}
+        
+        \begin{prop}[14.3]
+            Let $\R_l=\Ts{\R}{\tp_l}$ be the lower limit topology. Then $\R_l$ is separable and $\R_l$ is NOT 2nd countable.
+        \end{prop}
+        
+        \begin{thm}[14.4]
+            Let $\Ts{X}{d}$ be a metric space. Let $\tp_d$ be the metric topology on $X$ induced by $d$. If $\Ts{X}{\tp_d}$ is separable, then it is 2nd countable.
+        \end{thm}
+        
+        \begin{thm}[15.2]
+            A function $\func{f}{X}{Y}$ is is continuous \Iff{} for every open subset $V \Subset Y$, $f^{-1}(V) \Subset X$ is open.
+        \end{thm}
+        
+        \begin{prop}[15.3]
+            Let $(X,d_X), \, (Y,d_Y)$ be metric spaces and $\tp_{d_X}, \, \tp_{d_Y}$ be their corresponding metric topologies. Then a function $\func{f}{X}{Y}$ is a map between $(X,d_X)$ and $(Y,d_Y)$ \Iff{} $\forall a \in X$ and $\forall \varepsilon > 0$, $\exists \delta_a > 0$ such that if $d_X(x,a) < \delta_a$, then $d_Y(f(x),f(a))<\varepsilon$.
+        \end{prop}
+        
+        \begin{thm}[16.1]
+            Let $\Ts{X}{\tp_X}, \, \Ts{Y}{\tp_Y}$ be topological spaces and let $\func{f}{X}{Y}$. Then
+            \begin{enumerate}
+                \item $f$ is continuous \Iff{} for every closed subset $B \Subset Y$, $f^{-1}(B) \Subset X$ is closed.
+                \item Let $\B_X, \, \B_Y$ be bases for $\tp_X, \, \tp_Y$ respectively. Then $f$ is continuous \Iff{} $\forall B' \in \B_Y$ and $\forall x \in f^{-1}(B')$, $\exists B \Subset \B_X$ such that $x \in B \Subset f^{-1}(B')$.
+            \end{enumerate}
+        \end{thm}
+        
+        \begin{prop}[16.3]
+            If $\func{f}{X}{Y}, \, \func{g}{Y}{Z}$ are continuous functions between spaces $X, \, Y$ and $Z$, then $\func{g \circ f}{X}{Z}$ is continuous.
+        \end{prop}
+        
+        \begin{cor}[16.4 Restriction of Domain]
+            If $\func{f}{X}{Y}$ is continuous and $A \Subset X$ is equipped with the subspace topology, then the restriction $f|_A \coleq \func{f\circ i_A}{A}{Y}$ is continuous, where $i_A(a) \coleq a$.
+        \end{cor}
+        
+        \begin{prop}[16.6]
+            Let $\func{f}{X}{Y}$ be continuous, $B \Subset Y$ be a subspace, and $\func{j_Y}{B}{Y}$ be the inclusion function. Suppose $f(X) \Subset B$. Then there exists a unique continuous function $\func{g}{X}{B}$ such that $f=j_B\circ g$.
+        \end{prop}
+        
+        \begin{thm}[16.7 "Pasting Lemma"]
+                Let $X,Y$ be topological spaces and let $\mathbf{a}=\{A_\alpha\}_{\alpha \in I}$ be a collection of subspaces of $X$ such that $X=\Union\limits_{\alpha\in I} A_\alpha$. Suppose $\{\func{f}{A_\alpha}{Y}\}_{\alpha \in I}$ is a collection of continuous functions such that $f_\alpha|_{A_\alpha \inter A_\beta} = f_\beta|_{A_\alpha \inter A_\beta} \; \forall \alpha,\beta \in I$. If either
+                \begin{enumerate}
+                    \item $\mathbf{a}$ is a collection of open subspaces of $X$, or
+                    \item $\mathbf{a}$ is a finite collection of closed subspaces of $X$,
+                \end{enumerate}
+                then there exists a unique continuous function $\func{f}{X}{Y}$ such that $f|_{A_\alpha}=f_\alpha \; \forall \alpha\in I$.
+        \end{thm}
+        
+        \begin{prop}[18.2]
+            Let $\func{f}{X}{Y}$ be a continuous bijection. Then $f$ is a homeomorphism \Iff{} $f$ is an open (or closed) map.
+        \end{prop}
+        
+        \begin{prop}[19.1]
+            If $\func{f}{\Ts{X}{\tp_X}}{\Ts{Y}{\tp_Y}}$ is a homeomorphism, then it induces a bijection of sets $\tp_X \leftrightarrow \tp_Y$, i.e. there is a one-to-one correspondence between topologies $X$ and $Y$ where $U \mapsto f(U)$ and $V \mapsto f^{-1}(V)$.
+        \end{prop}
+        
+        \begin{thm}[19.10]
+            If $\Ts{X}{d}$ is a metric space, then $\Ts{X}{\tp_d}$ is Hausdorff.
+        \end{thm}
+        
+        \begin{prop}[20.6]\hfill
+            \begin{enumerate}
+                \item $T_1$ and $T_2$ properties are necessary, but NOT sufficient for $\Ts{X}{\tp}$ to be metrizable.
+                \item Separation and countability properties are distinct.
+            \end{enumerate}
+        \end{prop}
+        
+        \begin{thm}[20.8]
+            If $X$ is Hausdorff, then every sequence in $X$ converges to at MOST one point.
+        \end{thm}
+        
+        \begin{defn}[21.1]
+            $X$ is \define{regular} \Iff{} $X$ is $T_0$ and $T_3$.\\
+            $X$ is \define{normal} \Iff{} $X$ is $T_1$ and $T_4$.
+        \end{defn}
+        
+        \begin{prop}[21.2]\hfill
+            \begin{enumerate}
+                \item $T_1 \implies T_0$
+                \item $T_2 \implies T_1$
+                \item $T_1$ and $T_3 \implies T_2$
+                \item $T_1$ and $T_4 \implies T_3$
+            \end{enumerate}
+        \end{prop}
+        
+        \begin{thm}[21.3]
+            If $\Ts{X}{\tp}$ is a \ts{} and metrizable, then $X$ is $T_i$ for $i=0,1,2,3,4$.
+        \end{thm}
+        
+        \begin{prop}[22.1]
+            If $A \Subset X$ is a subspace and $X$ is metrizable, then $A$ is $T_i$ for $i=0,1,2,3,4$.
+        \end{prop}
+        
+        \begin{lem}[22.2]
+            If $X$ is metrizable and $A \Subset X$ is a subspace, then $A$ (equipped with the subspace topology) is metrizable.
+        \end{lem}
+        
+        \begin{thm}[22.3]\hfill
+            \begin{enumerate}
+                \item If $X$ is Hausdorff ($T_2$), then every subspace in $X$ is $T_2$.
+                \item If $X$ is $T_1$ and $T_3$, then every subspace $A \Subset X$ is $T_1$ and $T_3$.
+            \end{enumerate}
+        \end{thm}
+        
+        \begin{rmk}[23.5]
+            Heine-Borel Theorem: Every closed interval $[a,b] \Subset \R$ is compact. More generally, every closed and \underline{bounded} subspace of $\R^n$ is compact. e.g. $S^n \Subset \R^{n+1}, \, \Ball{\Vec{x}}{}{\varepsilon} \Subset \R^m$.
+        \end{rmk}
+        
+        \begin{thm}[23.6]
+            Let $\func{f}{X}{Y}$ be a continuous function between topological spaces $X$ and $Y$. If $X$ is compact, then the subspace $f(X) \Subset Y$ is compact.
+        \end{thm}
+        
+        \begin{rmk}[23.7]
+            Theorem 23.6 implies that compactness is a topological property. That is, if $\func{f}{X}{Y}$ is a homeomorphism between spaces $X$ and $Y$, then $X$ is compact \Iff{} $Y$ is compact.
+        \end{rmk}
+        
+        \begin{cor}[23.8]
+            $\R$ is not homeomorphic to $[a,b]$ for any $a,b\in R$. Hence $[a,b] \not\homeo (a,b)$.
+        \end{cor}
+        
+    }
+\end{document}

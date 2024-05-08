@@ -1,0 +1,79 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage[margin=0.6in]{geometry}
+\usepackage{graphicx}
+
+
+\renewcommand{\familydefault}{\sfdefault}
+\title{STAT 461.1002: Homework 1}
+\author{Dillan Marroquin}
+\date{September 4, 2020}
+\begin{document}
+\maketitle
+
+    \begin{enumerate}
+        \item Three dice are tossed, one red, one blue, and one green. What outcomes make up the event $A$ that the sum of the three faces showing equals 5?
+
+        \textbf{Answer:} $A = \{1r+1b+3g$, $1r+2b+2g$, $1r+3b+1g$, $2r+1b+2g$, $2r+2b+1g$, $3r+1b+1g\}$\\
+
+        \item Two darts are thrown at the following target:
+            \begin{enumerate}
+                \item  Let $(u, v)$ denote the outcome that the ﬁrst dart lands in region $u$ and the second dart, in region $v$. List the sample space of $(u, v)$ pairs.
+                
+                \textbf{Answer:} $S = \{(1,1)$, $(1,2)$, $(1,4)$, $(2,1)$, $(2,2)$, $(2,4)$, $(4,1)$, $(4,2)$, $(4,4)\}$\\
+
+                \item List the outcomes in the sample space of sums, $u+v$.
+                
+                \textbf{Answer:} $S = \{2, 3, 4, 5, 6, 8\}$\\
+            \end{enumerate}
+
+        \item Deﬁne $A = \{x : 0 \leq x \leq 1 \}$, $B = \{ x : 0 \leq x \leq 3 \}$, and $C = \{ x : -1 \leq x \leq 2 \}$. Draw diagrams showing each of the following sets of points:
+            \begin{enumerate}
+                \item $A^C \cap B \cap C$ \\
+                {\includegraphics[scale=.05, angle = 90] {3a.jpg}} \\
+
+
+                \item $[(A \cup B) \cap C^C]^C$\\
+                {\includegraphics[scale=.05, angle = 90] {3b.jpg}}\\
+                
+            \end{enumerate}
+            
+        \item Suppose that three events $A$, $B$, and $C$ are deﬁned on a sample space $S$. Use the union, intersection, and complement operations to represent each of the following events:
+            \begin{enumerate}
+                \item exactly one event occurs
+                
+                    \textbf{Answer:} $(A \cup B \cup C) \backslash (A \cap B \cap C)$\\
+                    
+                \item exactly two events occur
+                
+                    \textbf{Answer:} $[(A \cap B) \backslash C] \cup [(A \cap C) \backslash B] \cup [(B \cap C) \backslash A]$\\
+            \end{enumerate}
+            
+        \item Let $A$ and $B$ be any two events deﬁned on $S$. Suppose that $P(A) = 0.4$, $P(B) = 0.5$, and $P(A \cap B) = 0.1$. What is the probability that $A$ or $B$ but not both occur?
+        
+            \textbf{Answer:} The probability of $A$ or $B$ but not both is the same as saying $P(A \cup B) - P(A \cap B)) = 0.9 - 0.1 = 0.8$.\\
+    
+        \item Suppose that three fair dice are tossed. Let $A_i$ be the event that a 6 shows on the $i^{\text{th}}$ die, $i=1, 2, 3$. Does $P(A_1 \cup A_2 \cup A_3) = \frac{1}{2}$? Explain.
+            
+            \textbf{Answer:} Yes, $P(A_1 \cup A_2 \cup A_3) = \frac{1}{2}$. This is because events $A_1$, $A_2$, and $A_3$ are mutually exclusive events, so
+            \[P(A_1 \cup A_2 \cup A_3) = P(A) + P(B) + P(C) = \frac{1}{6} + \frac{1}{6} + \frac{1}{6} = \frac{1}{2}.\]
+            
+         \item An urn contains twenty-four chips, numbered 1 through 24. One is drawn at random. Let $A$ be the event that the number is divisible by 2 and let $B$ be the event that the number is divisible by 3. Find $P(A \cup B)$.
+        
+            \textbf{Answer:} $P(A) = \frac{1}{2}$ (obviously) and $P(B) = \frac{1}{3}$ (obviously), so $P(A \cup B) = \frac{1}{2} + \frac{1}{3} - \frac{1}{6} = \frac{2}{3}$.\\
+         
+         \item Three events $A$, $B$, and $C$ are deﬁned on a sample space, $S$. Given that $P(A)=0.2$, $P(B)=0.1$, and $P(C)=0.3$, what is the smallest possible value for $P[(A \cup B \cup C)^C]$?
+    
+            \textbf{Answer:} Smallest possible value of $P[(A \cup B \cup C)^C = 0$.\\
+            
+        \item If $P(A) = \frac{1}{2}$ and $P(B^C) = \frac{1}{3}$, can $A$ and $B$ be disjoint? Explain.
+        
+            \textbf{Answer:} No, they cannot be disjoint. If we suppose $A$ and $B$ are disjoint, then $P(B)^C$ would also include $P(A)$ in its entirety, so $P(B)^C \geq P(A)$. However, this leads to a contradiction as $P(B)^C = \frac{1}{3}$ and $P(A) = \frac{1}{2}$, so $P(B)^C < P(A)$.\\
+            
+         \item \textbf{(461 only)} Express the following probability in terms of $P(A)$, $P(B)$, and $P(A \cap B)$: $P(A^C \cap (A \cup B))$.
+         
+            \textbf{Answer:} $P(A^C \cap (A \cup B)) = (1 - P(A)) \cap (P(A) + P(B) - P(A \cap B))$.
+    \end{enumerate}
+
+
+\end{document}

@@ -1,0 +1,115 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage[margin=0.6in]{geometry}
+\usepackage{graphicx}
+
+
+\renewcommand{\familydefault}{\sfdefault}
+\begin{document}
+    \noindent STAT 461.1002: Homework 2\\
+    Dillan Marroquin\\
+    14 September, 2020\\
+
+    \quad \textbf{Section 2.4 Problems}
+    \begin{enumerate}
+        \item Find $P(A \cap B)$ if $P(A) = 0.2$, $P(B) = 0.4$, and $P(A|B) + P(B|A) = 0.75$.
+        
+        \textbf{Answer:} First, note that $P(A|B) = \tfrac{P(A \cap B)}{P(B)}$ and $P(B|A) = \tfrac{P(A \cap B)}{P(A)}$, so we can rewrite $P(A|B)+P(B|A) =0.75$ as 
+            \[\tfrac{P(A \cap B)}{P(B)} + \tfrac{P(A \cap B)}{P(A)} = 0.75\]
+            \[\tfrac{P(A \cap B)}{0.4} + \tfrac{P(A \cap B)}{0.2} = 0.75\]
+            \[P(A \cap B) = 0.1.\]
+
+        \item\textbf{(461 only)} An urn contains one red chip and one white chip. One chip is drawn at random. If the chip selected is red, that chip together with two additional red chips are put back into the urn. If a white chip is drawn, the chip is returned to the urn. Then a second chip is drawn. What is the probability that both selections are red?
+        
+        \textbf{Answer:} Event $B$: Red chip is drawn. Event $A$: 2nd selection is red. $P(B) = 0.5$ and $P(A) = 0.75$, so $P(A|B) = 0.375$.\\
+
+        \item \textbf{(461 only)} Two fair dice are rolled. What is the probability that the number on the first die was at least as large as $4$ given that the sum of the two dice was $8$?
+        
+        \textbf{Answer:} 
+            \[ \text{If the Sample Space } S \text{ represents all possible combinations of both dice, then } |S| = 36.\]
+            \[\text{Event }B\text{: Sum of both dice was } 8 = \{(2,6),(3,5),(4,4),(5,3),(6,2)\}. \text{ So } P(B) = \tfrac{5}{36}.\]
+            \[\text{Event }A\text{: 1st die was at least as large as 4 } = \{(4,1),(4,2),(4,3),(4,4),(4,5),(4,6),(5,1)\ldots (5,6),(6,1)\ldots (6,6)\}.\]
+            \[ \text{ So } P(A) = \tfrac{18}{36} = \tfrac{1}{2}.\]
+            \[P(A|B) = \tfrac{P(A \cap B)}{P(B)} = \tfrac{1/12}{5/36} = \tfrac{3}{5}.\]
+            
+        \item A telephone solicitor is responsible for canvassing three suburbs. In the past, $60\%$ of the completed calls to Belle Meade have resulted in contributions, compared to $55\%$ for Oak Hill and $35\%$ for Antioch. Her list of telephone numbers includes one thousand households from Belle Meade, one thousand from Oak Hill, and two thousand from Antioch. Suppose that she picks a number at random from the list and places the call. What is the probability that she gets a donation?
+        
+        \textbf{Answer:}\\
+        Event $A$: Completed calls to Belle Meade; $P(A) = \tfrac{600}{1000} = 0.6$.\\
+        Event $B$: Completed calls to Oak Hill; $P(B) = \tfrac{550}{1000} = 0.55$.\\
+        Event $C$: Completed calls to Antioch; $P(C) = \tfrac{700}{2000} = 0.35$.\\
+        Event $D$: Completed calls total (basically); $P(D) = P(A)+P(B)+P(C) = \tfrac{1850}{4000} = 0.4625$.\\
+            
+        \item Medical records show that $0.01\%$ of the general adult population is positive for a certain virus. Blood tests for the virus are $99.9\%$ accurate when given to someone infected and $99.99\%$ accurate when given to someone not infected. What is the probability that a random adult will test positive for the virus?
+        
+        \textbf{Answer:} Let's let $A_1$ be that the test is correct on someone infected and $A_2$ be that the test is correct on someone healthy. Also let $B$ be that a person is positive for the virus. Then $P(A_1) = 0.0001$ and $P(B|A_1) = 0.999$. We can then use the Total Probability Formula:
+            \[P(B) = \sum_{i=1}^{n}P(B|A_i)P(A_i) = (0.999)(0.0001)+(0.0001)(0.9999)=0.00019989.\]\\
+    
+        \item Urn I contains two white chips and one red chip; urn II has one white chip and two red chips. One chip is drawn at random from urn I and transferred to urn II. Then one chip is drawn from urn II. Suppose that a red chip is selected from urn II. What is the probability that the chip transferred was white?
+        
+        \textbf{Answer:} Event $A$: The chip drawn from urn I is white. Event $B|A$: The chip drawn from II is red given that the chip transferred was white. This means we must find $P(A \cap B)$. If $P(A) = \tfrac{2}{3}$ and $P(B|A) = \tfrac{1}{4}$, then $P(A \cap B) = \tfrac{2}{3} \cdot \tfrac{1}{4} = \tfrac{1}{2}$.\\
+        
+        \item A desk has three drawers. The first contains two gold coins, the second has two silver coins, and the third has one gold coin and one silver coin. A coin is drawn from a drawer selected at random. Suppose the coin selected was silver. What is the probability that the other coin in that drawer is gold?
+        
+        \textbf{Answer:} Let $A$ be the selected coin is silver and $B$ be the event that the drawer's other coin is gold. So then $P(A) = 1/2$. To find the event $B|A$ (the other coin is gold given that the selected coin is silver), we first find $P(A \cup B)$ which is $1/6$. So then $P(B|A) = \tfrac{1/6}{1/2} = 1/3$.\\
+        
+        \textbf{Section 2.5 Problems}
+        
+        \item Suppose that $P(A \cap B) = 0.2$, $P(A) = 0.6$, and $P(B) = 0.5$.
+        
+            \begin{enumerate}
+                \item Are $A$ and $B$ mutually exclusive?
+                
+                \textbf{Answer:} No. The probability of their intersection is not equal to 0.\\
+                
+                \item Are $A$ and $B$ independent?
+                
+                \textbf{Answer:} We will check if $P(A \cap B) = P(A)P(B)$:
+                    \[0.2 \stackrel{?}{=} (0.6)(0.5)\]
+                    \[0.2 \neq 0.3\]
+                So, $A$ and $B$ are not independent.
+                
+                \item Find $P(A^C \cup B^C)$.
+                
+                \textbf{Answer:} $P(A^C \cup B^C) = [P(A)-P(A \cap B)] + [P(B)-P(A \cap B)] = (0.6 - 0.2) + (0.5 - 0.2) = 0.7$.\\
+                
+            \end{enumerate}
+        
+        \item Spike is not a terribly bright student. His probability of passing chemistry is 0.35; mathematics, 0.40; and both, 0.12. Are the events “Spike passes chemistry” and “Spike passes mathematics” independent? What is the probability that he fails both subjects?
+        
+        \textbf{Answer:} Let $A = \{\text{Spike passes chemistry}\}$ and $B = \{\text{Spike passes mathematics}\}$. So $P(A) = 0.35$, $P(B) = 0.40$, and $P(A \cap B) = 0.12$. Now let's check for independence:\\
+            \[P(A \cap B) \stackrel{?}{=} P(A)P(B)\]
+            \[0.12 = (0.35)(0.40) = 0.14\]
+            \[0.12 \neq 0.14\]
+        So $A$ and $B$ are not independent.\\
+        The probability of Spike failing both subjects is the same as $P(A^C \cap B^C)$. $P(A^C) = 1-0.35 = 0.65$ and $P(B^C) = 1-0.40 = 0.6$. So, $P(A^C \cap B^C) = (0.65)+(0.6)-(0.63) = 0.62$.
+        
+        
+        \item Suppose that $P(A) = \tfrac{1}{4}$ and $P(B) = \tfrac{1}{8}$.
+            \begin{enumerate}
+                \item What does $P(A \cup B)$ equal if 
+                    \begin{enumerate}
+                        \item $A$ and $B$ are mutually exclusive?
+                        
+                        \textbf{Answer:} We can use the addition rule for mutually exclusive events: $P(A \cup B) = P(A) + P(B) = \tfrac{3}{8}$.\\
+                        
+                        \item $A$ and $B$ are independent?
+                        
+                        \textbf{Answer:} Since $P(A) \neq 0$ and $P(B) \neq 0$, then $P(A \cup B) = P(A)+P(B)-P(A \cap B)$. Well, $P(A \cap B) = P(A)P(B) = (\tfrac{1}{4})(\tfrac{1}{8}) = \tfrac{1}{32}$, so $P(A \cup B) = \tfrac{1}{4}+\tfrac{1}{8}-\tfrac{1}{32} = \tfrac{11}{32}$.\\
+                        
+                    \end{enumerate}
+                    
+                \item What does $P(A|B)$ equal if
+                    \begin{enumerate}
+                        \item $A$ and $B$ are mutually exclusive?
+                        
+                        \textbf{Answer:} Since these events are mutually exclusive, this implies that $P(A \cap B) = 0$, so if $P(A|B) = \tfrac{P(A \cap B)}{P(B)}$, then $P(A|B) = 0$.\\
+                        
+                        \item $A$ and $B$ are independent?
+                
+                        \textbf{Answer:} Since these events are independent, that means $P(A \cap B) = P(A)P(B) = \tfrac{1}{32}$. So, $P(A|B) = \tfrac{1/32}{1/8} = \tfrac{1}{4}$.\\
+                        
+                \end{enumerate}
+            \end{enumerate}
+    \end{enumerate}
+\end{document}

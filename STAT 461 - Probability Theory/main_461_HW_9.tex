@@ -1,0 +1,130 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{commath}
+\usepackage{units}
+\usepackage{kpfonts}
+\usepackage[margin=0.6in]{geometry}
+\usepackage{multicol}
+
+\begin{document}
+    \noindent STAT 461.1002: Homework 9\\
+    Dillan Marroquin\\
+    Monday December 7\\
+
+    \noindent \textbf{Chapter 4 Problems}
+    \begin{enumerate}
+        \item 4.2.2 A medical study recently documented that 905 mistakes were made among the 289,411 prescriptions written during one year at a large metropolitan teaching hospital. Suppose a patient is admitted with a condition serious enough to warrant ten different prescriptions. Approximate the probability that at least one will contain an error.\\
+        \textbf{Answer: } Let $n=10$ and $p = \frac{905}{289411}$. Then $\lambda = 10\cdot \frac{905}{289411} \approx 0.03127$ and
+            \begin{align*}
+                P(Y=0) &= \frac{e^{-0.03127}(0.03127)^0}{0!} \approx 0.9692\\
+                \implies P(Y \geq 1) &= 1-0.9692 = 0.0308. 
+            \end{align*}
+        
+        \item 4.2.17 In a new fiber-optic communication system, transmission errors occur at the rate of 1.5 per ten seconds. What is the probability that more than two errors will occur during the next half-minute?\\
+        \textbf{Answer: }\\In this case, let $n=30$ (30 seconds in 1 half-minute) and let $p=\frac{1.5}{10}$ (1.5 errors every 10 seconds). We must evaluate $P(X>2) = 1-P(X\leq 2) = 1-[P(X=0)+P(X=1)+P(X=2)$
+            \begin{align*}
+                P(X=0) &= \frac{e^{-\frac{9}{2}}\big(\frac{9}{2}\big)^0}{0!}       &       P(X=1) &= \frac{e^{-\frac{9}{2}}\big(\frac{9}{2}\big)^1}{1!}       &       P(X=2) &= \frac{e^{-\frac{9}{2}}\big(\frac{9}{2}\big)^2}{2!}\\
+                &\approx 0.0111        &       &\approx 0.05
+            \end{align*}
+            \begin{align*}
+                \implies P(X > 2) = 1-P(X \leq 2) = 1-(0.0111+0.05+0.1125) = 0.8264.
+            \end{align*}
+        
+        \item \textbf{(461 only) }4.2.22 Find $P(X=4)$ if the random variable $X$ has a Poisson distribution such that $P(X=1) = P(X=2)$.\\
+        \textbf{Answer: }Since we know that $X$ follows a Poisson distribution and that $P(X=1)=P(X=2)$, then
+            \begin{align*}
+                P(X=1) &= P(X=2)\\
+                e^{-\lambda}\lambda &= \frac{e^{-\lambda} \lambda^2}{2}\\
+                2\lambda e^{-\lambda} &= e^{-\lambda}\lambda^2\\
+                2\lambda = \lambda^2 &\iff 2=\lambda\\
+                \implies P(X=4) &= \frac{e^{-2}2^4}{4!} \approx 0.0902.
+            \end{align*}
+        
+        \item 4.3.2 (b,c)  Let $Z$ be a standard normal random variable. Use Appendix Table A.1 to find the numerical value for each of the following probabilities. Show each of your answers as an area under $f_Z(z)$.
+        \begin{enumerate}
+            \item $P(-0.64 \leq Z < -0.11)$\\
+            \textbf{Answer: }$P(-0.64 \leq Z < -0.11) = 0.4562-0.2611 = 0.1951$.
+            
+            \item$ P(Z > -1.06)$\\
+            \textbf{Answer: }$P(Z > -1.06) = 1-0.1446 = 0.8554$.
+        \end{enumerate}
+        
+        \item 4.3.5 (d) Assume that the random variable $Z$ is described by a standard normal curve $f_Z(z)$. What values of $z$ makes $P(-z < Z < z) = 0.80$ true?\\
+        \textbf{Answer: }
+            \begin{align*}
+                P(-z < Z < z) &= 0.80\\
+                P(Z < z) - (1-P(Z < z)) &= 0.80    \qquad \textit{Since symmetric}\\
+                2P(Z < z) -1 &= 0.80\\
+                \iff P(Z < z) &= 0.90\\
+            \end{align*}
+        According to an online calculator, $z=1.282$.\\
+        
+        \item 4.3.34 Let $Y_1,Y_2, \ldots, Y_n$ be a random sample from a normal distribution where the mean is 2 and the variance is 4. How large must $n$ be in order that
+            \[P(1.9 \leq \overline{Y} \leq 2.1) \geq 0.99\]
+        \textbf{Answer: }\\
+        
+        \item 4.4.7 Let $Y$ be an exponential random variable, where $f_Y(y) = \lambda e^{-\lambda y}, \, 0 \leq y$. For any positive integer $n$, show that $P(n \leq Y \leq n+1) = e^{-\lambda n}(1-e^{-\lambda})$. Note that if $p = 1-e^{-\lambda}$, the "discrete" version of the exponential pdf is the geometric pdf.\\
+        \textbf{Answer: }We integrate
+            \begin{align*}
+                P(n \leq Y \leq n+1) &= \int_n^{n+1} \lambda e^{-\lambda y} \dif y\\
+                &= -e^{-\lambda y}\Big|_n^{n+1}\\
+                &= -e^{-\lambda n-\lambda} + e^{-\lambda n} = -e^{-\lambda n} \cdot e^{-\lambda} + e^{-\lambda n} = e^{-\lambda n}(1-e^{-\lambda}).
+            \end{align*}
+        
+        \item 4.5.6 Let the random variable $X$ denote the number of trials in excess of $r$ that are required to achieve the $r$th success in a series of independent trials, where $p$ is the probability of success at any given trial. Show that
+            \[p_X(k) = {k+r-1 \choose k} p^r(1-p)^k, \quad k=0,1,2,\ldots\]
+        (\textit{Note:} This particular formula for $p_X(k)$ is often used in place of Equation 4.5.1 as the definition of the pdf for a negative binomial random variable.)\\
+        To clarify, "the number of trials in excess of $r$" is just the number of failures before the $r$th success.\\
+        \textbf{Answer: }Let $k+r-1$ mean the number of $k$ failures needed until the required success, $r$. Note that each trial is independent. Then we achieve 
+            \begin{align*}
+                P(X=k) &= {k+r-1 \choose k} \cdot P(\text{$k$ fails AND $r-1$ successful trials}) \cdot P(\text{Succeeding})\\
+                &= P(\text{$k$ fails})\cdot P(\text{$r-1$ successful trials}) \cdot P(\text{Succeeding})\\
+                &= p_X(k) = {k+r-1 \choose k} p^r(1-p)^k.
+            \end{align*}
+        
+        \item \textbf{Memoryless property of exponential waiting times: }Let $T$ be an exponential RV with rate $r$, i.e.,
+            \[f_T(t) = re^{-rt}    \quad\text{and}\quad F_T(t) = P(T \leq t) = 1-e^{-rt},  \quad r \geq 0.\]
+        $T$  represents the waiting time until an event occurs. Suppose 10 minutes go by, and no event occurs. What is the distribution of the waiting time after the 10 minute mark?\\
+        To answer this, first define $U$ to be the waiting time after 10 minutes, where $F_U(t) = P(U \leq t) = P(T \leq 10+t|T \geq 10)$. Use the CDF of $T$ and the definition of conditional probability to show that $U$ is exponential with rate $r$. That is, show that
+            \[P(U \leq t) = 1-e^{-rt}.\]
+        \textbf{Answer: }Since the events are independent, let's apply the definition of conditional probability:
+            \begin{align*}
+                P(U \leq t) &= P(T \leq 10+t|T \geq 10)\\
+                &= \frac{\text{$P(T \leq 10+t)$ and $P(T \geq 10)$}}{P(T \geq 10)}\\
+                &= \frac{P(T \leq 10+t) \cdot P(T \geq 10)}{P(T \geq 10)}\\
+                &= P(T \leq 10+t)\\
+                &= 1-e^{-rt}.
+            \end{align*}
+        
+        \item Recall Example 3.12.3 (also done in class) which shows that the MGF for $T$, an exponential RV with rate $r$, is $M_T(t) = \frac{r}{r-t}$ for $t < r$. See Theorem 4.6.5 which shows that the MGF for $Y$, a gamma RV with shape parameter $n$ and rate $r$, is $M_Y(t) = \frac{r^n}{(r-t)^n}$. Use the properties of moment generating functions spelled out in Theorems 3.12.2 and 3.12.3 to show that the sum of $n$ \textit{i.i.d.} exponentials (with rate $r$) is a gamma distributed RV. \\
+        \textbf{Answer: }First, let $U=\sum_{k=0}^n T_k$. Then we have
+            \begin{align*}
+                M_U(t) &= (M_T(t))^n\\
+                &= \bigg(\frac{r}{r-t}\bigg)^n\\
+                &= \frac{r^n}{(r-t)^n} = M_Y(t).
+            \end{align*}
+        Since the MGF for $U$ is equal to the MGF for a gamma RV, the sum of $n$ MGFs for an exponential RV is equal to the MGF for a gamma RV.\\
+        
+        \item Let $X_1, \ldots, X_n$  be independent exponential RVs, each with rate $r_i$ (independent but not identically distributed because the $r_i$’s are allowed to be different).
+        \begin{enumerate}
+            \item Using the MGFs from Problem 10 above, find $M_{X_i} (0), \, M_{X_i}' (0)$ and $E[X_i]$.\\
+            \textbf{Answer: }
+                \begin{align*}
+                    M_{X_i}(0) &= \frac{r_i}{r_i-0}     &       M_{X_i}'(0) &= \dod{}{t}\frac{r_i}{r_i-t}     &       E[X_i] &= M_{X_i}'(0)\\
+                    &= \frac{r_i}{r_i} = 1.     &       &= \frac{r_i}{(r_i-t)^2} = \frac{1}{r_i}.      &         &= \frac{1}{r_i}.
+                \end{align*}
+            
+            \item Let $Y = \sum_{i=1}^n X_i$. Using the properties of MGFs, and the generalized product rule for the product of $n$ differentiable functions $G_i(t)$,
+                \[\od{}{t}\bigg(\prod_{i=1}^n G_i(t)\bigg) = \sum_{i=1}^n\bigg(G_i'(t)\prod_{j\neq i}  G_j(t) \bigg)\]
+            find $M_Y'(0)$ to confirm the obvious relationship $E[Y] = \sum_{i=1}^n E[X_i]$.\\
+            \textbf{Answer: }We will use the same method we used in \#10.
+                \begin{align*}
+                    M_Y(t) &= (M_{X_i}(t))^n\\
+                    &= \bigg(\frac{r}{r-t}\bigg)^n\\
+                    &= \frac{r^n}{(r-t)^n}.
+                \end{align*}
+            So $\od{}{t}M_Y = r^nn(r-t)^{-n-1}$ and $M_Y'(0) = \frac{1}{r} = E[X_i]$.
+        \end{enumerate}
+        
+    \end{enumerate}
+\end{document}

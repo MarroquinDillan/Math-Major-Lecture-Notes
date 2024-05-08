@@ -1,0 +1,156 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{kpfonts}
+\usepackage{commath}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage[margin=0.8in]{geometry}
+
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}}
+\newcommand{\B}{\ensuremath{\mathcal{B}}}
+\newcommand{\wrt}{with respect to}
+\newcommand{\nbd}{neighborhood}
+\newcommand{\Iff}{if and only if}
+\newcommand{\ts}{topological space}
+\newcommand{\es}{\ensuremath{\emptyset}}
+\newcommand{\coleq}{\ensuremath{\coloneqq}}
+\newcommand{\powset}[1]{\ensuremath{\mathcal{P}(#1)}}
+\newcommand{\define}[1]{\textbf{\underline{#1}}}
+\newcommand{\card}[1]{\ensuremath{\mathbf{card} (#1)}}
+\newcommand{\func}[3]{\ensuremath{#1: #2 \to #3}}
+\newcommand{\closure}[1]{\ensuremath{\overline{#1}}}
+\newcommand{\ball}[3]{\ensuremath{B_{#1}^{#2}(#3)}}
+\newcommand{\Ball}[3]{\ensuremath{\overline{B}_{#1}^{#2}(#3)}}
+\newcommand{\fRR}{\ensuremath{f:\R \to \R}}
+\newcommand{\id}{\ensuremath{\mathrm{id}}}
+\newcommand{\tp}{\ensuremath{\mathcal{T}}}
+\newcommand{\Ts}[2]{\ensuremath{(#1,#2)}}
+\newcommand{\tpcof}{\ensuremath{\tp_\text{cof}}}
+\newcommand{\tpdisc}{\ensuremath{\tp_\text{disc}}}
+\newcommand{\tptriv}{\ensuremath{\tp_\text{triv}}}
+\newcommand{\tpeuc}{\ensuremath{\tp_\text{Euc}}}
+\newcommand{\Beuc}{\ensuremath{\B_\text{Euc}}}
+\newcommand{\union}{\cup}
+\newcommand{\Union}{\bigcup}
+\newcommand{\inter}{\cap}
+\newcommand{\Inter}{\bigcap}
+\newcommand{\interior}[1]{\ensuremath{\mathring{#1}}}
+\newcommand{\bound}[1]{\ensuremath{\partial #1}}
+\renewcommand{\Subset}{\subseteq}
+\renewcommand{\Supset}{\supseteq}
+
+\theoremstyle{definition}
+\newtheorem*{defn}{Definition}
+\newtheorem*{cor}{Corollary}
+\newtheorem*{thm}{Theorem}
+\newtheorem*{prop}{Proposition}
+\newtheorem*{ex}{Ex}
+\newtheorem*{lem}{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+
+\begin{document}
+    \begin{center}
+        \textsc{Dillan Marroquin\\MATH 440.1001\\Scribing Week 8\\Due. 22 March 2021\\}
+    \end{center}
+        
+    \noindent\section*{\textbf{\textsc{Lecture 20}}}{
+        \begin{ex}[20.2]
+            Let $|X|\geq2$. Then $\Ts{X}{\tptriv}$ is not metrizable.
+            \begin{proof}
+                Let $x\in X$. Then $X-\{x\}\neq \es$ and $X-\{x\}\neq X$. So $X-\{x\}$ is not open which implies $\{x\}$ is not closed. Hence from P 2.1 from the midterm, $\Ts{X}{\tptriv}$ is not metrizable.
+            \end{proof}
+        \end{ex}
+        
+        \begin{ex}[20.3]
+            Let $|X|=\infty$. Then $\Ts{X}{\tpcof}$ is not metrizable.
+            \begin{proof}
+                Note $\{x\} \Subset X$ is closed $\forall x \in X$. (This does not help determine if $\Ts{X}{\tpcof}$ is metrizable). But by PS3, suppose $U,V \Subset X$ are nonempty and open and $U \inter V=\es$. Then by definition of $\tpcof$, there exists $A,B \Subset X$ such that $|A|$ and $|B|$ are finite. So $U=X-A$ and $V=X-B$ implies $U\inter V=X-(A\inter B)=\es$. So $X$ is finite and this is a contradiction. Therefore $\Ts{X}{\tpcof}$ is not Hausdorff and thus not metrizable.
+            \end{proof}
+        \end{ex}
+        
+        \begin{ex}[20.4 \textbf{Proof Strategy}]
+            Claim $\R_l=\Ts{\R}{\tp_l}$ is Hausdorff.
+            \begin{proof}
+                Note that $\Ts{\R}{\tpeuc}$ is Hausdorff since $\tpeuc$ comes from the metric $d(X,y)\coleq|x-y|$. Indeed, $\tpeuc<\tp_l$ be Lecture 13. Let $x\neq q \in \R$. Then there exists disjoint open subsets $U,V \in \tpeuc$ such that $x\in U$ and $y\in V$. $\tpeuc<\tp_l$ implies $U,V\in \tp_l$. Therefore, $\Ts{\R}{\tp_l}$ is Hausdorff.
+            \end{proof}
+            BUT $\Ts{\R}{\tp_l}$ is NOT metrizable by Lecture 14.
+        \end{ex}
+        
+        \begin{defn}[20.5]
+            Let $X$ be a \ts{}. Then
+            \begin{enumerate}
+                \item $X$ is \define{$T_1$} \Iff{} $\forall x\in X, \, \{x\} \Subset X$ is closed.
+                \item $X$ is \define{$T_2$} \Iff{} $X$ is Hausdorff.
+            \end{enumerate}
+        \end{defn}
+    
+        \begin{prop}[20.6]\hfill
+            \begin{enumerate}
+                \item $T_1$ and $T_2$ properties are necessary, but NOT sufficient for $\Ts{X}{\tp}$ to be metrizable.
+                \item Separation and countability properties are distinct.
+            \end{enumerate}
+        \end{prop}
+        
+        \subsection*{Converging Sequences}{
+            Recall: A sequence of points $\{x_n\}_n$ in a space $X$ converges to a point $x \in X$ \Iff{} for all open subsets $U \Subset X$ such that $x \in U, \, \exists N>0$ such that $x_n\in U\ ; \forall n>N$.
+            \begin{itemize}
+                \item \define{Weirdest Thing Ever:} In some spaces, sequences can converge to more than 1 point!.
+            \end{itemize}
+            
+            \begin{ex}[20.7]
+                Let $X\coleq\{a,b,c\}, \, \tp\coleq \{X,\es,\{a,c\},\{b,c\},\{c\}\}$. It is easy to verify that $\tp$ is indeed a topology.\\
+                Let $\{x_n\}_n$ be the sequence $x_n=c \; \forall n \geq 1$. Then $x_n \to c$ AND $x_n \to a$ ANNNDDD $x_n \to b$. Whoa.
+            \end{ex}
+            
+            \begin{thm}[20.8]
+                If $X$ is Hausdorff, then every sequence in $X$ converges to at MOST one point.
+            \end{thm}
+        }
+    }
+    \noindent\section*{\textbf{\textsc{Lecture 20}}}{
+        \subsection*{More Separation Axioms}{
+            \begin{defn}[20.5 Continued]
+                \begin{enumerate}\hfill
+                    \item $X$ is \define{$T_0$} \Iff{} for any points $x\neq y \in X$, there exist open subsets $U \Subset X$ such that $x \in U$ and $y \notin U$ OR $y \in U$ and $x \notin U$. 
+                    \item $X$ is \define{$T_1$} \Iff{} $\forall x\in X, \, \{x\} \Subset X$ is closed.
+                    \item $X$ is \define{$T_2$} \Iff{} $X$ is Hausdorff.
+                    \item $X$ is \define{$T_3$} \Iff{} for every closed subset $A \Subset X$ and $\forall x \in X-A$, there exist open subsets $U_A,U_X \in X$ such that $A \Subset U_A$ and $x \in U_X$.
+                    \item $X$ is \define{$T_4$} \Iff{} for any pair of disjoint closed subsets $A,B \Subset X$, there exist disjoint open subsets $U,V \Subset X$ such that $A \Subset U$ and $B \Subset V$.
+                \end{enumerate}
+            \end{defn}
+            
+            \begin{defn}[21.1]
+                $X$ is \define{regular} \Iff{} $X$ is $T_0$ and $T_3$.\\
+                $X$ is \define{normal} \Iff{} $X$ is $T_1$ and $T_4$.
+            \end{defn}
+            
+            \begin{prop}[21.2]\hfill
+                \begin{enumerate}
+                    \item $T_1 \implies T_0$
+                    \item $T_2 \implies T_1$
+                    \item $T_1$ and $T_3 \implies T_2$
+                    \item $T_1$ and $T_4 \implies T_3$
+                \end{enumerate}
+            \end{prop}
+            
+            \begin{thm}[21.3]
+                If $\Ts{X}{\tp}$ is a \ts{} and metrizable, then $X$ is $T_i$ for $i=0,1,2,3,4$.
+            \end{thm}
+            
+            \begin{proof}
+                A result from Midterm Part 2 \#1 implies $X$ is $T_1$. Thm 19.1 implies that if $X$ is metrizable, then it is Hausdorff. To show $X$ is $T_3$ and $T_4$, Prop 21.2 implies that it suffices to prove $X$ is $T_4$. Let $\func{d}{X\times X}{\R}$ be a metric such that $\tp=\tp_d$ and let $A,B \Subset X$ be closed, disjoint, and nonempty subsets. $B=\closure{B} \implies \forall a \in A$, $a$ is NOT a limit point of $B$ since $a \notin B$. Therefore $\forall a \in A$ there exists $\varepsilon_a>0$ such that $\ball{a}{}{\varepsilon_a} \inter B= \es$. Similarly, $A=\closure{A} \implies \forall b \in B$ there exists $\varepsilon_b>0$ such that $\ball{b}{}{\varepsilon_b} \inter A=\es$.\\
+                Define $U \coleq \Union_{a\in A} \ball{a}{}{\varepsilon_a/2}$ and $V\coleq \Union_{b\in B} \ball{b}{}{\varepsilon_b/2}$. Then $U$ and $V$ are open and $A \Subset U, \, B\Subset V$. Claim $U \inter V = \es$. Seeking a contradiction, suppose $\exists x \in U\inter V$. Then $\exists a \in A$ and $\exists b \in B$ such that $x\in \ball{a}{}{\frac{\varepsilon_a}{2}} \inter \ball{b}{}{\frac{\varepsilon_b}{2}}$. Triangle inequality implies $d(a,b)\leq d(x,a)+d(x,b)<\frac{\varepsilon_a}{2}+\frac{\varepsilon_b}{2}\leq \varepsilon_b$. Hence either $a\in \ball{b}{}{\varepsilon_b}$ if $\varepsilon_a\leq \varepsilon_b$ OR $b \in \ball{a}{}{\varepsilon_a}$ if $\varepsilon_b \leq \varepsilon_a$. This contradicts either $\ball{a}{}{\varepsilon_a} \inter B=\es$ or $\ball{b}{}{\varepsilon_b} \inter A =\es$, so $U \inter V=\es$.
+            \end{proof}
+        
+        }
+    
+    }
+
+
+
+        
+\end{document}
